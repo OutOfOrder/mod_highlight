@@ -1,5 +1,5 @@
 dnl Required initializer
-AC_INIT(mod_highlight, 0.1.0)
+AC_INIT(mod_highlight, 0.2.0)
 OOO_CONFIG_NICE(config.nice)
 AC_PREREQ(2.53)
 AC_CONFIG_SRCDIR([src/mod_highlight.c])
