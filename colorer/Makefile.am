@@ -1,9 +1,10 @@
 
 prefix=@prefix@
+all: colorer
 
 colorer:
-	@echo ---------------- Building Colorer-take5 console tools
-	make -C src/colorer/ -f makefile.gcc
+	#@echo ---------------- Building Colorer-take5 console tools
+	#make -C src/colorer/ -f makefile.gcc
 	@echo ---------------- Building Colorer-take5 shared library
 	make -C src/libcolorer/ -f makefile.gcc
 
