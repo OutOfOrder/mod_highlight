@@ -3,6 +3,7 @@ dnl
 dnl Freddy's configure.in
 dnl Author: Ferenc Moricz, Nicolas Huet
 
+AC_PREREQ(2.53)
 AC_INIT(src/shared)
 AM_INIT_AUTOMAKE(libcolorer,5.0)
 
