@@ -9,8 +9,8 @@ automake --add-missing --copy --foreign
 autoconf
 rm -rf autom4te.cache
 cd colorer
-libtoolize --force --copy
-aclocal -I m4
+#libtoolize --force --copy
+aclocal
 autoheader
 automake --add-missing --copy --foreign
 autoconf

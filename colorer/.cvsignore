@@ -3,3 +3,6 @@ config.status
 config.cache
 Makefile
 Makefile.in
+configure
+aclocal.m4
+autom4te.cache

@@ -4,6 +4,7 @@ dnl Freddy's configure.in
 dnl Author: Ferenc Moricz, Nicolas Huet
 
 AC_INIT(src/shared)
+AM_INIT_AUTOMAKE(libcolorer,5.0)
 
 dnl Checks for programs.
 AC_PROG_CPP
