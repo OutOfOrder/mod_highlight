@@ -6,6 +6,7 @@ all: colorer
 colorer:
 	@echo ---------------- Building Colorer-take5 shared library
 	make -C src/libcolorer/ -f makefile.gcc
+	make -C src/colorer/ -f makefile.gcc
 
 
 clean:
@@ -14,26 +15,25 @@ clean:
 
 
 install:
-	install -g 0 -o 0 -m 755 -d $(prefix)
-	install -g 0 -o 0 -m 755 -d $(prefix)/lib
-	install -g 0 -o 0 -m 755 src/libcolorer/libcolorer.so $(prefix)/lib
+	mkdir -p $(prefix)/lib
+	cp -p src/libcolorer/libcolorer.so $(prefix)/lib
 
-	install -g 0 -o 0 -m 755 -d $(prefix)/bin
-	install -g 0 -o 0 -m 755 src/colorer/colorer $(prefix)/bin
+	mkdir -p $(prefix)/bin
+	cp -p src/colorer/colorer $(prefix)/bin
 
-	install -g 0 -o 0 -m 755 -d $(prefix)/share
-	install -g 0 -o 0 -m 755 -d $(prefix)/share/colorer
-	install -g 0 -o 0 -m 755 -d $(prefix)/share/colorer/bin
+	mkdir -p $(prefix)/share/colorer/bin
 	cp -r hrc $(prefix)/share/colorer/
 	cp -r hrd $(prefix)/share/colorer/
-	cp -r bin/4ever2take5 bin/apache bin/doclinks bin/xsd2hrc bin/ue2hrc $(prefix)/share/colorer/bin
 	cp catalog.xml LICENSE README $(prefix)/share/colorer
 
-	install -g 0 -o 0 -m 755 -d $(prefix)/share/doc
-	install -g 0 -o 0 -m 755 -d $(prefix)/share/doc/colorer-take5
+	mkdir -p $(prefix)/share/doc/colorer-take5
 	cp -r doc/* $(prefix)/share/doc/colorer-take5
 
-	install -g 0 -o 0 -m 755 -d $(prefix)/include
-	install -g 0 -o 0 -m 755 -d $(prefix)/include/colorer
-	cd src/shared; cp --parents `find . -name '*.h'` $(prefix)/include/colorer
+	mkdir -p $(prefix)/include/colorer
+	cd src/shared
+	for i in unicode common common/io cregexp xml colorer colorer/parsers colorer/editor colorer/handlers colorer/viewer exparse
+	do
+	  mkdir -p $(prefix)/include/colorer/${i}
+	  cp ./${i}/*.h $(prefix)/include/colorer/${i}
+	done
 	cd ../..
