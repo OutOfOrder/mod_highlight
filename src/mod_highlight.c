@@ -42,8 +42,46 @@ typedef struct highlight_struct {
 } highlight_struct;
 
 static int highlight_filter(ap_filter_t *f, apr_bucket_brigade *bb) {
+    apr_bucket *b;
+    apr_size_t len;
+    apr_bucket *eos = NULL;
+    apr_bucket_brigade *bb_tmp;
+    const char *data;
 
+    for (b = APR_BRIGADE_FIRST(bb);
+         b != APR_BRIGADE_SENTINEL(bb);
+         b = APR_BUCKET_NEXT(b))
+    {
+        if (APR_BUCKET_IS_EOS(b)) {
+            eos = b;
+            break;
+        }
+        rv = apr_bucket_read(b, &data, &len, APR_BLOCK_READ);
+        if (rv != APR_SUCCESS) {
+            ap_log_rerror(APLOG_MARK, APLOG_ERR, rv, r, "apr_bucket_read()");
+            return rv;
+        }
 
+        // TODO: write pass_data_to_highlight(...)
+        if (len > 0 &&
+            (rv = pass_data_to_highlight(f, data, (apr_size_t)len, bb_tmp))
+                != APR_SUCCESS) {
+            return rv;
+        }
+    }
+    apr_brigade_cleanup(bb);
+    APR_BRIGADE_CONCAT(bb, bb_tmp);
+    apr_brigade_destroy(bb_tmp);
+
+    if (eos) {
+        /**
+         * No more content coming, generate the HTML...
+         */
+        b = apr_bucket_eos_create(c->bucket_alloc);
+        APR_BRIGADE_INSERT_TAIL(bb, b);
+    }
+
+    return APR_SUCCESS;
 }
 
 static void highlight_register_hook(apr_pool_t *p) {
