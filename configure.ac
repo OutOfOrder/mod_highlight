@@ -1,5 +1,5 @@
 dnl Required initializer
-AC_INIT(mod_highlight, 0.410)
+AC_INIT(mod_highlight, 0.1.0)
 OOO_CONFIG_NICE(config.nice)
 AC_PREREQ(2.53)
 AC_CONFIG_SRCDIR([src/mod_highlight.c])
@@ -29,6 +29,17 @@ fi
 MODULE_CFLAGS="${APXS_CFLAGS} ${AP_INCLUDES} ${APR_INCLUDES} ${APU_INCLUDES}"
 
 AC_SUBST(MODULE_CFLAGS)
+
+AC_CONFIG_SUBDIRS(colorer)
+
+COLORER_DIR=colorer
+AC_SUBST(COLORER_DIR)
+
+COLORER_LDFLAGS="-L\$(top_builddir)/colorer/src/libcolorer -lcolorer"
+AC_SUBST(COLORER_LDFLAGS)
+
+COLORER_CFLAGS="-I\$(top_srcdir)/colorer/src/shared"
+AC_SUBST(COLORER_CFLAGS)
 
 AC_CONFIG_FILES([Makefile src/Makefile])
 AC_OUTPUT

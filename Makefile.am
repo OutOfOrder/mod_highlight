@@ -4,7 +4,7 @@ EXTRA_DIST = m4/apache.m4 \
 	TODO \
 	README
 
-SUBDIRS = src
+SUBDIRS = @COLORER_DIR@ src
 
 TODO: TODO.in
 	./gen_todo.pl
