@@ -35,7 +35,6 @@ ColorerFilter::ColorerFilter(ap_filter_t* pFilter, const char* cpath)
 }
 
 ColorerFilter::~ColorerFilter() {
-    // Free Anything else?
     delete pSource;
     delete catalogPath;
     delete hrdName;
@@ -121,9 +120,9 @@ int ColorerFilter::SendOutput() {
 FileType *ColorerFilter::selectType(HRCParser *hrcParser, String *fline)
 {
     FileType *type = null;
-    if (typeDescription != null){
+    if (typeDescription != null) {
         type = hrcParser->getFileType(typeDescription);
-        if (type == null){
+        if (type == null) {
             for(int idx = 0;; idx++)
             {
                 type = hrcParser->enumerateFileTypes(idx);

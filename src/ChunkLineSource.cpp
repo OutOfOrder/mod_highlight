@@ -29,11 +29,12 @@ ChunkLineSource::~ChunkLineSource()
 
 void ChunkLineSource::freeLines()
 {
-    for(int i = 0; i < lines.size(); i++) {
+    for(int i = 0; i < lines.size(); i++) 
+    {
         delete lines.elementAt(i);
     }
     lines.setSize(0);
-};
+}
 
 int ChunkLineSource::ParseChunk(const char* chunk, int len) 
 {
@@ -57,13 +58,17 @@ int ChunkLineSource::ParseChunk(const char* chunk, int len)
 }
 
 
-String *ChunkLineSource::getLine(int lno){
-  if (lines.size() <= lno) return null;
-  return lines.elementAt(lno);
-};
+String *ChunkLineSource::getLine(int lno)
+{
+    if (lines.size() <= lno) {
+        return null;
+    }
+    else {
+        return lines.elementAt(lno);
+    }
+}
 
-int ChunkLineSource::getLineCount(){
-  return lines.size();
-};
-
-
+int ChunkLineSource::getLineCount()
+{
+    return lines.size();
+}
