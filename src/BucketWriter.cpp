@@ -25,6 +25,7 @@ BucketWriter::BucketWriter(ap_filter_t* pFilter) {
 
 BucketWriter::~BucketWriter() {
     free(db);
+    apr_brigade_destroy(bb);
 }
 
 void BucketWriter::write(wchar c) {

@@ -44,11 +44,11 @@ int ChunkLineSource::ParseChunk(const char* chunk, int len) {
   tokit = apr_pstrdup(kFilter->r->pool, chunk);
      
   key = apr_strtok(tokit, "\n", &strtok_state);
-  while(key) {
+  do {
     lines.addElement(new SString(key,-1));
     ap_log_rerror(APLOG_MARK, APLOG_ERR, 0, kFilter->r, "ChunkLineSource::ParseChunk() Line: %s", key);
     key = apr_strtok(NULL, "\n", &strtok_state);
-  }
+  } while(key);
 
 /*
   int ei = -1; // todo: fix input encoding.
