@@ -5,13 +5,13 @@ all: colorer
 
 colorer:
 	@echo ---------------- Building Colorer-take5 shared library
-	make -C src/libcolorer/ -f makefile.gcc
-	make -C src/colorer/ -f makefile.gcc
+	$(MAKE) -C src/libcolorer/ -f makefile.gcc
+	$(MAKE) -C src/colorer/ -f makefile.gcc
 
 
 clean:
-	make -C src/colorer/ -f makefile.gcc clean
-	make -C src/libcolorer/ -f makefile.gcc clean
+	$(MAKE) -C src/colorer/ -f makefile.gcc clean
+	$(MAKE) -C src/libcolorer/ -f makefile.gcc clean
 
 
 install:
