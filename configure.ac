@@ -9,6 +9,7 @@ AM_INIT_AUTOMAKE(mod_highlight, 0.1.0)
 AM_CONFIG_HEADER([include/mod_highlight_config.h:config.in])
 
 AC_PROG_CC
+AC_PROG_CXX
 AC_PROG_CPP
 AC_PROG_LD
 AC_PROG_INSTALL
