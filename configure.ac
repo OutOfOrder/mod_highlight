@@ -41,7 +41,7 @@ AC_SUBST(COLORER_LDFLAGS)
 COLORER_CFLAGS="-I\$(top_srcdir)/colorer/src/shared"
 AC_SUBST(COLORER_CFLAGS)
 
-AC_CONFIG_FILES([Makefile colorer/Makefile src/Makefile])
+AC_CONFIG_FILES([Makefile src/Makefile])
 AC_OUTPUT
 
 echo "---"
