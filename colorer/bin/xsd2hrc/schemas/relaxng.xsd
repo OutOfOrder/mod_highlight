@@ -1,0 +1,331 @@
+<schema
+  xmlns='http://www.w3.org/2001/XMLSchema'
+  targetNamespace='http://relaxng.org/ns/structure/1.0'
+  xmlns:rng='http://relaxng.org/ns/structure/1.0'>
+
+  <attributeGroup name='commonAtts'>
+   <attribute name='datatypeLibrary' type='string' use='optional'/>
+   <attribute name='ns' type='string' use='optional'/>
+   <attribute name='xmlns' type='string' fixed='http://relaxng.org/ns/structure/1.0'/>
+  </attributeGroup>
+
+  <group name='pattern'>
+<!-- element | attribute | group | interleave | choice |                     optional | zeroOrMore | oneOrMore | list | mixed |                     ref | parentRef | empty | text | value | data |                     notAllowed | externalRef | grammar  -->
+   <choice>
+    <element ref='rng:element'/>
+    <element ref='rng:attribute'/>
+    <element ref='rng:group'/>
+    <element ref='rng:interleave'/>
+    <element ref='rng:choice'/>
+    <element ref='rng:optional'/>
+    <element ref='rng:zeroOrMore'/>
+    <element ref='rng:oneOrMore'/>
+    <element ref='rng:list'/>
+    <element ref='rng:mixed'/>
+    <element ref='rng:ref'/>
+    <element ref='rng:parentRef'/>
+    <element ref='rng:empty'/>
+    <element ref='rng:text'/>
+    <element ref='rng:value'/>
+    <element ref='rng:data'/>
+    <element ref='rng:notAllowed'/>
+    <element ref='rng:externalRef'/>
+    <element ref='rng:grammar'/>
+   </choice>
+  </group>
+
+  <group name='grammarContent'>
+<!-- start | define |                           div | include  -->
+   <choice>
+    <element ref='rng:start'/>
+    <element ref='rng:define'/>
+    <element ref='rng:div'/>
+    <element ref='rng:include'/>
+   </choice>
+  </group>
+
+  <group name='includeContent'>
+<!-- start | define | div  -->
+   <choice>
+    <element ref='rng:start'/>
+    <element ref='rng:define'/>
+    <element ref='rng:div'/>
+   </choice>
+  </group>
+
+  <group name='nameClass'>
+<!-- name | anyName | nsName -->
+   <choice>
+    <element ref='rng:name'/>
+    <element ref='rng:anyName'/>
+    <element ref='rng:nsName'/>
+   </choice>
+  </group>
+
+ <element name='element'>
+  <complexType>
+   <sequence>
+    <sequence minOccurs='0' maxOccurs='1'>
+     <group ref='rng:nameClass'/>
+    </sequence>
+    <sequence maxOccurs='unbounded'>
+     <group ref='rng:pattern'/>
+    </sequence>
+   </sequence>
+   <attribute name='name' type='NMTOKEN' use='optional'/>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='attribute'>
+  <complexType>
+   <sequence>
+    <sequence minOccurs='0' maxOccurs='1'>
+     <group ref='rng:nameClass'/>
+    </sequence>
+    <sequence minOccurs='0' maxOccurs='1'>
+     <group ref='rng:pattern'/>
+    </sequence>
+   </sequence>
+   <attribute name='name' type='NMTOKEN' use='optional'/>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='group'>
+  <complexType>
+   <sequence maxOccurs='unbounded'>
+    <group ref='rng:pattern'/>
+   </sequence>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='interleave'>
+  <complexType>
+   <sequence maxOccurs='unbounded'>
+    <group ref='rng:pattern'/>
+   </sequence>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='choice'>
+  <complexType>
+   <choice maxOccurs='unbounded'>
+    <group ref='rng:nameClass'/>
+    <group ref='rng:pattern'/>
+   </choice>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='optional'>
+  <complexType>
+   <sequence maxOccurs='unbounded'>
+    <group ref='rng:pattern'/>
+   </sequence>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='zeroOrMore'>
+  <complexType>
+   <sequence maxOccurs='unbounded'>
+    <group ref='rng:pattern'/>
+   </sequence>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='oneOrMore'>
+  <complexType>
+   <sequence maxOccurs='unbounded'>
+    <group ref='rng:pattern'/>
+   </sequence>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='list'>
+  <complexType>
+   <sequence maxOccurs='unbounded'>
+    <group ref='rng:pattern'/>
+   </sequence>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='mixed'>
+  <complexType>
+   <sequence maxOccurs='unbounded'>
+    <group ref='rng:pattern'/>
+   </sequence>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='ref'>
+  <complexType>
+   <attribute name='name' type='NMTOKEN' use='required'/>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='parentRef'>
+  <complexType>
+   <attribute name='name' type='NMTOKEN' use='required'/>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='empty'>
+  <complexType>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='text'>
+  <complexType>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='value'>
+  <complexType mixed='true'>
+   <attribute name='type' type='NMTOKEN' use='optional'/>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='data'>
+  <complexType>
+   <sequence>
+    <sequence minOccurs='0' maxOccurs='unbounded'>
+     <element ref='rng:param'/>
+    </sequence>
+    <sequence minOccurs='0' maxOccurs='1'>
+     <element ref='rng:except'/>
+    </sequence>
+   </sequence>
+   <attribute name='type' type='NMTOKEN' use='required'/>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='notAllowed'>
+  <complexType>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='externalRef'>
+  <complexType>
+   <attribute name='href' type='string' use='required'/>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='grammar'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <group ref='rng:grammarContent'/>
+   </sequence>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='param'>
+  <complexType mixed='true'>
+   <attribute name='name' type='NMTOKEN' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='except'>
+  <complexType>
+   <choice maxOccurs='unbounded'>
+    <group ref='rng:nameClass'/>
+    <group ref='rng:pattern'/>
+   </choice>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='div'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <group ref='rng:grammarContent'/>
+   </sequence>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='include'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <group ref='rng:includeContent'/>
+   </sequence>
+   <attribute name='href' type='string' use='required'/>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='start'>
+  <complexType>
+   <sequence>
+    <group ref='rng:pattern'/>
+   </sequence>
+   <attribute name='combine' use='optional'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='choice'/>
+      <enumeration value='interleave'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='define'>
+  <complexType>
+   <sequence maxOccurs='unbounded'>
+    <group ref='rng:pattern'/>
+   </sequence>
+   <attribute name='name' type='NMTOKEN' use='required'/>
+   <attribute name='combine' use='optional'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='choice'/>
+      <enumeration value='interleave'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='name'>
+  <complexType mixed='true'>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='anyName'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='1'>
+    <element ref='rng:except'/>
+   </sequence>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+
+ <element name='nsName'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='1'>
+    <element ref='rng:except'/>
+   </sequence>
+   <attributeGroup ref='rng:commonAtts'/>
+  </complexType>
+ </element>
+</schema>

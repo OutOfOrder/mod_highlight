@@ -1,0 +1,243 @@
+<schema
+  xmlns='http://www.w3.org/2001/XMLSchema'
+  targetNamespace='http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd'
+  xmlns:wa='http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd'>
+
+  <notation name='WEB-JSPTAGLIB.1_2' public="-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"/>
+
+ <element name='taglib'>
+  <complexType>
+   <sequence>
+    <element ref='wa:tlib-version'/>
+    <element ref='wa:jsp-version'/>
+    <element ref='wa:short-name'/>
+    <element ref='wa:uri' minOccurs='0' maxOccurs='1'/>
+    <element ref='wa:display-name' minOccurs='0' maxOccurs='1'/>
+    <element ref='wa:small-icon' minOccurs='0' maxOccurs='1'/>
+    <element ref='wa:large-icon' minOccurs='0' maxOccurs='1'/>
+    <element ref='wa:description' minOccurs='0' maxOccurs='1'/>
+    <element ref='wa:validator' minOccurs='0' maxOccurs='1'/>
+    <element ref='wa:listener' minOccurs='0' maxOccurs='unbounded'/>
+    <element ref='wa:tag' maxOccurs='unbounded'/>
+   </sequence>
+   <attribute name='id' type='ID' use='optional'/>
+   <attribute name='xmlns' type='string' fixed='http://java.sun.com/JSP/TagLibraryDescriptor'/>
+  </complexType>
+ </element>
+
+ <element name='tlib-version'>
+  <complexType mixed='true'>
+   <attribute name='id' type='ID' use='optional'/>
+  </complexType>
+ </element>
+
+ <element name='jsp-version'>
+  <complexType mixed='true'>
+   <attribute name='id' type='ID' use='optional'/>
+  </complexType>
+ </element>
+
+ <element name='short-name'>
+  <complexType mixed='true'>
+   <attribute name='id' type='ID' use='optional'/>
+  </complexType>
+ </element>
+
+ <element name='uri'>
+  <complexType mixed='true'>
+   <attribute name='id' type='ID' use='optional'/>
+  </complexType>
+ </element>
+
+ <element name='description'>
+  <complexType mixed='true'>
+   <attribute name='id' type='ID' use='optional'/>
+  </complexType>
+ </element>
+
+ <element name='validator'>
+  <complexType>
+   <sequence>
+    <element ref='wa:validator-class'/>
+    <element ref='wa:init-param' minOccurs='0' maxOccurs='unbounded'/>
+    <element ref='wa:description' minOccurs='0' maxOccurs='1'/>
+   </sequence>
+  </complexType>
+ </element>
+
+ <element name='validator-class'>
+  <complexType mixed='true'>
+  </complexType>
+ </element>
+
+ <element name='init-param'>
+  <complexType>
+   <sequence>
+    <element ref='wa:param-name'/>
+    <element ref='wa:param-value'/>
+    <element ref='wa:description' minOccurs='0' maxOccurs='1'/>
+   </sequence>
+  </complexType>
+ </element>
+
+ <element name='param-name'>
+  <complexType mixed='true'>
+   <attribute name='id' type='ID' use='optional'/>
+  </complexType>
+ </element>
+
+ <element name='param-value'>
+  <complexType mixed='true'>
+   <attribute name='id' type='ID' use='optional'/>
+  </complexType>
+ </element>
+
+ <element name='listener'>
+  <complexType>
+   <sequence>
+    <element ref='wa:listener-class'/>
+   </sequence>
+   <attribute name='id' type='ID' use='optional'/>
+  </complexType>
+ </element>
+
+ <element name='listener-class'>
+  <complexType mixed='true'>
+   <attribute name='id' type='ID' use='optional'/>
+  </complexType>
+ </element>
+
+ <element name='tag'>
+  <complexType>
+   <sequence>
+    <element ref='wa:name'/>
+    <element ref='wa:tag-class'/>
+    <element ref='wa:tei-class' minOccurs='0' maxOccurs='1'/>
+    <element ref='wa:body-content' minOccurs='0' maxOccurs='1'/>
+    <element ref='wa:display-name' minOccurs='0' maxOccurs='1'/>
+    <element ref='wa:small-icon' minOccurs='0' maxOccurs='1'/>
+    <element ref='wa:large-icon' minOccurs='0' maxOccurs='1'/>
+    <element ref='wa:description' minOccurs='0' maxOccurs='1'/>
+    <element ref='wa:variable' minOccurs='0' maxOccurs='unbounded'/>
+    <element ref='wa:attribute' minOccurs='0' maxOccurs='unbounded'/>
+    <element ref='wa:example' minOccurs='0' maxOccurs='1'/>
+   </sequence>
+   <attribute name='id' type='ID' use='optional'/>
+  </complexType>
+ </element>
+
+ <element name='tag-class'>
+  <complexType mixed='true'>
+   <attribute name='id' type='ID' use='optional'/>
+  </complexType>
+ </element>
+
+ <element name='tei-class'>
+  <complexType mixed='true'>
+   <attribute name='id' type='ID' use='optional'/>
+  </complexType>
+ </element>
+
+ <element name='body-content'>
+  <complexType mixed='true'>
+   <attribute name='id' type='ID' use='optional'/>
+  </complexType>
+ </element>
+
+ <element name='display-name'>
+  <complexType mixed='true'>
+  </complexType>
+ </element>
+
+ <element name='large-icon'>
+  <complexType mixed='true'>
+  </complexType>
+ </element>
+
+ <element name='small-icon'>
+  <complexType mixed='true'>
+  </complexType>
+ </element>
+
+ <element name='example'>
+  <complexType mixed='true'>
+   <attribute name='id' type='ID' use='optional'/>
+  </complexType>
+ </element>
+
+ <element name='variable'>
+  <complexType>
+   <sequence>
+    <choice>
+     <element ref='wa:name-given'/>
+     <element ref='wa:name-from-attribute'/>
+    </choice>
+    <element ref='wa:variable-class' minOccurs='0' maxOccurs='1'/>
+    <element ref='wa:declare' minOccurs='0' maxOccurs='1'/>
+    <element ref='wa:scope' minOccurs='0' maxOccurs='1'/>
+    <element ref='wa:description' minOccurs='0' maxOccurs='1'/>
+   </sequence>
+  </complexType>
+ </element>
+
+ <element name='name-given'>
+  <complexType mixed='true'>
+  </complexType>
+ </element>
+
+ <element name='name-from-attribute'>
+  <complexType mixed='true'>
+  </complexType>
+ </element>
+
+ <element name='variable-class'>
+  <complexType mixed='true'>
+  </complexType>
+ </element>
+
+ <element name='declare'>
+  <complexType mixed='true'>
+  </complexType>
+ </element>
+
+ <element name='scope'>
+  <complexType mixed='true'>
+  </complexType>
+ </element>
+
+ <element name='attribute'>
+  <complexType>
+   <sequence>
+    <element ref='wa:name'/>
+    <element ref='wa:required' minOccurs='0' maxOccurs='1'/>
+    <element ref='wa:rtexprvalue' minOccurs='0' maxOccurs='1'/>
+    <element ref='wa:type' minOccurs='0' maxOccurs='1'/>
+    <element ref='wa:description' minOccurs='0' maxOccurs='1'/>
+   </sequence>
+   <attribute name='id' type='ID' use='optional'/>
+  </complexType>
+ </element>
+
+ <element name='name'>
+  <complexType mixed='true'>
+   <attribute name='id' type='ID' use='optional'/>
+  </complexType>
+ </element>
+
+ <element name='required'>
+  <complexType mixed='true'>
+   <attribute name='id' type='ID' use='optional'/>
+  </complexType>
+ </element>
+
+ <element name='rtexprvalue'>
+  <complexType mixed='true'>
+   <attribute name='id' type='ID' use='optional'/>
+  </complexType>
+ </element>
+
+ <element name='type'>
+  <complexType mixed='true'>
+  </complexType>
+ </element>
+</schema>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<!DOCTYPE hrc PUBLIC "-//Cail Lomecb//DTD Colorer HRC take5//EN" "../hrc.dtd">
+<hrc version="take5" xmlns="http://colorer.sf.net/2003/hrc">
+   <type name="modula2" access="public">
+      <annotation>
+         <documentation><![CDATA[
+           Modula2 and Oberon2 Syntax
+           <filename>/\.(mod|ob2|odf|def)$/i</filename>
+           <firstline>/\(\*|MODULE|DEFINITION|IMPLEMENTATION|&lt;\*/</firstline>
+         ]]></documentation>
+         <contributors>
+           Eugene Kotlyarov 2:5058/26.9@fidonet.org http://ekot.narod.ru/far
+         </contributors>
+      </annotation>
+
+      <region name="String" parent="def:String"/>
+      <region name="Symbol" parent="def:Symbol"/>
+      <region name="Keyword" parent="def:Keyword"/>
+      <region name="Number" parent="def:Number"/>
+      <region name="PairStart" parent="def:PairStart"/>
+      <region name="PairEnd" parent="def:PairEnd"/>
+
+      <scheme name="modula2">
+<!-- Comments -->
+         <block start="/\(\*/" end="/\*\)/" scheme="def:Comment" region="def:Comment" region00="PairStart" region10="PairEnd"/>
+         <block start="/&lt;\*/" end="/\*&gt;/" scheme="def:Comment" region="def:Directive" region00="PairStart" region10="PairEnd"/>
+         <block start="/--/" end="/$/" scheme="def:Comment" region="def:LineComment"/>
+<!-- paired -->
+         <block start="/(\()/" end="/(\))/" scheme="modula2" region00="Symbol" region01="PairStart" region10="Symbol" region11="PairEnd"/>
+         <block start="/(\[)/" end="/(\])/" scheme="modula2" region00="Symbol" region01="PairStart" region10="Symbol" region11="PairEnd"/>
+         <block start="/\b(BEGIN|IF|LOOP|CASE|WHILE|FOR|RECORD|WITH|DEFINITION)\b/" end="/\b(END)\b/" scheme="modula2" region00="Symbol" region01="PairStart" region10="Symbol" region11="PairEnd"/>
+         <block start="/\b(REPEAT)\b/" end="/\b(UNTIL)\b/" scheme="modula2" region00="Symbol" region01="PairStart" region10="Symbol" region11="PairEnd"/>
+         <regexp match="/^ \s* \M (procedure|function) (\s+\[.+\])? \s+ (?{def:Function}[_\w]+)/ix"/>
+         <block start="/\b(ASM)($|\W)/i" end="/(^|\s)(END)/i" scheme="asm:baseasm" region="def:Parameter" region00="Keyword" region01="PairStart" region10="Keyword" region12="PairEnd"/>
+<!-- Strings -->
+         <regexp match="/('.*?')/" region0="String"/>
+         <regexp match="/(&#34;.*?&#34;)/" region0="String"/>
+<!-- CHAR  -->
+         <regexp match="/\b(\d[\da-fA-F]+X)\b/" region0="String"/>
+<!-- Numbers  -->
+         <regexp match="/\b(\d[\da-fA-F]+H)\b/" region0="Number"/>
+         <regexp match="/\b([0-9.]+([ED][\-+]?\d+)?)\b/" region0="Number"/>
+<!-- symbols -->
+         <keywords region="Symbol">
+            <symb name="&lt;="/>
+            <symb name="&gt;="/>
+            <symb name="^"/>
+            <symb name="+"/>
+            <symb name="#"/>
+            <symb name="&amp;"/>
+            <symb name="~"/>
+            <symb name="|"/>
+            <symb name="-"/>
+            <symb name="*"/>
+            <symb name="/"/>
+            <symb name=";"/>
+            <symb name=":"/>
+            <symb name=":="/>
+            <symb name="="/>
+            <symb name="("/>
+            <symb name="#"/>
+            <symb name=")"/>
+            <symb name="["/>
+            <symb name="]"/>
+            <symb name=","/>
+            <symb name="."/>
+            <symb name="&gt;"/>
+            <symb name="&lt;"/>
+            <symb name="}"/>
+            <symb name="{"/>
+         </keywords>
+<!-- Common words -->
+         <keywords region="Keyword">
+            <word name="ASM"/>
+            <word name="ARRAY"/>
+            <word name="BEGIN"/>
+            <word name="BY"/>
+            <word name="CASE"/>
+            <word name="CONST"/>
+            <word name="DEFINITION"/>
+            <word name="DIV"/>
+            <word name="DO"/>
+            <word name="ELSE"/>
+            <word name="ELSIF"/>
+            <word name="END"/>
+            <word name="EXIT"/>
+            <word name="FOR"/>
+            <word name="IF"/>
+            <word name="IMPORT"/>
+            <word name="IN"/>
+            <word name="IS"/>
+            <word name="LOOP"/>
+            <word name="MOD"/>
+            <word name="MODULE"/>
+            <word name="OF"/>
+            <word name="OR"/>
+            <word name="POINTER"/>
+            <word name="PROCEDURE"/>
+            <word name="RECORD"/>
+            <word name="REPEAT"/>
+            <word name="RETURN"/>
+            <word name="SET"/>
+            <word name="THEN"/>
+            <word name="TO"/>
+            <word name="TYPE"/>
+            <word name="UNTIL"/>
+            <word name="VAR"/>
+            <word name="WHILE"/>
+            <word name="WITH"/>
+<!-- Modula2 words -->
+            <word name="AND"/>
+            <word name="EXCEPT"/>
+            <word name="EXPORT"/>
+            <word name="FINALLY"/>
+            <word name="FORWARD"/>
+            <word name="FROM"/>
+            <word name="IMPLEMENTATION"/>
+            <word name="NOT"/>
+            <word name="PACKEDSET"/>
+            <word name="QUALIFIED"/>
+            <word name="REM"/>
+            <word name="RETRY"/>
+<!-- Types -->
+            <word name="SYSTEM"/>
+            <word name="CARDINAL"/>
+            <word name="SHORTINT"/>
+            <word name="INTEGER"/>
+            <word name="LONGINT"/>
+            <word name="REAL"/>
+            <word name="LONGREAL"/>
+            <word name="WORD"/>
+            <word name="BYTE"/>
+            <word name="BOOLEAN"/>
+            <word name="CHAR"/>
+            <word name="INT8"/>
+            <word name="INT16"/>
+            <word name="INT32"/>
+            <word name="CARD8"/>
+            <word name="CARD16"/>
+            <word name="CARD32"/>
+            <word name="TRUE"/>
+            <word name="FALSE"/>
+            <word name="NIL"/>
+         </keywords>
+      </scheme>
+   </type>
+</hrc>

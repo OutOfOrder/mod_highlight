@@ -1,0 +1,2425 @@
+<!DOCTYPE schema SYSTEM "XMLSchema.dtd" [
+<!ENTITY % schemaAttrs "
+  xmlns:xsd CDATA #IMPLIED
+  xmlns:spec  CDATA #IMPLIED
+  xmlns:xlink CDATA #IMPLIED
+  xmlns:xml CDATA #IMPLIED
+">
+]>
+<schema xmlns='http://www.w3.org/2001/XMLSchema'
+        targetNamespace='http://www.w3.org/2000/xmlspec'
+        xmlns:xsd='http://www.w3.org/2001/XMLSchema'
+        xmlns:spec='http://www.w3.org/2000/xmlspec'
+        xmlns:xlink='http://www.w3.org/1999/xlink'
+        xmlns:xml='http://www.w3.org/XML/1998/namespace'
+        elementFormDefault='qualified'>
+
+<!-- ================================================================= -->
+
+<!-- ............................................................... -->
+<!-- XML specification XML Schema .................................. -->
+<!-- ............................................................... -->
+
+<!--
+BETA BETA BETA BETA:
+This is an unstable, beta test version of an XML Schema for the
+W3C specification document type.
+
+TYPICAL INVOCATION:
+  <spec xmlns='http://www.w3.org/2000/xmlspec'
+        xmlns:xsi='http://www.w3.org/2000/10/XMLSchema-instance'
+        xsi:schemaLocation='http://www.w3.org/2000/xmlspec
+                            xmlspec.xsd'>
+
+PURPOSE:
+  This XML Schema is for W3C specifications and other technical reports.
+  It is supposed to be an accurate translation of the XML Spec V2.1 DTD
+  (See http://www.w3.org/XML/1998/06/xmlspec-report-v21.htm).
+
+  The following relationships are asserted:
+   * All documents invalid under xmlspec-v21.dtd should be invalid
+     under this schema
+   * All documents valid under this schema should be valid under
+     xmlspec-v21.dtd
+   * For documents that are valid under xmlspec-v21.dtd but are not
+     valid under this schema, all the schema validity errors should
+     reflect additional constraints that cannot be expressed in DTDs
+     (for example, wfc @defs should point to wfcnote @ids).
+
+  If you find a document for which the above conditions are not met, please
+  point me to it.
+
+DEPENDENCIES:
+  None.
+
+CHANGE HISTORY:
+  12 Oct 2000: Norman Walsh <Norman.Walsh@East.Sun.COM>
+               Checked in initial version; it validates the XML 2e
+               Recommendation with XSV 1.166/1.77 of 2000/09/28 15:54:50.
+               That's about all the testing I've done.
+
+MAINTAINER:
+  Norman Walsh
+  Sun Microsystems, Inc.
+  Norman.Walsh@East.Sun.COM
+-->
+
+<!-- ================================================================= -->
+
+<!-- FIXME: I shouldn't be defining these! -->
+
+<import namespace='http://www.w3.org/1999/xlink'
+        schemaLocation="xlink.xsd"/>
+<import namespace='http://www.w3.org/XML/1998/namespace'
+        schemaLocation='namespace.xsd'/>
+
+<!-- ............................................................... -->
+<!-- Groups for classes of standalone elements ..................... -->
+<!-- ............................................................... -->
+
+<group name='p.class'>
+  <choice>
+    <element ref='spec:p'/>
+  </choice>
+</group>
+
+<group name='list.class'>
+  <choice>
+    <element ref='spec:ulist'/>
+    <element ref='spec:olist'/>
+    <element ref='spec:slist'/>
+    <element ref='spec:glist'/>
+  </choice>
+</group>
+
+<group name='speclist.class'>
+  <choice>
+    <element ref='spec:orglist'/>
+    <element ref='spec:blist'/>
+  </choice>
+</group>
+
+<group name='note.class'>
+  <choice>
+    <element ref='spec:note'/>
+    <element ref='spec:issue'/>
+    <element ref='spec:wfcnote'/>
+    <element ref='spec:vcnote'/>
+    <element ref='spec:constraintnote'/>
+  </choice>
+</group>
+
+<group name='illus.class'>
+  <choice>
+    <element ref='spec:eg'/>
+    <element ref='spec:graphic'/>
+    <element ref='spec:scrap'/>
+    <element ref='spec:table'/>
+    <element ref='spec:definitions'/>
+    <element ref='spec:proto'/>
+    <element ref='spec:example'/>
+  </choice>
+</group>
+
+<!-- ............................................................... -->
+<!-- Groups for classes of phrase-level elements ................... -->
+<!-- ............................................................... -->
+
+<group name='annot.class'>
+  <choice>
+    <element ref='spec:footnote'/>
+  </choice>
+</group>
+
+<group name='termdef.class'>
+  <choice>
+    <element ref='spec:termdef'/>
+    <element ref='spec:term'/>
+  </choice>
+</group>
+
+<group name='emph.class'>
+  <choice>
+    <element ref='spec:emph'/>
+    <element ref='spec:phrase'/>
+    <element ref='spec:quote'/>
+    <element ref='spec:sub'/>
+    <element ref='spec:sup'/>
+  </choice>
+</group>
+
+<group name='ref.class'>
+  <choice>
+    <element ref='spec:bibref'/>
+    <element ref='spec:specref'/>
+    <element ref='spec:termref'/>
+    <element ref='spec:titleref'/>
+    <element ref='spec:xspecref'/>
+    <element ref='spec:xtermref'/>
+  </choice>
+</group>
+
+<group name='loc.class'>
+  <choice>
+    <element ref='spec:loc'/>
+  </choice>
+</group>
+
+<group name='tech.class'>
+  <choice>
+    <element ref='spec:kw'/>
+    <element ref='spec:nt'/>
+    <element ref='spec:xnt'/>
+    <element ref='spec:code'/>
+    <element ref='spec:function'/>
+    <element ref='spec:var'/>
+    <element ref='spec:el'/>
+    <element ref='spec:att'/>
+    <element ref='spec:attval'/>
+  </choice>
+</group>
+
+<group name='ednote.class'>
+  <choice>
+    <element ref='spec:ednote'/>
+  </choice>
+</group>
+
+<!-- ............................................................... -->
+<!-- Groups for mixtures of standalone elements .................... -->
+<!-- ............................................................... -->
+
+<group name='div.mix'>
+  <choice>
+    <group ref='spec:p.class'/>
+    <group ref='spec:list.class'/>
+    <group ref='spec:speclist.class'/>
+    <group ref='spec:note.class'/>
+    <group ref='spec:illus.class'/>
+    <group ref='spec:ednote.class'/>
+  </choice>
+</group>
+
+<group name='obj.mix'>
+  <choice>
+    <group ref='spec:p.class'/>
+    <group ref='spec:list.class'/>
+    <group ref='spec:speclist.class'/>
+    <group ref='spec:note.class'/>
+    <group ref='spec:illus.class'/>
+    <group ref='spec:ednote.class'/>
+  </choice>
+</group>
+
+<group name='p.mix'>
+  <choice>
+    <group ref='spec:list.class'/>
+    <group ref='spec:speclist.class'/>
+    <group ref='spec:note.class'/>
+    <group ref='spec:illus.class'/>
+  </choice>
+</group>
+
+<group name='entry.mix'>
+  <choice>
+    <group ref='spec:list.class'/>
+    <element ref='spec:note'/>
+    <element ref='spec:eg'/>
+    <element ref='spec:graphic'/>
+    <group ref='spec:ednote.class'/>
+  </choice>
+</group>
+
+<group name='hdr.mix'>
+  <choice>
+    <group ref='spec:p.class'/>
+    <group ref='spec:list.class'/>
+    <group ref='spec:ednote.class'/>
+  </choice>
+</group>
+
+<group name='termdef.mix'>
+  <choice>
+    <group ref='spec:note.class'/>
+    <group ref='spec:illus.class'/>
+  </choice>
+</group>
+
+<!-- ............................................................... -->
+<!-- Groups for mixtures of #PCDATA and phrase-level elements ...... -->
+<!-- ............................................................... -->
+
+<group name='p.pcd.mix'>
+  <choice>
+    <group ref='spec:annot.class'/>
+    <group ref='spec:termdef.class'/>
+    <group ref='spec:emph.class'/>
+    <group ref='spec:ref.class'/>
+    <group ref='spec:tech.class'/>
+    <group ref='spec:loc.class'/>
+    <group ref='spec:ednote.class'/>
+  </choice>
+</group>
+
+<group name='head.pcd.mix'>
+  <choice>
+    <group ref='spec:annot.class'/>
+    <group ref='spec:emph.class'/>
+    <group ref='spec:tech.class'/>
+    <group ref='spec:loc.class'/>
+    <group ref='spec:ednote.class'/>
+  </choice>
+</group>
+
+<group name='label.pcd.mix'>
+  <choice>
+    <group ref='spec:annot.class'/>
+    <group ref='spec:termdef.class'/>
+    <group ref='spec:emph.class'/>
+    <group ref='spec:tech.class'/>
+    <group ref='spec:loc.class'/>
+    <group ref='spec:ednote.class'/>
+  </choice>
+</group>
+
+<group name='eg.pcd.mix'>
+  <choice>
+    <group ref='spec:annot.class'/>
+    <group ref='spec:emph.class'/>
+    <group ref='spec:loc.class'/>
+    <group ref='spec:ednote.class'/>
+    <element ref='spec:constraint'/>
+  </choice>
+</group>
+
+<group name='termdef.pcd.mix'>
+  <choice>
+    <element ref='spec:term'/>
+    <group ref='spec:emph.class'/>
+    <group ref='spec:ref.class'/>
+    <group ref='spec:tech.class'/>
+    <group ref='spec:loc.class'/>
+    <group ref='spec:ednote.class'/>
+  </choice>
+</group>
+
+<group name='bibl.pcd.mix'>
+  <choice>
+    <group ref='spec:emph.class'/>
+    <group ref='spec:ref.class'/>
+    <group ref='spec:loc.class'/>
+    <group ref='spec:ednote.class'/>
+  </choice>
+</group>
+
+<group name='tech.pcd.mix'>
+  <choice>
+    <group ref='spec:loc.class'/>
+    <group ref='spec:ednote.class'/>
+  </choice>
+</group>
+
+
+<!-- ............................................................... -->
+<!-- Attribute groups for common attributes ........................ -->
+<!-- ............................................................... -->
+
+<attributeGroup name='key.att'>
+  <!-- key attribute:
+       Optionally provides a sorting or indexing key, for cases when
+       the element content is inappropriate for this purpose. -->
+  <attribute name='key' type='string'/>
+</attributeGroup>
+
+<attributeGroup name='def.att'>
+  <!-- def attribute:
+       Points to the element where the relevant definition can be
+       found, using the IDREF mechanism.  %def.att; is for optional
+       def attributes, and %def-req.att; is for required def
+       attributes. -->
+  <attribute name='def' type='IDREF'/>
+</attributeGroup>
+
+<attributeGroup name='def-req.att'>
+  <!-- def attribute:
+       Points to the element where the relevant definition can be
+       found, using the IDREF mechanism.  %def.att; is for optional
+       def attributes, and %def-req.att; is for required def
+       attributes. -->
+  <attribute name='def' type='IDREF' use='required'/>
+</attributeGroup>
+
+<attributeGroup name='ref.att'>
+  <!-- ref attribute:
+       Points to the element where more information can be found,
+       using the IDREF mechanism.  %ref.att; is for optional
+       ref attributes, and %ref-req.att; is for required ref
+       attributes. -->
+  <attribute name='ref' type='IDREF'/>
+</attributeGroup>
+
+<attributeGroup name='ref-req.att'>
+  <!-- ref attribute:
+       Points to the element where more information can be found,
+       using the IDREF mechanism.  %ref.att; is for optional
+       ref attributes, and %ref-req.att; is for required ref
+       attributes. -->
+  <attribute name='ref' type='IDREF' use='required'/>
+</attributeGroup>
+
+<attributeGroup name='simple-xlink.att'>
+  <!-- xlink:type identifies an element as an XLink 'simple' linking
+       element. -->
+  <attribute ref='xlink:type' use='fixed' value='simple'/>
+</attributeGroup>
+
+<attributeGroup name='href.att'>
+  <!-- href attributes:
+       The href attribute locates the remote-resource half of a
+       simple link; the element on which the href appears is the
+       local-resource half.  Some elements are usable links only if
+       the author chooses to supply a functional href.  The attribute
+       name should really be xlink:href, but is kept without the
+       prefix for now in order to be backwards-compatible. -->
+  <attribute name='href' type='string'/>
+</attributeGroup>
+
+<attributeGroup name='href-req.att'>
+  <!-- href attributes:
+       The href attribute locates the remote-resource half of a
+       simple link; the element on which the href appears is the
+       local-resource half.  Some elements are usable links only if
+       the author chooses to supply a functional href.  The attribute
+       name should really be xlink:href, but is kept without the
+       prefix for now in order to be backwards-compatible. -->
+  <attribute name='href' type='string' use='required'/>
+</attributeGroup>
+
+<attributeGroup name='auto-embed.att'>
+  <!--  xlink:show and xlink:actuate attributes:
+        These attributes offer instructions to the display engine
+        about how to handle traversal to resource indicated by an
+        href locator. -->
+  <attribute ref='xlink:show' use='fixed' value='embed'/>
+  <attribute ref='xlink:actuate' use='fixed' value='onLoad'/>
+</attributeGroup>
+
+<attributeGroup name='user-replace.att'>
+  <!--  xlink:show and xlink:actuate attributes:
+        These attributes offer instructions to the display engine
+        about how to handle traversal to resource indicated by an
+        href locator. -->
+  <attribute ref='xlink:show' use='fixed' value='replace'/>
+  <attribute ref='xlink:actuate' use='fixed' value='onRequest'/>
+</attributeGroup>
+
+<attributeGroup name='user-new.att'>
+  <!--  xlink:show and xlink:actuate attributes:
+        These attributes offer instructions to the display engine
+        about how to handle traversal to resource indicated by an
+        href locator. -->
+  <attribute ref='xlink:show' use='fixed' value='new'/>
+  <attribute ref='xlink:actuate' use='fixed' value='onRequest'/>
+</attributeGroup>
+
+<attributeGroup name='xmlspace.att'>
+  <!-- xml:space attribute:
+       Indicates that the element contains whitespace that the
+       formatter or other application should retain, as appropriate
+       to its function. -->
+  <attribute ref='xml:space' use='fixed' value='preserve'/>
+</attributeGroup>
+
+<attributeGroup name='diff.att'>
+  <!-- diff attribute:
+       Indicates in what way the element has changed.  When a value
+       is not provided, that subelement should inherit a value from
+       its parent.  If the root element has no value supplied,
+       assume 'off'. -->
+  <attribute name='diff'>
+    <simpleType>
+      <restriction base='string'>
+        <enumeration value='chg'/>
+        <enumeration value='del'/>
+        <enumeration value='add'/>
+        <enumeration value='off'/>
+      </restriction>
+    </simpleType>
+  </attribute>
+</attributeGroup>
+
+<attributeGroup name='role.att'>
+  <!-- role attribute:
+       Extends the useful life of the DTD by allowing authors to
+       make a subtype of any element.  No default. -->
+  <attribute name='role' type='NMTOKEN'/>
+</attributeGroup>
+
+<attributeGroup name='common.att'>
+  <!-- Common attributes:
+       Every element has an ID attribute for links, a role
+       attribute, and a diff attribute. %common.att; is for
+       common attributes where the ID is optional, and
+       %common-idreq.att; is for common attributes where the
+       ID is required. -->
+  <attribute name='id' type='ID'/>
+  <attribute name='role' type='NMTOKEN'/>
+<!--
+  <attributeGroup ref='spec:role.att'/>
+-->
+  <attribute name='diff'>
+    <simpleType>
+      <restriction base='string'>
+        <enumeration value='chg'/>
+        <enumeration value='del'/>
+        <enumeration value='add'/>
+        <enumeration value='off'/>
+      </restriction>
+    </simpleType>
+  </attribute>
+<!--
+  <attributeGroup ref='spec:diff.att'/>
+-->
+</attributeGroup>
+
+<attributeGroup name='common-idreq.att'>
+  <!-- Common attributes:
+       Every element has an ID attribute for links, a role
+       attribute, and a diff attribute. %common.att; is for
+       common attributes where the ID is optional, and
+       %common-idreq.att; is for common attributes where the
+       ID is required. -->
+  <attribute name='id' type='ID' use='required'/>
+  <attribute name='role' type='NMTOKEN'/>
+<!--
+  <attributeGroup ref='spec:role.att'/>
+-->
+  <attribute name='diff'>
+    <simpleType>
+      <restriction base='string'>
+        <enumeration value='chg'/>
+        <enumeration value='del'/>
+        <enumeration value='add'/>
+        <enumeration value='off'/>
+      </restriction>
+    </simpleType>
+  </attribute>
+<!--
+  <attributeGroup ref='spec:diff.att'/>
+-->
+</attributeGroup>
+
+<!-- ================================================================= -->
+
+<!-- ............................................................... -->
+<!-- Common elements ............................................... -->
+<!-- ............................................................... -->
+
+<!--    head: Title on divisions, productions, and the like -->
+<complexType name='head' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:head.pcd.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<!-- ............................................................... -->
+<!-- Major specification structure ................................. -->
+<!-- ............................................................... -->
+
+<complexType name='spec'>
+  <sequence>
+    <element ref='spec:header'/>
+
+    <element name='front' minOccurs='0'>
+      <complexType>
+        <sequence>
+          <element ref='spec:div1' maxOccurs='unbounded'/>
+        </sequence>
+      </complexType>
+    </element>
+
+    <element name='body' minOccurs='0'>
+      <complexType>
+        <sequence>
+          <element ref='spec:div1' maxOccurs='unbounded'/>
+        </sequence>
+      </complexType>
+    </element>
+
+    <element name='back' minOccurs='0'>
+      <complexType>
+        <choice>
+          <sequence>
+            <element ref='spec:div1' maxOccurs='unbounded'/>
+            <element ref='spec:inform-div1' minOccurs='0' maxOccurs='unbounded'/>
+          </sequence>
+          <element ref='spec:inform-div1' minOccurs='1' maxOccurs='unbounded'/>
+        </choice>
+      </complexType>
+    </element>
+  </sequence>
+
+  <attributeGroup ref='spec:common.att'/>
+  <attribute name='w3c-doctype'>
+    <simpleType>
+      <restriction base='string'>
+        <enumeration value='cr'/>
+        <enumeration value='dispcmts'/>
+        <enumeration value='issues'/>
+        <enumeration value='note'/>
+        <enumeration value='other'/>
+        <enumeration value='pr'/>
+        <enumeration value='rec'/>
+        <enumeration value='wd'/>
+      </restriction>
+    </simpleType>
+  </attribute>
+  <attribute name='other-doctype' type='string'/>
+  <attribute name='status'>
+    <simpleType>
+      <restriction base='string'>
+        <enumeration value='int-review'/>
+         <enumeration value='ext-review'/>
+        <enumeration value='final'/>
+      </restriction>
+    </simpleType>
+  </attribute>
+</complexType>
+
+<complexType name='body'>
+  <sequence>
+    <element ref='spec:div1' minOccurs='0' maxOccurs='unbounded'/>
+  </sequence>
+</complexType>
+
+<complexType name='div1'>
+  <sequence>
+    <element ref='spec:head'/>
+    <choice minOccurs='0' maxOccurs='unbounded'>
+      <group ref='spec:div.mix'/>
+    </choice>
+    <element ref='spec:div2' minOccurs='0' maxOccurs='unbounded'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<!--    inform-div1: Non-normative division in back matter -->
+<complexType name='inform-div1'>
+  <sequence>
+    <element ref='spec:head'/>
+    <choice minOccurs='0' maxOccurs='unbounded'>
+      <group ref='spec:div.mix'/>
+    </choice>
+    <element ref='spec:div2' minOccurs='0' maxOccurs='unbounded'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='div2'>
+  <sequence>
+    <element ref='spec:head'/>
+    <choice minOccurs='0' maxOccurs='unbounded'>
+      <group ref='spec:div.mix'/>
+    </choice>
+    <element ref='spec:div3' minOccurs='0' maxOccurs='unbounded'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='div3'>
+  <sequence>
+    <element ref='spec:head'/>
+    <choice minOccurs='0' maxOccurs='unbounded'>
+      <group ref='spec:div.mix'/>
+    </choice>
+    <element ref='spec:div4' minOccurs='0' maxOccurs='unbounded'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='div4'>
+  <sequence>
+    <element ref='spec:head'/>
+    <choice minOccurs='0' maxOccurs='unbounded'>
+      <group ref='spec:div.mix'/>
+    </choice>
+    <element ref='spec:div5' minOccurs='0' maxOccurs='unbounded'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='div5'>
+  <sequence>
+    <element ref='spec:head'/>
+    <choice minOccurs='0' maxOccurs='unbounded'>
+      <group ref='spec:div.mix'/>
+    </choice>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='header'>
+  <sequence>
+    <element ref='spec:title'/>
+    <element ref='spec:subtitle' minOccurs='0'/>
+    <!-- Example of version: 'Version 666.0' -->
+    <element name='version' minOccurs='0'>
+      <complexType>
+        <simpleContent>
+          <extension base="string">
+            <attributeGroup ref='spec:common.att'/>
+          </extension>
+        </simpleContent>
+      </complexType>
+    </element>
+    <!-- Example of w3c-designation: 'WD-xcl-19991231' -->
+    <element name='w3c-designation'>
+      <complexType>
+        <simpleContent>
+          <extension base="string">
+            <attributeGroup ref='spec:common.att'/>
+          </extension>
+        </simpleContent>
+      </complexType>
+    </element>
+    <!-- Example of w3c-doctype: 'W3C Working Draft' -->
+    <element name='w3c-doctype'>
+      <complexType>
+        <simpleContent>
+          <extension base="string">
+            <attributeGroup ref='spec:common.att'/>
+          </extension>
+        </simpleContent>
+      </complexType>
+    </element>
+    <element ref='spec:pubdate'/>
+    <element ref='spec:notice' minOccurs='0' maxOccurs='unbounded'/>
+    <element ref='spec:publoc'/>
+    <choice minOccurs='0'>
+      <sequence>
+        <element ref='spec:prevlocs'/>
+        <element ref='spec:latestloc' minOccurs='0'/>
+      </sequence>
+      <sequence>
+        <element ref='spec:latestloc'/>
+        <element ref='spec:prevlocs' minOccurs='0'/>
+      </sequence>
+    </choice>
+    <element ref='spec:authlist'/>
+    <element ref='spec:copyright' minOccurs='0'/>
+    <choice>
+      <sequence>
+        <element ref='spec:status'/>
+        <element ref='spec:abstract'/>
+      </sequence>
+      <sequence>
+        <element ref='spec:abstract'/>
+        <element ref='spec:status'/>
+      </sequence>
+    </choice>
+    <element ref='spec:pubstmt' minOccurs='0'/>
+    <element ref='spec:sourcedesc' minOccurs='0'/>
+    <element ref='spec:langusage'/>
+    <element ref='spec:revisiondesc'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<!--    Example of title: 'Extensible Cheese Language (XCL)' -->
+<complexType name='title' mixed='true'>
+  <simpleContent>
+    <extension base="string">
+      <attributeGroup ref='spec:common.att'/>
+    </extension>
+  </simpleContent>
+</complexType>
+
+<!--    Example of subtitle: 'A Cheesy Specification' -->
+<complexType name='subtitle' mixed='true'>
+  <simpleContent>
+    <extension base="string">
+      <attributeGroup ref='spec:common.att'/>
+    </extension>
+  </simpleContent>
+</complexType>
+
+<!-- ================================================================= -->
+
+<complexType name='pubdate'>
+  <sequence>
+    <element name='day' minOccurs='0'>
+      <complexType>
+        <simpleContent>
+          <extension base="string">
+            <attributeGroup ref='spec:common.att'/>
+          </extension>
+        </simpleContent>
+      </complexType>
+    </element>
+    <element name='month'>
+      <complexType>
+        <simpleContent>
+          <extension base="string">
+            <attributeGroup ref='spec:common.att'/>
+          </extension>
+        </simpleContent>
+      </complexType>
+    </element>
+    <element name='year'>
+      <complexType>
+        <simpleContent>
+          <extension base="string">
+            <attributeGroup ref='spec:common.att'/>
+          </extension>
+        </simpleContent>
+      </complexType>
+    </element>
+  </sequence>
+</complexType>
+
+<!-- ================================================================= -->
+
+<complexType name='copyright'>
+  <choice minOccurs='1' maxOccurs='unbounded'>
+    <group ref='spec:hdr.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='notice'>
+  <choice minOccurs='1' maxOccurs='unbounded'>
+    <group ref='spec:hdr.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='publoc' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:p.pcd.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='prevlocs' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:p.pcd.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='latestloc' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:p.pcd.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='authlist'>
+  <sequence>
+    <element ref='spec:author' maxOccurs='unbounded'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='author'>
+  <sequence>
+    <element ref='spec:name'/>
+    <element ref='spec:affiliation' minOccurs='0'/>
+    <element ref='spec:email' minOccurs='0'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='name' mixed='true'>
+  <simpleContent>
+    <extension base="string">
+      <attributeGroup ref='spec:common.att'/>
+      <attribute name='key' type='string'/>
+    </extension>
+  </simpleContent>
+</complexType>
+
+<complexType name='affiliation' mixed='true'>
+  <simpleContent>
+    <extension base="string">
+      <attributeGroup ref='spec:common.att'/>
+    </extension>
+  </simpleContent>
+</complexType>
+
+<complexType name='email' mixed='true'>
+  <simpleContent>
+    <extension base="string">
+      <attributeGroup ref='spec:common.att'/>
+      <attributeGroup ref='spec:simple-xlink.att'/>
+      <attributeGroup ref='spec:user-new.att'/>
+      <attributeGroup ref='spec:href-req.att'/>
+    </extension>
+  </simpleContent>
+</complexType>
+
+<!-- ================================================================= -->
+
+<complexType name='status'>
+  <choice minOccurs='1' maxOccurs='unbounded'>
+    <group ref='spec:obj.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='abstract'>
+  <choice minOccurs='1' maxOccurs='unbounded'>
+    <group ref='spec:hdr.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='pubstmt'>
+  <choice minOccurs='1' maxOccurs='unbounded'>
+    <group ref='spec:hdr.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='sourcedesc'>
+  <choice minOccurs='1' maxOccurs='unbounded'>
+    <group ref='spec:hdr.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='langusage'>
+  <sequence>
+    <element ref='spec:language' minOccurs='1' maxOccurs='unbounded'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='language' mixed='true'>
+  <simpleContent>
+    <extension base="string">
+      <attributeGroup ref='spec:common.att'/>
+    </extension>
+  </simpleContent>
+</complexType>
+
+<complexType name='revisiondesc'>
+  <choice minOccurs='1' maxOccurs='unbounded'>
+    <group ref='spec:hdr.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<!-- ............................................................... -->
+<!-- Paragraph ..................................................... -->
+<!-- ............................................................... -->
+
+<complexType name='p' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:p.pcd.mix'/>
+    <group ref='spec:p.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<!-- ............................................................... -->
+<!-- Regular lists ................................................. -->
+<!-- ............................................................... -->
+
+<!-- ulist: Unordered list, typically bulleted. -->
+<complexType name='ulist'>
+  <sequence>
+    <element ref='spec:item' minOccurs='1' maxOccurs='unbounded'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+  <!-- spacing attribute:
+       Use 'normal' to get normal vertical spacing for items;
+       use 'compact' to get less spacing.  The default is dependent
+       on the stylesheet. -->
+  <attribute name='spacing'>
+    <simpleType>
+      <restriction base='string'>
+        <enumeration value='normal'/>
+        <enumeration value='compact'/>
+      </restriction>
+    </simpleType>
+  </attribute>
+</complexType>
+
+<!--    olist: Ordered list, typically numbered. -->
+<complexType name='olist'>
+  <sequence>
+    <element ref='spec:item' minOccurs='1' maxOccurs='unbounded'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+  <!-- spacing attribute:
+       Use 'normal' to get normal vertical spacing for items;
+       use 'compact' to get less spacing.  The default is dependent
+       on the stylesheet. -->
+  <attribute name='spacing'>
+    <simpleType>
+      <restriction base='string'>
+        <enumeration value='normal'/>
+        <enumeration value='compact'/>
+      </restriction>
+    </simpleType>
+  </attribute>
+</complexType>
+
+<complexType name='item'>
+  <choice minOccurs='1' maxOccurs='unbounded'>
+    <group ref='spec:obj.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<!-- slist: Simple list, typically with no mark. -->
+<complexType name='slist'>
+  <sequence>
+    <element ref='spec:sitem' minOccurs='1' maxOccurs='unbounded'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='sitem' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:p.pcd.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<!-- glist: Glossary list, typically two-column. -->
+<complexType name='glist'>
+  <sequence>
+    <element ref='spec:gitem' minOccurs='1' maxOccurs='unbounded'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='gitem'>
+  <sequence>
+    <element ref='spec:label' minOccurs='1' maxOccurs='1'/>
+    <element ref='spec:def' minOccurs='1' maxOccurs='1'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='label' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:label.pcd.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='def'>
+  <choice minOccurs='1' maxOccurs='unbounded'>
+    <group ref='spec:obj.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<!-- ............................................................... -->
+<!-- Special lists ................................................. -->
+<!-- ............................................................... -->
+
+<!-- blist: Bibliography list. -->
+<complexType name='blist'>
+  <sequence>
+    <element ref='spec:bibl' minOccurs='1' maxOccurs='unbounded'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='bibl' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:bibl.pcd.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+  <attributeGroup ref='spec:simple-xlink.att'/>
+  <attributeGroup ref='spec:user-new.att'/>
+  <attributeGroup ref='spec:href.att'/>
+  <attributeGroup ref='spec:key.att'/>
+</complexType>
+
+<!-- orglist: Organization member list. -->
+<complexType name='orglist'>
+  <sequence>
+    <element ref='spec:member' minOccurs='1' maxOccurs='unbounded'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='member'>
+  <sequence>
+    <element ref='spec:name'/>
+    <element ref='spec:affiliation' minOccurs='0'/>
+    <element ref='spec:role' minOccurs='0'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='role' mixed='true'>
+  <simpleContent>
+    <extension base="string">
+      <attributeGroup ref='spec:common.att'/>
+    </extension>
+  </simpleContent>
+</complexType>
+
+<!-- ............................................................... -->
+<!-- Notes ......................................................... -->
+<!-- ............................................................... -->
+
+<complexType name='note'>
+  <choice minOccurs='1' maxOccurs='unbounded'>
+    <group ref='spec:obj.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='issue'>
+  <sequence>
+    <element ref='spec:head' minOccurs='0'/>
+    <element ref='spec:source' minOccurs='0' maxOccurs='unbounded'/>
+    <choice minOccurs='1'>
+      <group ref='spec:obj.mix'/>
+    </choice>
+    <element ref='spec:resolution' minOccurs='0'/>
+  </sequence>
+
+  <attribute name='id' type='ID' use='required'/>
+  <attributeGroup ref='spec:role.att'/>
+  <attributeGroup ref='spec:diff.att'/>
+  <!-- status attribute:
+       Indicates whether the issue is open or closed.  Note that
+       the lack of a resolution element does not necessarily mean
+       that the issue is still open. -->
+  <attribute name='status' use='default' value='open'>
+    <simpleType>
+      <restriction base='string'>
+        <enumeration value='open'/>
+        <enumeration value='closed'/>
+      </restriction>
+    </simpleType>
+  </attribute>
+</complexType>
+
+<complexType name='source' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:p.pcd.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='resolution'>
+  <choice minOccurs='1' maxOccurs='unbounded'>
+    <group ref='spec:obj.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<!-- wfcnote: Well-formedness constraint note. -->
+<complexType name='wfcnote'>
+  <sequence>
+    <element ref='spec:head'/>
+    <choice minOccurs='1' maxOccurs='unbounded'>
+      <group ref='spec:obj.mix'/>
+    </choice>
+  </sequence>
+  <!-- ID attribute:
+       wfcnote must have an ID so that it can be pointed to
+       from a wfc element in a production. -->
+  <attributeGroup ref='spec:common-idreq.att'/>
+</complexType>
+
+<!-- vcnote: Validity constraint note. -->
+<element name='vcnote' type='spec:wfcnote'/>
+
+<!-- constraintnote: Generic constraint note. -->
+<complexType name='constraintnote'>
+  <complexContent>
+    <extension base='spec:wfcnote'>
+      <attribute name='type' type='NMTOKEN' use='required'/>
+    </extension>
+  </complexContent>
+</complexType>
+
+<!-- ............................................................... -->
+<!-- Basic display elements ........................................ -->
+<!-- ............................................................... -->
+
+<!-- eg: Example element, with whitespace respected. -->
+<complexType name='eg' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:eg.pcd.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+  <attributeGroup ref='spec:xmlspace.att'/>
+</complexType>
+
+<complexType name='graphic'>
+  <complexContent>
+    <restriction base="xsd:anyType">
+      <!-- graphic: Displayed graphic.  Graphic data should be
+           displayed at the point where it is referenced.  Not
+           actually conforming to XLink right now. -->
+      <attributeGroup ref='spec:common.att'/>
+      <attributeGroup ref='spec:simple-xlink.att'/>
+      <attributeGroup ref='spec:auto-embed.att'/>
+      <attributeGroup ref='spec:href-req.att'/>
+      <!-- source attribute:
+           The graphic data must reside at the location pointed to. -->
+      <attribute name='source' type='string' use='required'/>
+      <attribute name='alt' type='string'/>
+    </restriction>
+  </complexContent>
+</complexType>
+
+<simpleType name="protoArgType">
+  <restriction base='string'>
+    <enumeration value='boolean'/>
+    <enumeration value='expression'/>
+    <enumeration value='location-set'/>
+    <enumeration value='node-set'/>
+    <enumeration value='number'/>
+    <enumeration value='object'/>
+    <enumeration value='point'/>
+    <enumeration value='range'/>
+    <enumeration value='string'/>
+  </restriction>
+</simpleType>
+
+<!-- proto: Function prototype, in the XPath/XPointer style. -->
+<complexType name='proto'>
+  <sequence>
+    <element name='arg'>
+      <complexType>
+        <complexContent>
+          <restriction base="xsd:anyType">
+            <attributeGroup ref='spec:common.att'/>
+            <attribute name='type' use='required' type='spec:protoArgType'/>
+            <attribute name='occur'>
+              <simpleType>
+                <restriction base='string'>
+                  <enumeration value='opt'/>
+                  <enumeration value='req'/>
+                </restriction>
+              </simpleType>
+            </attribute>
+          </restriction>
+        </complexContent>
+      </complexType>
+    </element>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+  <attribute name='name' type='NMTOKEN' use='required'/>
+  <attribute name='return-type' use='required' type='spec:protoArgType'/>
+</complexType>
+
+<complexType name='example'>
+  <sequence>
+    <element ref='spec:head' minOccurs='0' maxOccurs='1'/>
+    <choice minOccurs='1' maxOccurs='unbounded'>
+      <group ref='spec:obj.mix'/>
+    </choice>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<!-- ............................................................... -->
+<!-- EBNF .......................................................... -->
+<!-- ............................................................... -->
+
+<!-- scrap: Collection of EBNF language productions. -->
+<complexType name='scrap'>
+  <sequence>
+    <element ref='spec:head'/>
+    <choice minOccurs='1' maxOccurs='unbounded'>
+      <element ref='spec:prodgroup'/>
+      <element ref='spec:prod'/>
+      <element ref='spec:bnf'/>
+      <element ref='spec:prodrecap'/>
+    </choice>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+  <!-- lang attribute:
+       The scrap can link to a description of the language used,
+       found in a language element in the header.
+       headstyle attribute:
+       Allows a scrap title to be suppressed from output.  To be
+       used only when a scrap title directly next to a section
+       title is distracting or repetetive. -->
+  <attribute name='lang' type='IDREF'/>
+  <attribute name='headstyle' use='default' value='show'>
+    <simpleType>
+      <restriction base='string'>
+        <enumeration value='show'/>
+        <enumeration value='suppress'/>
+      </restriction>
+    </simpleType>
+  </attribute>
+</complexType>
+
+<complexType name='prodgroup'>
+  <sequence>
+    <!-- prodgroup: Sub-collection of productions, needed for
+         formatting reasons. -->
+    <element ref='spec:prod' minOccurs='1' maxOccurs='unbounded'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+  <!-- pcw<n> attributes:
+       Presentational attributes to control the width
+       of the 'pseudo-table' columns used to output
+       groups of productions. -->
+  <attribute name='pcw1' type='string'/>
+  <attribute name='pcw2' type='string'/>
+  <attribute name='pcw3' type='string'/>
+  <attribute name='pcw4' type='string'/>
+  <attribute name='pcw5' type='string'/>
+</complexType>
+
+<!-- prod: EBNF language production. -->
+<complexType name='prod'>
+  <sequence>
+    <element ref='spec:lhs'/>
+    <sequence minOccurs='1' maxOccurs='unbounded'>
+      <element ref='spec:rhs'/>
+      <choice minOccurs='0' maxOccurs='unbounded'>
+        <element ref='spec:com'/>
+        <element ref='spec:wfc'/>
+        <element ref='spec:vc'/>
+        <element ref='spec:constraint'/>
+      </choice>
+    </sequence>
+  </sequence>
+  <!-- ID attribute:
+       The production must have an ID so that cross-references
+       (specref) and mentions of nonterminals (nt) can link to
+       it. -->
+  <attributeGroup ref='spec:common-idreq.att'/>
+</complexType>
+
+<!-- lhs: Left-hand side of production. -->
+<complexType name='lhs' mixed='true'>
+  <simpleContent>
+    <extension base="string">
+      <attributeGroup ref='spec:common.att'/>
+    </extension>
+  </simpleContent>
+</complexType>
+
+<!-- rhs: Right-hand side of production; may have many
+        'right-hand sides,' one to a line. -->
+<complexType name='rhs' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='spec:nt'/>
+    <element ref='spec:xnt'/>
+    <element ref='spec:com'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<!-- nt and xnt (defined in 'Phrase-level elements' below) -->
+
+<!-- com: Production comment. -->
+<complexType name='com' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='spec:loc'/>
+    <element ref='spec:bibref'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='constraintRef'>
+  <complexContent>
+    <restriction base="xsd:anyType">
+      <attributeGroup ref='spec:common.att'/>
+    </restriction>
+  </complexContent>
+</complexType>
+
+<complexType name='wfc'>
+  <complexContent>
+    <extension base='spec:constraintRef'>
+      <!-- wfc: Reference to a well-formedness constraint; should
+           generate the head of the wfcnote pointed to. -->
+      <attribute name='def' type='IDREF' use='required'/>
+    </extension>
+  </complexContent>
+</complexType>
+
+<complexType name='vc'>
+  <complexContent>
+    <extension base='spec:constraintRef'>
+      <!-- vc: Reference to a validity constraint; should generate
+           the head of the vcnote pointed to. -->
+      <attribute name='def' type='IDREF' use='required'/>
+    </extension>
+  </complexContent>
+</complexType>
+
+<complexType name='constraint'>
+  <complexContent>
+    <extension base='spec:constraintRef'>
+      <!-- constraint: Reference to a generic constraint; should
+           generate the head of the constraintnote pointed to. -->
+      <attribute name='def' type='IDREF' use='required'/>
+    </extension>
+  </complexContent>
+</complexType>
+
+<!-- bnf: Un-marked-up EBNF production, with whitespace
+     respected. -->
+<complexType name='bnf' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:eg.pcd.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+  <attributeGroup ref='spec:xmlspace.att'/>
+</complexType>
+
+<complexType name='prodrecap'>
+  <complexContent>
+    <extension base='spec:constraintRef'>
+      <!-- prodrecap: Reference to production or bnf that appears
+           in its 'normative' form elsewhere in the spec; should
+           generate a copy of the original production, without
+           a production number next to it. -->
+      <attribute name='def' type='IDREF' use='required'/>
+    </extension>
+  </complexContent>
+</complexType>
+
+<!-- ............................................................... -->
+<!-- Table ......................................................... -->
+<!-- ............................................................... -->
+
+<attributeGroup name='cellhalign.att'>
+  <attribute name='align'>
+    <simpleType>
+      <restriction base='string'>
+        <enumeration value='left'/>
+        <enumeration value='center'/>
+        <enumeration value='right'/>
+        <enumeration value='justify'/>
+        <enumeration value='char'/>
+      </restriction>
+    </simpleType>
+  </attribute>
+  <attribute name='char' type='string'/>
+  <attribute name='charoff' type='string'/>
+</attributeGroup>
+
+<attributeGroup name='cellvalign.att'>
+  <attribute name='valign'>
+    <simpleType>
+      <restriction base='string'>
+        <enumeration value='top'/>
+        <enumeration value='middle'/>
+        <enumeration value='bottom'/>
+        <enumeration value='baseline'/>
+      </restriction>
+    </simpleType>
+  </attribute>
+</attributeGroup>
+
+<attributeGroup name='thtd.att'>
+  <attribute name='abbr' type='string'/>
+  <attribute name='axis' type='string'/>
+  <attribute name='headers' type='IDREFS'/>
+  <attribute name='scope'>
+    <simpleType>
+      <restriction base='string'>
+        <enumeration value='row'/>
+        <enumeration value='col'/>
+        <enumeration value='rowgroup'/>
+        <enumeration value='colgroup'/>
+      </restriction>
+    </simpleType>
+  </attribute>
+  <attribute name='rowspan' type='NMTOKEN' use='default' value='1'/>
+  <attribute name='colspan' type='NMTOKEN' use='default' value='1'/>
+</attributeGroup>
+
+<attributeGroup name='width.att'>
+  <attribute name='width' type='string'/>
+</attributeGroup>
+
+<attributeGroup name='span.att'>
+  <attribute name='span' type='NMTOKEN' use='default' value='1'/>
+</attributeGroup>
+
+<!-- table: HTML-based geometric table model. -->
+<complexType name='table'>
+  <sequence>
+    <element ref='spec:caption' minOccurs='0' maxOccurs='1'/>
+    <choice>
+      <element ref='spec:col' minOccurs='0' maxOccurs='unbounded'/>
+      <element ref='spec:colgroup' minOccurs='0' maxOccurs='unbounded'/>
+    </choice>
+    <element ref='spec:thead' minOccurs='0' maxOccurs='1'/>
+    <element ref='spec:tfoot' minOccurs='0' maxOccurs='1'/>
+    <element ref='spec:tbody' minOccurs='0' maxOccurs='1'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+  <attributeGroup ref='spec:width.att'/>
+  <attribute name='summary' type='string'/>
+  <attribute name='border' type='string'/>
+  <attribute name='cellspacing' type='string'/>
+  <attribute name='cellpadding' type='string'/>
+  <attribute name='frame'>
+    <simpleType>
+      <restriction base='string'>
+        <enumeration value='void'/>
+        <enumeration value='above'/>
+        <enumeration value='below'/>
+        <enumeration value='hsides'/>
+        <enumeration value='lhs'/>
+        <enumeration value='rhs'/>
+        <enumeration value='vsides'/>
+        <enumeration value='box'/>
+        <enumeration value='border'/>
+      </restriction>
+    </simpleType>
+  </attribute>
+  <attribute name='rules'>
+    <simpleType>
+      <restriction base='string'>
+        <enumeration value='none'/>
+        <enumeration value='groups'/>
+        <enumeration value='rows'/>
+        <enumeration value='cols'/>
+        <enumeration value='all'/>
+      </restriction>
+    </simpleType>
+  </attribute>
+</complexType>
+
+<complexType name='caption' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:p.pcd.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='col'>
+  <complexContent>
+    <restriction base="xsd:anyType">
+      <attributeGroup ref='spec:common.att'/>
+      <attributeGroup ref='spec:span.att'/>
+      <attributeGroup ref='spec:width.att'/>
+      <attributeGroup ref='spec:cellhalign.att'/>
+      <attributeGroup ref='spec:cellvalign.att'/>
+    </restriction>
+  </complexContent>
+</complexType>
+
+<complexType name='colgroup'>
+  <complexContent>
+    <restriction base="xsd:anyType">
+      <attributeGroup ref='spec:common.att'/>
+      <attributeGroup ref='spec:span.att'/>
+      <attributeGroup ref='spec:width.att'/>
+      <attributeGroup ref='spec:cellhalign.att'/>
+      <attributeGroup ref='spec:cellvalign.att'/>
+    </restriction>
+  </complexContent>
+</complexType>
+
+<complexType name='tableSection'>
+  <sequence>
+    <element ref='spec:tr' minOccurs='1' maxOccurs='unbounded'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+  <attributeGroup ref='spec:cellhalign.att'/>
+  <attributeGroup ref='spec:cellvalign.att'/>
+</complexType>
+
+<complexType name='tr'>
+  <choice minOccurs='1' maxOccurs='unbounded'>
+    <element ref='spec:th'/>
+    <element ref='spec:td'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+  <attributeGroup ref='spec:cellhalign.att'/>
+  <attributeGroup ref='spec:cellvalign.att'/>
+</complexType>
+
+<complexType name='tableCell' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:p.pcd.mix'/>
+    <group ref='spec:p.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+  <attributeGroup ref='spec:thtd.att'/>
+  <attributeGroup ref='spec:cellhalign.att'/>
+  <attributeGroup ref='spec:cellvalign.att'/>
+</complexType>
+
+<!-- ............................................................... -->
+<!-- IDL structures for DOM specifications ......................... -->
+<!-- ............................................................... -->
+
+<!-- ............................................................... -->
+<!-- Specialized entities for classes .............................. -->
+
+<group name='idl-desc.class'>
+  <choice>
+    <element ref='spec:p'/>
+    <element ref='spec:note'/>
+  </choice>
+</group>
+
+<group name='idl-tdef.class'>
+  <choice>
+    <element ref='spec:typedef'/>
+    <element ref='spec:constant'/>
+    <element ref='spec:exception'/>
+    <element ref='spec:reference'/>
+    <element ref='spec:group'/>
+  </choice>
+</group>
+
+<group name='idl-mod.class'>
+  <choice>
+    <element ref='spec:module'/>
+    <element ref='spec:interface'/>
+  </choice>
+</group>
+
+<group name='idl-struct.class'>
+  <choice>
+    <element ref='spec:struct'/>
+    <element ref='spec:enum'/>
+    <element ref='spec:sequence'/>
+    <element ref='spec:union'/>
+    <element ref='spec:typename'/>
+  </choice>
+</group>
+
+<group name='idl-meth.class'>
+  <choice>
+    <element ref='spec:method'/>
+    <element ref='spec:attribute'/>
+  </choice>
+</group>
+
+<!-- ............................................................... -->
+<!-- Specialized entities for mixtures ............................. -->
+
+<!--    Quick reference to content model mixtures:
+
+                        desc tdef mod struct meth
+group                     x    x   x    x      x
+definitions, module       x    x   x
+interface                 x    x               x
+typedef, case, component                x
+-->
+
+<group name='idl-grp.mix'>
+  <choice>
+    <group ref='spec:idl-desc.class'/>
+    <group ref='spec:idl-tdef.class'/>
+    <group ref='spec:idl-mod.class'/>
+    <group ref='spec:idl-struct.class'/>
+    <group ref='spec:idl-meth.class'/>
+  </choice>
+</group>
+
+<group name='idl-defn.mix'>
+  <choice>
+    <group ref='spec:idl-desc.class'/>
+    <group ref='spec:idl-tdef.class'/>
+    <group ref='spec:idl-mod.class'/>
+  </choice>
+</group>
+
+<group name='idl-intfc.mix'>
+  <choice>
+    <group ref='spec:idl-desc.class'/>
+    <group ref='spec:idl-tdef.class'/>
+    <group ref='spec:idl-meth.class'/>
+  </choice>
+</group>
+
+<group name='idl-type.mix'>
+  <choice>
+    <group ref='spec:idl-struct.class'/>
+  </choice>
+</group>
+
+<!-- ............................................................... -->
+<!-- Specialized entities for common attributes .................... -->
+
+<attributeGroup name='idl-name.att'>
+  <!-- name attribute:
+       Provides a name.  Required. -->
+  <attribute name='name' type='string' use='required'/>
+</attributeGroup>
+
+<attributeGroup name='idl-type.att'>
+  <!-- type attribute:
+       Provides a type.  Required. -->
+  <attribute name='type' type='string' use='required'/>
+</attributeGroup>
+
+<!-- ............................................................... -->
+<!-- Common IDL element ............................................ -->
+
+<complexType name='descr'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:obj.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<!-- ............................................................... -->
+<!-- IDL definition elements ....................................... -->
+
+<!-- definitions: Top-level element for definitions. -->
+<complexType name='definitions'>
+  <choice minOccurs='1' maxOccurs='unbounded'>
+    <group ref='spec:idl-defn.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<!-- group: Element used to group a set of definitions. -->
+<complexType name='group'>
+  <sequence>
+    <element ref='spec:descr'/>
+    <choice minOccurs='0' maxOccurs='unbounded'>
+      <group ref='spec:idl-grp.mix'/>
+    </choice>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+  <attributeGroup ref='spec:idl-name.att'/>
+</complexType>
+
+<!-- interface: Definition of an interface. -->
+<complexType name='interface'>
+  <sequence>
+    <element ref='spec:descr'/>
+    <choice minOccurs='0' maxOccurs='unbounded'>
+      <group ref='spec:idl-intfc.mix'/>
+    </choice>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+  <attributeGroup ref='spec:idl-name.att'/>
+  <attribute name='inherits' type='string'/>
+</complexType>
+
+<!-- module: Definition of a module. -->
+<complexType name='module'>
+  <sequence>
+    <element ref='spec:descr'/>
+    <choice minOccurs='0' maxOccurs='unbounded'>
+      <group ref='spec:idl-defn.mix'/>
+    </choice>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+  <attributeGroup ref='spec:idl-name.att'/>
+</complexType>
+
+<!-- reference: Reference to some other declaration. -->
+<complexType name='reference'>
+  <complexContent>
+    <restriction base="xsd:anyType">
+      <attributeGroup ref='spec:common.att'/>
+      <!-- FIXME: make this IDREF a key constraint (to what???) -->
+      <attribute name='declaration' type='IDREF' use='required'/>
+    </restriction>
+  </complexContent>
+</complexType>
+
+<!-- typedef: Definition of a named type. -->
+<complexType name='typedef'>
+  <sequence>
+    <element ref='spec:descr'/>
+    <choice>
+      <group ref='spec:idl-type.mix'/>
+    </choice>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+  <attributeGroup ref='spec:idl-name.att'/>
+  <attribute name='array.size' type='NMTOKEN'/>
+</complexType>
+
+<!-- struct: Declaration of a struct type. -->
+<complexType name='struct'>
+  <sequence>
+    <element ref='spec:descr'/>
+    <element ref='spec:component' minOccurs='1' maxOccurs='unbounded'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+  <attributeGroup ref='spec:idl-name.att'/>
+</complexType>
+
+<!-- component: Declaration of a structural member. -->
+<complexType name='component'>
+  <choice>
+    <group ref='spec:idl-type.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+  <attributeGroup ref='spec:idl-name.att'/>
+</complexType>
+
+<!-- union: Declaration of a union type. -->
+<complexType name='union'>
+  <sequence>
+    <element ref='spec:descr'/>
+    <element ref='spec:case' minOccurs='1' maxOccurs='unbounded'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+  <attributeGroup ref='spec:idl-name.att'/>
+  <attribute name='switch.type' type='string' use='required'/>
+</complexType>
+
+<complexType name='case'>
+  <sequence>
+    <element ref='spec:descr'/>
+    <choice>
+      <group ref='spec:idl-type.mix'/>
+    </choice>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+  <attribute name='labels' type='string' use='required'/>
+</complexType>
+
+<!-- enum: Declaration of an enum type. -->
+<complexType name='enum'>
+  <sequence>
+    <element ref='spec:descr'/>
+    <element ref='spec:enumerator' minOccurs='1' maxOccurs='unbounded'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+  <attributeGroup ref='spec:idl-name.att'/>
+</complexType>
+
+<complexType name='enumerator'>
+  <sequence>
+    <element ref='spec:descr'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+  <attributeGroup ref='spec:idl-name.att'/>
+</complexType>
+
+<!-- sequence: Declaration of a sequence type (not named). -->
+<complexType name='sequence'>
+  <sequence>
+    <element ref='spec:sequence' minOccurs='0' maxOccurs='unbounded'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+  <attributeGroup ref='spec:idl-type.att'/>
+  <attribute name='size' type='NMTOKEN'/>
+</complexType>
+
+<!-- constant: Declaration of a named constant. -->
+<complexType name='constant'>
+  <sequence>
+    <element ref='spec:descr'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+  <attributeGroup ref='spec:idl-name.att'/>
+  <attributeGroup ref='spec:idl-type.att'/>
+  <attribute name='value' type='string' use='required'/>
+</complexType>
+
+<!-- exception: Declaration of an exception. -->
+<complexType name='exception'>
+  <sequence>
+    <element ref='spec:descr'/>
+    <element ref='spec:component' minOccurs='0' maxOccurs='unbounded'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+  <attributeGroup ref='spec:idl-name.att'/>
+</complexType>
+
+<!-- component (defined under struct, above)-->
+
+<!-- attribute: Declaration of an attribute (data member). -->
+<complexType name='attribute'>
+  <sequence>
+    <element ref='spec:descr'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+  <attributeGroup ref='spec:idl-name.att'/>
+  <attributeGroup ref='spec:idl-type.att'/>
+  <attribute name='readonly' use='default' value='no'>
+    <simpleType>
+      <restriction base='string'>
+        <enumeration value='yes'/>
+        <enumeration value='no'/>
+      </restriction>
+    </simpleType>
+  </attribute>
+</complexType>
+
+<!-- method: Declaration of a method. -->
+<complexType name='method'>
+  <sequence>
+    <element ref='spec:descr'/>
+    <element ref='spec:parameters'/>
+    <element ref='spec:returns'/>
+    <element ref='spec:raises'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+  <attributeGroup ref='spec:idl-name.att'/>
+</complexType>
+
+<complexType name='parameters'>
+  <sequence>
+    <element ref='spec:param' minOccurs='0' maxOccurs='unbounded'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='param'>
+  <sequence>
+    <element ref='spec:descr'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+  <attributeGroup ref='spec:idl-name.att'/>
+  <attributeGroup ref='spec:idl-type.att'/>
+  <attribute name='attr' use='default' value='inout'>
+    <simpleType>
+      <restriction base='string'>
+        <enumeration value='in'/>
+        <enumeration value='out'/>
+        <enumeration value='inout'/>
+      </restriction>
+    </simpleType>
+  </attribute>
+</complexType>
+
+<complexType name='returns'>
+  <sequence>
+    <element ref='spec:descr'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+  <attributeGroup ref='spec:idl-type.att'/>
+</complexType>
+
+<complexType name='raises'>
+  <sequence>
+    <element ref='spec:exception' minOccurs='0' maxOccurs='unbounded'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<!-- exception (defined under constant, above)-->
+
+<complexType name='typename' mixed='true'>
+  <complexContent>
+    <extension base="string">
+      <attributeGroup ref='spec:common.att'/>
+    </extension>
+  </complexContent>
+</complexType>
+
+<!-- ............................................................... -->
+<!-- Phrase-level elements ......................................... -->
+<!-- ............................................................... -->
+
+<!-- att: Attribute name. -->
+<complexType name='att' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:tech.pcd.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<!-- attval: Attribute value. -->
+<complexType name='attval' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:tech.pcd.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<!-- bibref: Reference to a bibliography list entry; should
+     generate, in square brackets, 'key' on bibl. -->
+<complexType name='bibref'>
+  <complexContent>
+    <restriction base="xsd:anyType">
+      <attributeGroup ref='spec:common.att'/>
+      <!-- ref attribute:
+           A bibliography reference must link to the bibl element that
+           describes the resource. -->
+      <attributeGroup ref='spec:ref-req.att'/>
+    </restriction>
+  </complexContent>
+</complexType>
+
+<complexType name='code' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:tech.pcd.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<!-- ednote: Editorial note for communication among editors. -->
+<complexType name='ednote'>
+  <sequence>
+    <element ref='spec:name' minOccurs='0' maxOccurs='1'/>
+    <element ref='spec:date' minOccurs='0' maxOccurs='1'/>
+    <element ref='spec:edtext'/>
+  </sequence>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='date' mixed='true'>
+  <simpleContent>
+    <extension base="string">
+      <attributeGroup ref='spec:common.att'/>
+    </extension>
+  </simpleContent>
+</complexType>
+
+<complexType name='edtext' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:p.pcd.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<!-- el: Element type name (GI). -->
+<complexType name='el' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:tech.pcd.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='emph' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:tech.pcd.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<!-- footnote: Both footnote content and call to footnote. -->
+<complexType name='footnote'>
+  <choice minOccurs='1' maxOccurs='unbounded'>
+    <group ref='spec:obj.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='function' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:tech.pcd.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='kw' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:tech.pcd.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<!-- loc: Generic link to a Web resource, similar to HTML's A. -->
+<complexType name='loc' mixed='true'>
+  <simpleContent>
+    <extension base="string">
+      <attributeGroup ref='spec:common.att'/>
+      <attributeGroup ref='spec:user-replace.att'/>
+      <attributeGroup ref='spec:simple-xlink.att'/>
+      <!-- href attribute:
+           The purpose of a loc element is to function as a A-like
+           hypertext link to a resource.  (Ideally, the content of loc
+           will also mention the URI of the resource, so that readers of
+           the printed version will be able to locate the resource.) E.g.:
+           <loc href='http://www.my.com/doc.htm'>http://www.my.com/doc.htm</loc>
+           -->
+      <attribute name='href' use='required' type='string'/>
+    </extension>
+  </simpleContent>
+</complexType>
+
+<!-- nt: Mention of a nonterminal in text, along with a link to
+        the production in the current document that defines it. -->
+<complexType name='nt' mixed='true'>
+  <simpleContent>
+    <extension base="string">
+      <attributeGroup ref='spec:common.att'/>
+      <!-- def attribute:
+           The nonterminal must link to the production that defines
+           it. -->
+      <attribute name='def' type='IDREF' use='required'/>
+    </extension>
+  </simpleContent>
+</complexType>
+
+<!-- phrase: 'Attribute hanger' for small bits of (e.g.) differenced
+        text in a paragraph or similar, when another element isn't handy.
+        Beware that its content model may allow more nested elements than
+        would normally be allowed in some contexts. -->
+<complexType name='phrase' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:p.pcd.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<!-- quote: Scare quotes and other purely presentational quotes. -->
+<complexType name='quote' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:p.pcd.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<!-- specref: Reference to a div, olist item, prod, or issue
+     in the current document; should generate italic '[n.n],
+     Section Title' for div, 'n' for numbered item, '[n]' for
+     production, or 'Issue id' for issue. -->
+<complexType name='specref'>
+  <complexContent>
+    <restriction base="xsd:anyType">
+      <attributeGroup ref='spec:common.att'/>
+      <!-- ref attribute:
+           The purpose of a specref element is to link to a div, item
+           in an olist, or production in the current spec. -->
+      <attributeGroup ref='spec:ref-req.att'/>
+    </restriction>
+  </complexContent>
+</complexType>
+
+<!-- sub: Subscript. -->
+<complexType name='sub' mixed='true'>
+  <simpleContent>
+    <extension base="string">
+      <attributeGroup ref='spec:common.att'/>
+    </extension>
+  </simpleContent>
+</complexType>
+
+<!-- sup: Superscript. -->
+<complexType name='sup' mixed='true'>
+  <simpleContent>
+    <extension base="string">
+      <attributeGroup ref='spec:common.att'/>
+    </extension>
+  </simpleContent>
+</complexType>
+
+<!-- term: The term in text that is being defined in text. -->
+<complexType name='term' mixed='true'>
+  <simpleContent>
+    <extension base="string">
+      <attributeGroup ref='spec:common.att'/>
+    </extension>
+  </simpleContent>
+</complexType>
+
+<complexType name='termdef' mixed='true'>
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:termdef.pcd.mix'/>
+    <group ref='spec:termdef.mix'/>
+  </choice>
+  <!-- ID attribute:
+       A term definition must have an ID so that it can be linked
+       to from termref elements. -->
+  <attributeGroup ref='spec:common-idreq.att'/>
+  <!-- term attribute:
+       The canonical form of the term or phrase being defined must
+       appear in this attribute, even if the term or phrase also
+       appears in the element content in identical form (e.g., in
+       the term element). -->
+  <attribute name='term' type='string' use='required'/>
+</complexType>
+
+<complexType name='termref' mixed='true'>
+  <simpleContent>
+    <extension base="string">
+      <!-- termref: Mention of a term, along with a link to the
+           definition in the current document. -->
+      <attributeGroup ref='spec:common.att'/>
+      <!-- ref attribute:
+           A term reference must link to the termdef element that
+           defines the term. -->
+      <attributeGroup ref='spec:def-req.att'/>
+    </extension>
+  </simpleContent>
+</complexType>
+
+<complexType name='titleref' mixed='true'>
+  <simpleContent>
+    <extension base="string">
+      <!-- href attribute:
+           A title reference can optionally function as a hypertext
+           link to the resource with this title.  E.g.:
+
+           <loc href='http://www.my.com/doc.htm'>http://www.my.com/doc.htm</loc>
+           -->
+      <attributeGroup ref='spec:common.att'/>
+      <attributeGroup ref='spec:simple-xlink.att'/>
+      <attributeGroup ref='spec:href.att'/>
+      <attributeGroup ref='spec:user-new.att'/>
+    </extension>
+  </simpleContent>
+</complexType>
+
+<complexType name='var' mixed='true'>
+  <!-- var: String standing for a variable value that the user
+       or system will supply.  For example: 'For each node
+       <var>x</var> in this node-set...' -->
+  <choice minOccurs='0' maxOccurs='unbounded'>
+    <group ref='spec:tech.pcd.mix'/>
+  </choice>
+  <attributeGroup ref='spec:common.att'/>
+</complexType>
+
+<complexType name='xnt' mixed='true'>
+  <simpleContent>
+    <extension base="string">
+      <!-- xnt: Mention of a nonterminal in text, along with a link to
+           the production in another document that defines it. -->
+      <!-- href attribute:
+              The nonterminal must hyperlink to a resource that serves
+              to define it (e.g., a production in a related XML
+              specification).  E.g.:
+              <xnt href='http://www.w3.org/TR/spec.htm#prod3'>Name</xnt>
+              -->
+      <attributeGroup ref='spec:common.att'/>
+      <attributeGroup ref='spec:simple-xlink.att'/>
+      <attributeGroup ref='spec:href-req.att'/>
+      <attributeGroup ref='spec:user-new.att'/>
+    </extension>
+  </simpleContent>
+</complexType>
+
+<complexType name='xspecref' mixed='true'>
+  <simpleContent>
+    <extension base="string">
+      <!-- xspecref: Reference to a div, olist item, prod, or issue
+           in a related specification document; should generate
+           no special text. -->
+      <!-- href attribute:
+           The spec reference must hyperlink to the resource to
+           cross-refer to (e.g., a section in a related XML
+           specification).  E.g.:
+           <xspecref href='http://www.w3.org/TR/spec.htm#sec2'>
+           the section on constraints</xspecref>
+           -->
+      <attributeGroup ref='spec:common.att'/>
+      <attributeGroup ref='spec:simple-xlink.att'/>
+      <attributeGroup ref='spec:href-req.att'/>
+      <attributeGroup ref='spec:user-new.att'/>
+    </extension>
+  </simpleContent>
+</complexType>
+
+<complexType name='xtermref' mixed='true'>
+  <simpleContent>
+    <extension base="string">
+      <!-- xtermref: Mention of a term, along with a link to the
+           definition in a related document. -->
+      <!-- href attribute:
+           The term reference must hyperlink to the resource that
+           serves to define the term (e.g., a term definition in
+           a related XML specification).  E.g.:
+           <xtermref href='http://www.w3.org/TR/spec.htm#term5'>
+           entity
+           </xtermref>
+           -->
+      <attributeGroup ref='spec:common.att'/>
+      <attributeGroup ref='spec:simple-xlink.att'/>
+      <attributeGroup ref='spec:href-req.att'/>
+      <attributeGroup ref='spec:user-new.att'/>
+    </extension>
+  </simpleContent>
+</complexType>
+
+<!-- ================================================================= -->
+
+<element name='abstract' type='spec:abstract'/>
+<element name='affiliation' type='spec:affiliation'/>
+<element name='att' type='spec:att'/>
+<element name='attribute' type='spec:attribute'/>
+<element name='attval' type='spec:attval'/>
+<element name='authlist' type='spec:authlist'/>
+<element name='author' type='spec:author'/>
+<element name='blist' type='spec:blist'/>
+<element name='bibl' type='spec:bibl'/>
+<element name='bibref' type='spec:bibref'/>
+<element name='bnf' type='spec:bnf'/>
+<element name='caption' type='spec:caption'/>
+<element name='case' type='spec:case'/>
+<element name='code' type='spec:code'/>
+<element name='col' type='spec:col'/>
+<element name='colgroup' type='spec:colgroup'/>
+<element name='com' type='spec:com'/>
+<element name='component' type='spec:component'/>
+<element name='constant' type='spec:constant'/>
+<element name='constraint' type='spec:constraint'/>
+<element name='constraintRef' type='spec:constraintRef'/>
+<element name='constraintnote' type='spec:constraintnote'/>
+<element name='copyright' type='spec:copyright'/>
+<element name='date' type='spec:date'/>
+<element name='def' type='spec:def'/>
+<element name='definitions' type='spec:definitions'/>
+<element name='descr' type='spec:descr'/>
+<element name='div1' type='spec:div1'/>
+<element name='div2' type='spec:div2'/>
+<element name='div3' type='spec:div3'/>
+<element name='div4' type='spec:div4'/>
+<element name='div5' type='spec:div5'/>
+<element name='ednote' type='spec:ednote'/>
+<element name='edtext' type='spec:edtext'/>
+<element name='eg' type='spec:eg'/>
+<element name='el' type='spec:el'/>
+<element name='email' type='spec:email'/>
+<element name='emph' type='spec:emph'/>
+<element name='enum' type='spec:enum'/>
+<element name='enumerator' type='spec:enumerator'/>
+<element name='example' type='spec:example'/>
+<element name='exception' type='spec:exception'/>
+<element name='footnote' type='spec:footnote'/>
+<element name='function' type='spec:function'/>
+<element name='gitem' type='spec:gitem'/>
+<element name='glist' type='spec:glist'/>
+<element name='graphic' type='spec:graphic'/>
+<element name='group' type='spec:group'/>
+<element name='head' type='spec:head'/>
+<element name='header' type='spec:header'/>
+<element name='body' type='spec:body'/>
+<element name='inform-div1' type='spec:inform-div1'/>
+<element name='interface' type='spec:interface'/>
+<element name='issue' type='spec:issue'/>
+<element name='item' type='spec:item'/>
+<element name='kw' type='spec:kw'/>
+<element name='label' type='spec:label'/>
+<element name='language' type='spec:language'/>
+<element name='langusage' type='spec:langusage'/>
+<element name='latestloc' type='spec:latestloc'/>
+<element name='lhs' type='spec:lhs'/>
+<element name='loc' type='spec:loc'/>
+<element name='member' type='spec:member'/>
+<element name='method' type='spec:method'/>
+<element name='module' type='spec:module'/>
+<element name='name' type='spec:name'/>
+<element name='note' type='spec:note'/>
+<element name='notice' type='spec:notice'/>
+<element name='nt' type='spec:nt'/>
+<element name='olist' type='spec:olist'/>
+<element name='orglist' type='spec:orglist'/>
+<element name='p' type='spec:p'/>
+<element name='param' type='spec:param'/>
+<element name='parameters' type='spec:parameters'/>
+<element name='phrase' type='spec:phrase'/>
+<element name='prevlocs' type='spec:prevlocs'/>
+<element name='prod' type='spec:prod'/>
+<element name='prodgroup' type='spec:prodgroup'/>
+<element name='prodrecap' type='spec:prodrecap'/>
+<element name='proto' type='spec:proto'/>
+<element name='pubdate' type='spec:pubdate'/>
+<element name='publoc' type='spec:publoc'/>
+<element name='pubstmt' type='spec:pubstmt'/>
+<element name='quote' type='spec:quote'/>
+<element name='raises' type='spec:raises'/>
+<element name='reference' type='spec:reference'/>
+<element name='resolution' type='spec:resolution'/>
+<element name='returns' type='spec:returns'/>
+<element name='revisiondesc' type='spec:revisiondesc'/>
+<element name='rhs' type='spec:rhs'/>
+<element name='role' type='spec:role'/>
+<element name='scrap' type='spec:scrap'/>
+<element name='sequence' type='spec:sequence'/>
+<element name='sitem' type='spec:sitem'/>
+<element name='slist' type='spec:slist'/>
+<element name='source' type='spec:source'/>
+<element name='sourcedesc' type='spec:sourcedesc'/>
+
+<element name='spec' type='spec:spec'>
+  <key name="wfcNoteKey">
+    <selector xpath="//wfcnote[@id]"/>
+    <field xpath="@id"/>
+  </key>
+  <keyref name="wfcNoteRef" refer="wfcNoteKey">
+    <selector xpath="//wfc"/>
+    <field xpath="@def"/>
+  </keyref>
+
+  <key name="vcNoteKey">
+    <selector xpath="//vcnote[@id]"/>
+    <field xpath="@id"/>
+  </key>
+  <keyref name="vcNoteRef" refer="vcNoteKey">
+    <selector xpath="//vc"/>
+    <field xpath="@def"/>
+  </keyref>
+
+  <key name="constraintNoteKey">
+    <selector xpath="//constraintnote[@id]"/>
+    <field xpath="@id"/>
+  </key>
+  <keyref name="constraintNoteRef" refer="constraintNoteKey">
+    <selector xpath="//constraint"/>
+    <field xpath="@def"/>
+  </keyref>
+
+  <key name="prodKey">
+    <selector xpath="//prod[@id]"/>
+    <field xpath="@id"/>
+  </key>
+  <keyref name="prodRef" refer="prodKey">
+    <selector xpath="//prodrecap"/>
+    <field xpath="@def"/>
+  </keyref>
+
+  <key name="bibKey">
+    <selector xpath="//bibl[@id]"/>
+    <field xpath="@id"/>
+  </key>
+  <keyref name="bibRef" refer="bibKey">
+    <selector xpath="//bibref"/>
+    <field xpath="@ref"/>
+  </keyref>
+
+  <key name="termKey">
+    <selector xpath="//termdef[@id]"/>
+    <field xpath="@id"/>
+  </key>
+  <keyref name="termRef" refer="termKey">
+    <selector xpath="//termref"/>
+    <field xpath="@ref"/>
+  </keyref>
+</element>
+
+<element name='specref' type='spec:specref'/>
+<element name='status' type='spec:status'/>
+<element name='struct' type='spec:struct'/>
+<element name='sub' type='spec:sub'/>
+<element name='subtitle' type='spec:subtitle'/>
+<element name='sup' type='spec:sup'/>
+<element name='table' type='spec:table'/>
+<element name='tableCell' type='spec:tableCell'/>
+<element name='tbody' type='spec:tableSection'/>
+<element name='td' type='spec:tableCell'/>
+<element name='term' type='spec:term'/>
+<element name='termdef' type='spec:termdef'/>
+<element name='termref' type='spec:termref'/>
+<element name='tfoot' type='spec:tableSection'/>
+<element name='th' type='spec:tableCell'/>
+<element name='thead' type='spec:tableSection'/>
+<element name='title' type='spec:title'/>
+<element name='titleref' type='spec:titleref'/>
+<element name='tr' type='spec:tr'/>
+<element name='typedef' type='spec:typedef'/>
+<element name='typename' type='spec:typename'/>
+<element name='ulist' type='spec:ulist'/>
+<element name='union' type='spec:union'/>
+<element name='var' type='spec:var'/>
+<element name='vc' type='spec:vc'/>
+<element name='wfc' type='spec:wfc'/>
+<element name='wfcnote' type='spec:wfcnote'/>
+<element name='xnt' type='spec:xnt'/>
+<element name='xspecref' type='spec:xspecref'/>
+<element name='xtermref' type='spec:xtermref'/>
+
+</schema>

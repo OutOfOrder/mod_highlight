@@ -1,0 +1,6 @@
+ModelGroup tasks
+ModelGroup types
+
+SimpleType boolean = string
+SimpleType string = string
+                         

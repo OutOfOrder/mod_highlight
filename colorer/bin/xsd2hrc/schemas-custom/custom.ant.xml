@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<custom xmlns="uri:colorer:custom">
+
+  <custom-type targetNamespace="http://jakarta.apache.org/ant/">
+
+    <top-level>
+      <element>project</element>
+    </top-level>
+
+    <outline>
+      <element name='target' extract='withAttribute' description='Target'/>
+      <element name='property' extract='withAttribute' description='Property'/>
+      <element name='taskdef' extract='withAttribute' description='Task Definition'/>
+      <element name='typedef' extract='withAttribute' description='Type Definition'/>
+    </outline>
+
+    <type xmlns="http://colorer.sf.net/2003/hrc">
+
+      <region name="PropertyRef"   parent="def:StringContent"/>
+
+      <scheme name="PropertyRef">
+        <regexp match="/\$(\{[\w\.\-\d]+\})/" region1='PropertyRef'/>
+      </scheme>
+
+      <scheme name="string-content">
+        <inherit scheme='PropertyRef'/>
+        <inherit scheme='string-content-old'/>
+      </scheme>
+
+      <scheme name="boolean-content">
+        <inherit scheme='PropertyRef'/>
+        <inherit scheme='boolean-content-old'/>
+      </scheme>
+
+    </type>
+
+  </custom-type>
+
+</custom>
