@@ -45,7 +45,7 @@ int ChunkLineSource::ParseChunk(const char* chunk, int len)
         return 0;
     }
 
-    tokit = apr_pstrdup(kFilter->r->pool, chunk);
+    tokit = apr_pstrndup(kFilter->r->pool, chunk, len);
      
     key = apr_strtok(tokit, "\n", &strtok_state);
     do {
@@ -53,7 +53,6 @@ int ChunkLineSource::ParseChunk(const char* chunk, int len)
         lines.addElement(s);
         key = apr_strtok(NULL, "\n", &strtok_state);
     } while(key);
-
     return 0;
 }
 
@@ -62,6 +61,7 @@ String *ChunkLineSource::getLine(int lno){
   if (lines.size() <= lno) return null;
   return lines.elementAt(lno);
 };
+
 int ChunkLineSource::getLineCount(){
   return lines.size();
 };
