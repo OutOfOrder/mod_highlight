@@ -43,7 +43,7 @@ protected:
 private:
     ap_filter_t* kFilter;
     apr_bucket_brigade *bb;
-    char* db;
+    int encodingIndex;
 };
 #endif
 

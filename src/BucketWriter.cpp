@@ -20,19 +20,27 @@
 BucketWriter::BucketWriter(ap_filter_t* pFilter) {
     kFilter = pFilter;
     bb = apr_brigade_create(kFilter->r->pool, apr_bucket_alloc_create(kFilter->r->pool));
-    db = (char *)malloc( sizeof( char ) );
+    encodingIndex = Encodings::getDefaultEncodingIndex();
 }
 
 BucketWriter::~BucketWriter() {
-    free(db);
     apr_brigade_destroy(bb);
 }
 
 void BucketWriter::write(wchar c) {
-    /* TODO: Is this extremely bad? */
+    /* TODO: This extremely bad? */
     /* TODO: Is this really Wide Character Safe? */
+#if GOD_THIS_IS_EVIL
     wctomb(db, c);
     ap_fprintf(kFilter->next, bb, "%.1s", db);    
+#else /* GOD_THIS_IS_SLIGHTLY_LESS_EVIL */
+    byte buf[8];
+    int bufLen = Encodings::toBytes(encodingIndex, c, buf);
+    for(int pos = 0; pos < bufLen; pos++) {
+        ap_fputc(kFilter->next, bb, buf[pos]);
+    }
+    /* ap_fwrite(kFilter->next, bb, &buf, bufLen); */
+#endif
 }
 
 void BucketWriter::SendBrigade() {

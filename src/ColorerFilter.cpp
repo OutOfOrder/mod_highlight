@@ -45,6 +45,7 @@ ColorerFilter::~ColorerFilter() {
 
 int ColorerFilter::SendOutput() {
     DString styleType = DString("rgb");
+
     ap_set_content_type(kFilter->r,"text/html; charset=utf-8");
 
     try {

@@ -49,7 +49,8 @@ int ChunkLineSource::ParseChunk(const char* chunk, int len)
      
     key = apr_strtok(tokit, "\n", &strtok_state);
     do {
-        lines.addElement(new SString(key,-1));
+	SString* s = new SString(key,-1);
+        lines.addElement(s);
         key = apr_strtok(NULL, "\n", &strtok_state);
     } while(key);
 
