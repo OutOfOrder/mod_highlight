@@ -30,9 +30,7 @@ install:
 	cp -r doc/* $(prefix)/share/doc/colorer-take5
 
 	mkdir -p $(prefix)/include/colorer
-	cd src/shared
 	for i in unicode common common/io cregexp xml colorer colorer/parsers colorer/editor colorer/handlers colorer/viewer exparse; do \
 	  mkdir -p $(prefix)/include/colorer/$${i}; \
-	  cp ./$${i}/*.h $(prefix)/include/colorer/$${i}; \
+	  cp src/shared/$${i}/*.h $(prefix)/include/colorer/$${i}; \
 	done
-	cd ../..
