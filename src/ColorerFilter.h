@@ -36,7 +36,7 @@
 
 class ColorerFilter {
 public:
-    ColorerFilter(ap_filter_t* pFilter);
+    ColorerFilter(ap_filter_t* pFilter, const char* cpath);
     ~ColorerFilter();
 
     /* who cares about being 'proper' OOP */
@@ -45,6 +45,7 @@ public:
     FileType *selectType(HRCParser *hrcParser, String *fline);
 private:
      String* hrdName;
+     String* catalogPath;
      String* typeDescription;
      String* inputFileName;
      ap_filter_t* kFilter;
@@ -148,7 +149,7 @@ private:
 
 };
 
-class HtmlEscapesWriter : public Writer{
+class HtmlEscapesWriter : public Writer {
 public:
   HtmlEscapesWriter(Writer *writer){
     this->writer = writer;
@@ -156,10 +157,13 @@ public:
   void write(wchar c){
     if (c == '&'){
       writer->write(DString("&amp;"));
-    }else if (c == '<'){
+    }
+    else if (c == '<') {
       writer->write(DString("&lt;"));
-    }else
+    }
+    else {
       writer->write(c);
+    }
   };
 protected:
   Writer *writer;

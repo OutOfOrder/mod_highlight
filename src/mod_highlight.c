@@ -27,6 +27,10 @@
 #include "apr_uri.h"
 #include "apr_tables.h"
 
+typedef struct { 
+     const char *path;
+} highlight_conf; 
+
 #include "colorer_interface.h"
 
 module AP_MODULE_DECLARE_DATA highlight_module;
@@ -34,10 +38,10 @@ module AP_MODULE_DECLARE_DATA highlight_module;
 static apr_status_t highlight_filter(ap_filter_t * f, apr_bucket_brigade * bb)
 {
     apr_bucket *b;
-    int rv = -1;
+    highlight_conf *c;
+    int rv = OK;
     const char *buf = 0;
     apr_size_t bytes = 0;
-    apr_status_t ret = APR_SUCCESS;
 
     if (!f->ctx) {
         if ((f->r->proto_num >= 1001) && !f->r->main && !f->r->prev) {
@@ -58,17 +62,13 @@ static apr_status_t highlight_filter(ap_filter_t * f, apr_bucket_brigade * bb)
                  == APR_SUCCESS) {
             if (f->ctx) {
                 /* append data */
-#ifdef DEBUG
-                ap_log_rerror(APLOG_MARK, APLOG_ERR, 0, f->r, "Adding: %d bytes", bytes);
-#endif
                 rv = colorer_parse_chunk(f->ctx, buf, bytes);
             }
             else {
+                c = ap_get_module_config(f->r->server->module_config,
+                                                     &highlight_module);
                 /* starting up */
-                colorer_init(f);
-#ifdef DEBUG
-                ap_log_rerror(APLOG_MARK, APLOG_DEBUG, 0, f->r, "(init) Adding: %d bytes", bytes);
-#endif
+                colorer_init(f, c->path);
                 rv = colorer_parse_chunk(f->ctx, buf, bytes);
             }
         }
@@ -77,8 +77,28 @@ static apr_status_t highlight_filter(ap_filter_t * f, apr_bucket_brigade * bb)
     return rv;
 }
 
-static const command_rec highlight_cmds[] = {
+static void *create_highlight_config(apr_pool_t *p, server_rec *s) 
+{ 
+     highlight_conf *c = (highlight_conf *) apr_pcalloc(p, sizeof(highlight_conf)); 
 
+     c->path = ap_server_root_relative(p, "share/colorer/catalog.xml");
+     return c; 
+} 
+
+static const char *set_catalog_path(cmd_parms *cmd, void *dummy,
+                                         const char *arg)
+{
+     highlight_conf *c = ap_get_module_config(cmd->server->module_config,
+                                                     &highlight_module);
+
+     c->path = ap_server_root_relative(cmd->pool, arg);
+ 
+     return NULL;
+}
+
+static const command_rec highlight_cmds[] = {
+     AP_INIT_TAKE1("HighlightCatalogPath", set_catalog_path, NULL,
+                   RSRC_CONF, "Path to the Colorer Catalog for mod_highlight"),
     {NULL}
 };
 
@@ -93,7 +113,7 @@ module AP_MODULE_DECLARE_DATA highlight_module = {
     STANDARD20_MODULE_STUFF,
     NULL,
     NULL,
-    NULL,
+    create_highlight_config,
     NULL,
     highlight_cmds,
     highlight_hooks

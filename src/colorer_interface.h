@@ -33,7 +33,7 @@ extern "C"
 #endif
 
 /* to C, all we see is a void* ... keeps it simple. */
-    int colorer_init(ap_filter_t * f);
+    int colorer_init(ap_filter_t * f, const char* cpath);
     int colorer_parse_chunk(void *colorer, const char *buf, int len);
     int colorer_send_output(void *colorer);
     int colorer_cleanup(void *colorer);

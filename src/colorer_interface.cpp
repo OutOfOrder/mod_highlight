@@ -18,8 +18,8 @@
 #include "colorer_interface.h"
 #include "ColorerFilter.h"
 
-int colorer_init(ap_filter_t * f) {
-    ColorerFilter* cf = new ColorerFilter(f);
+int colorer_init(ap_filter_t * f, const char* cpath) {
+    ColorerFilter* cf = new ColorerFilter(f, cpath);
     return 0;
 }
 

@@ -41,6 +41,7 @@ void ParserFactory::init()
 
       const String *logLocation = ((Element*)elem)->getAttribute(DString("log-location"));
 
+#if 0
       if (logLocation != null){
         InputSource *dfis = InputSource::newInstance(logLocation, catalogFIS);
         try{
@@ -50,6 +51,7 @@ void ParserFactory::init()
         };
         delete dfis;
       };
+#endif
 
       if (fileErrorHandler == null){
         fileErrorHandler = new DefaultErrorHandler();
