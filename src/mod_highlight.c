@@ -58,13 +58,13 @@ static apr_status_t highlight_filter(ap_filter_t * f, apr_bucket_brigade * bb)
                  == APR_SUCCESS) {
             if (f->ctx) {
                 /* append data */
-                ap_log_rerror(APLOG_MARK, APLOG_ERR, 0, f->r, "Adding: %d bytes", bytes);
+                //ap_log_rerror(APLOG_MARK, APLOG_ERR, 0, f->r, "Adding: %d bytes", bytes);
                 rv = colorer_parse_chunk(f->ctx, buf, bytes);
             }
             else {
                 /* starting up */
                 colorer_init(f);
-                rv = colorer_parse_chunk(f->ctx, buf, bytes);
+                //rv = colorer_parse_chunk(f->ctx, buf, bytes);
                 ap_log_rerror(APLOG_MARK, APLOG_ERR, 0, f->r, "Adding: %d bytes", bytes);
             }
         }

@@ -30,7 +30,7 @@ ColorerFilter::ColorerFilter(ap_filter_t* pFilter) {
     hrdName = new SString("default");
     inputFileName = new SString(kFilter->r->filename);
     typeDescription = NULL;
-    ap_log_rerror(APLOG_MARK, APLOG_ERR, 0, kFilter->r, "ColorerFilter::ColorerFilter()");
+    //ap_log_rerror(APLOG_MARK, APLOG_ERR, 0, kFilter->r, "ColorerFilter::ColorerFilter()");
     kFilter->ctx = this;
 }
 
@@ -43,7 +43,7 @@ ColorerFilter::~ColorerFilter() {
 }
 
 int ColorerFilter::SendOutput() {
-    ap_log_rerror(APLOG_MARK, APLOG_ERR, 0, kFilter->r, "ColorerFilter::SendOutput()");
+    //ap_log_rerror(APLOG_MARK, APLOG_ERR, 0, kFilter->r, "ColorerFilter::SendOutput()");
 
     ap_set_content_type(kFilter->r,"text/html; charset=utf-8");
     try {
@@ -77,7 +77,7 @@ int ColorerFilter::SendOutput() {
 
     Hashtable<String*> *docLinkHash = new Hashtable<String*>;
     BucketWriter* myWriter = new BucketWriter(kFilter);
-    ap_log_rerror(APLOG_MARK, APLOG_ERR, 0, kFilter->r, "ColorerFilter::SendOutput(): Line Count: %d", pSource->getLineCount());    
+    //ap_log_rerror(APLOG_MARK, APLOG_ERR, 0, kFilter->r, "ColorerFilter::SendOutput(): Line Count: %d", pSource->getLineCount());    
 
     Writer* escapedWriter = new HtmlEscapesWriter(myWriter);
 //    ((Writer*)myWriter)->write(DString("<html>\n<head>\n<style></style>\n</head>\n<body><pre>\n"));

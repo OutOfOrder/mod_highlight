@@ -36,7 +36,7 @@ int ChunkLineSource::ParseChunk(const char* chunk, int len) {
   char *strtok_state;
   char *tokit;
   char *key;
-  ap_log_rerror(APLOG_MARK, APLOG_ERR, 0, kFilter->r, "ChunkLineSource::ParseChunk() bytes: %d", len);
+  //ap_log_rerror(APLOG_MARK, APLOG_ERR, 0, kFilter->r, "ChunkLineSource::ParseChunk() bytes: %d", len);
   if(len < 1) {
       return 0;
   }
@@ -46,7 +46,7 @@ int ChunkLineSource::ParseChunk(const char* chunk, int len) {
   key = apr_strtok(tokit, "\n", &strtok_state);
   do {
     lines.addElement(new SString(key,-1));
-    ap_log_rerror(APLOG_MARK, APLOG_ERR, 0, kFilter->r, "ChunkLineSource::ParseChunk() Line: %s", key);
+    //ap_log_rerror(APLOG_MARK, APLOG_ERR, 0, kFilter->r, "ChunkLineSource::ParseChunk() Line: %s", key);
     key = apr_strtok(NULL, "\n", &strtok_state);
   } while(key);
 
@@ -54,7 +54,7 @@ int ChunkLineSource::ParseChunk(const char* chunk, int len) {
   int ei = -1; // todo: fix input encoding.
   DString file(chunk, len, ei);
   int length = file.length();
-  ap_log_rerror(APLOG_MARK, APLOG_ERR, 0, kFilter->r, "ChunkLineSource::ParseChunk() strlen: %d", length);
+  //ap_log_rerror(APLOG_MARK, APLOG_ERR, 0, kFilter->r, "ChunkLineSource::ParseChunk() strlen: %d", length);
   lines.ensureCapacity(length/30); // estimate number of lines
 
   int i = 0;
@@ -63,7 +63,7 @@ int ChunkLineSource::ParseChunk(const char* chunk, int len) {
   if (length && file[0] == 0xFEFF) filepos = prevpos = 1;
   while(filepos < length+1){
     if (filepos == length || file[filepos] == '\r' || file[filepos] == '\n'){
-      ap_log_rerror(APLOG_MARK, APLOG_ERR, 0, kFilter->r, "ChunkLineSource::ParseChunk() Adding Line");
+      //ap_log_rerror(APLOG_MARK, APLOG_ERR, 0, kFilter->r, "ChunkLineSource::ParseChunk() Adding Line");
       lines.addElement(new SString(&file, prevpos, filepos-prevpos));
       if (filepos+1 < length && file[filepos] == '\r' && file[filepos+1] == '\n')
         filepos++;
@@ -75,7 +75,7 @@ int ChunkLineSource::ParseChunk(const char* chunk, int len) {
     filepos++;
   };
 */
-  ap_log_rerror(APLOG_MARK, APLOG_ERR, 0, kFilter->r, "ChunkLineSource::ParseChunk() LineCount: %d", lines.size());
+  //ap_log_rerror(APLOG_MARK, APLOG_ERR, 0, kFilter->r, "ChunkLineSource::ParseChunk() LineCount: %d", lines.size());
   return 0;
 }
 
