@@ -142,9 +142,12 @@ int String::compareToIgnoreCase(const String &str) const{
 
 
 int String::getWChars(wchar **chars) const{
-  *chars = new wchar[length()];
-  for(int i = 0; i < length(); i++)
+  *chars = new wchar[length()+1];
+  int i;
+  for(i = 0; i < length(); i++){
     (*chars)[i] = (*this)[i];
+  }
+  (*chars)[i] = 0;
   return length();
 }
 
@@ -276,7 +279,8 @@ String *String::replace(const String &pattern, const String &newstring) const{
 
 int String::hashCode() const{
   int hc = 0;
-  for(int i = 0; i < length(); i++)
+  int len = length();
+  for(int i = 0; i < len; i++)
     hc = 31 * hc + (*this)[i];
   return hc;
 }

@@ -15,7 +15,9 @@
       <annotation>
          <documentation>
            XSLT Generated HRC scheme for language 'colorer5catalog'
-           from XML Schema with xsd2hrc.xsl version 0.9 (c) Cail Lomecb
+           from XML Schema with xsd2hrc.xsl version 0.9.2
+            (C) 2002-03 Cail Lomecb
+            Portions copyright (C) 2004 Eugene Efremov
 
            Scheme parameters:
              targetNamespace             : http://colorer.sf.net/2003/catalog
@@ -25,7 +27,9 @@
              allow-unknown-elements      : no
              allow-unknown-root-elements : no
              force-single-root           : yes
+             add-new-references          : 
              default prefixes            : 
+
                you can change them with entity 'nsprefix'
 
          </documentation>
@@ -72,11 +76,6 @@
       </scheme>
 
       <scheme name="catalog-content">
-         <annotation>
-            <documentation>
-      Describes all available Colorer Library resources.
-    </documentation>
-         </annotation>
          <block start="/\M &lt; (%nsprefix;hrc-sets ([\s\/&gt;]|$) )/x" end="/ &gt; /x" scheme="hrc-sets-elementContent"/>
          <block start="/\M &lt; (%nsprefix;hrd-sets ([\s\/&gt;]|$) )/x" end="/ &gt; /x" scheme="hrd-sets-elementContent"/>
       </scheme>
@@ -94,12 +93,6 @@
       </scheme>
 
       <scheme name="hrc-sets-content">
-         <annotation>
-            <documentation>
-      Lists all installed root locations of HRC codes.
-      These locations are loaded when HRC bases are created.
-    </documentation>
-         </annotation>
          <block start="/\M &lt; (%nsprefix;location ([\s\/&gt;]|$) )/x" end="/ &gt; /x" scheme="location-elementContent"/>
       </scheme>
       <scheme name="hrc-sets-content-error">
@@ -118,14 +111,6 @@
       </scheme>
 
       <scheme name="hrd-sets-content">
-         <annotation>
-            <documentation>
-      Lists all available HRD sets.
-      Each HRD Entry describes single color scheme,
-      used to represent colored text.
-      Note, that one Entry
-    </documentation>
-         </annotation>
          <block start="/\M &lt; (%nsprefix;hrd ([\s\/&gt;]|$) )/x" end="/ &gt; /x" scheme="hrd-entry-elementContent"/>
       </scheme>
       <scheme name="hrd-sets-content-error">
@@ -142,11 +127,6 @@
       </scheme>
 
       <scheme name="hrd-entry-content">
-         <annotation>
-            <documentation>
-      Describes one HRD properties set.
-    </documentation>
-         </annotation>
          <block start="/\M &lt; (%nsprefix;location ([\s\/&gt;]|$) )/x" end="/ &gt; /x" scheme="location-elementContent"/>
       </scheme>
       <scheme name="hrd-entry-content-error">
@@ -166,14 +146,7 @@
          </inherit>
       </scheme>
 
-      <scheme name="location-content">
-         <annotation>
-            <documentation>
-      Single resource location. Path can be relative to the catalog location,
-      or absolute URI with or without URI schema specification.
-    </documentation>
-         </annotation>
-      </scheme>
+      <scheme name="location-content"/>
       <scheme name="location-content-error">
          <inherit scheme="location-content"/>
          <inherit scheme="xml:badChar"/>
@@ -190,7 +163,7 @@
       </scheme>
 
 
-      <scheme name="colorer5catalog-root" access="public">
+      <scheme name="colorer5catalog-root">
          <annotation>
             <documentation>
                You can replace these elements with needed single root element
@@ -199,9 +172,12 @@
          </annotation>
          <inherit scheme="catalog-element"/>
       </scheme>
-      <scheme name="colorer5catalog" access="public">
+      <scheme name="colorer5catalog-root-addref">
+         <inherit scheme="colorer5catalog-root"/>
+      </scheme>
+      <scheme name="colorer5catalog">
          <inherit scheme="xml:singleroot">
-            <virtual scheme="xml:element" subst-scheme="colorer5catalog-root"/>
+            <virtual scheme="xml:element" subst-scheme="colorer5catalog-root-addref"/>
          </inherit>
       </scheme>
    </type>

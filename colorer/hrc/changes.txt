@@ -1,6 +1,23 @@
 
+$Date: 2004/09/27 05:55:36 $
 
-$Date: 2003/08/26 11:39:20 $
+  New:
+    - SVG 1.0, PostScript, htc, parser, rdf, rss, xbl (Eugene Efremov)
+    - JavaCC (Giulio Piancastelli)
+    - Common packages regrouping
+    - Basic ColdFusion support
+
+  Fixes:
+    - Lisp fixes, outline (Mykolas Juraitis)
+    - FAR manager and Common RE schemes (Eugene Efremov)
+    - Sh, def, PHP, C, Perl fixes (Eugene Efremov)
+    - PHP functions regrouping (Alexey Kupershtokh)
+    - xhtml improvements (Eugene Efremov)
+
+
+
+
+Date: 2003/09/12 11:39:20
 
   New:
     - JSP TagLib, OCaml, Sicstus Prolog
@@ -9,8 +26,6 @@ $Date: 2003/08/26 11:39:20 $
     - SML, ada, modula2
     - Perl/HRC RE, php, html, css (Eugene Efremov)
     - Tex
-
-
 
 
 
@@ -24,9 +39,9 @@ Date: 2003/06/02 11:26:40
     - Quorum Atlantis by Vladimir Fonarev
     - MathML2.0 from draft xsd
     - CSS2 support
-    - ANT 1.51 build.xml 
+    - ANT 1.51 build.xml
     - Ruby syntax
-  
+
   Fixes:
     - VBasic/VBScript outlining by LeO Welsch
     - HTML, PHP outline

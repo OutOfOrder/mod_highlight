@@ -1,16 +1,29 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding='Windows-1251'?>
 <!DOCTYPE hrc PUBLIC "-//Cail Lomecb//DTD Colorer HRC take5//EN"
   "http://colorer.sf.net/2003/hrc.dtd">
 <hrc version="take5" xmlns="http://colorer.sf.net/2003/hrc"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://colorer.sf.net/2003/hrc http://colorer.sf.net/2003/hrc.xsd">
-<!--
-   Make Files Syntax
-With help of:
-   Vincent GUIGNOT <vguignot@ingenico.fr>
-   Timur Safin <timur@lanit.ru> CBuilder project stuff
--->
-   <type name="makefile" access="public">
+
+  <type name="makefile">
+    <annotation><documentation>
+     Make Files Syntax
+    </documentation><contributors><![CDATA[
+     Vincent GUIGNOT <vguignot@ingenico.fr>
+     Timur Safin <timur@lanit.ru> CBuilder project stuff
+     Eugene Efremov <4mirror@mail.ru>
+    ]]></contributors>
+    <appinfo>
+     <prototype name="makefile" group="scripts" description="makefile">
+       <location link="scripts/makefile.hrc"/>
+       <filename>/(makefile | tools\.ini) | \.(mak|ds(p|w)|bp(k|r|g)$)/ix</filename>
+       <firstline>/Microsoft Developer Studio Project File/i</firstline>
+       <firstline>/^\!if/i</firstline>
+       <firstline>/makefile/s</firstline>
+     </prototype>
+     <require/> <!-- no module required -->
+    </appinfo>
+    </annotation>
 
       <import type="def"/>
       <import type="config"/>
@@ -18,8 +31,18 @@ With help of:
       <region name="RuleOutline" parent="def:Outlined"/>
       <region name="IncludeOutline" parent="def:Outlined"/>
 
+      <region name="MakVars" parent="def:Var"/>
+      <region name="MakParams" parent="def:KeywordStrong"/>
+      <region name="MakRule" parent="def:Parameter"/>
+      <region name="MakGoal" parent="def:Label"/>
+      <region name="MakVarValue" parent="def:VarStrong"/>
+      <region name="MakVarName" parent="def:Var"/>
+
       <scheme name="MakVars">
-         <regexp match="/(\$\l?\()([\@&lt;\*\^\?]?[\w\*\.\=\:]+)(\))/" region0="StringEdge" region1="PairStart" region2="String" region3="PairEnd"/>
+         <regexp match="/(\$\l?\()([\@&lt;\*\^\?]?[\w\*\.\=\:]+)(\))/"
+          region0="StringEdge" region1="PairStart"
+          region2="MakVars" region3="PairEnd"
+         />
          <regexp match="/\$[\@\%&lt;\?\^\+\*]/" region0="StringEdge"/>
       </scheme>
 
@@ -36,6 +59,7 @@ With help of:
          <block start="/\'/" end="/\'/" scheme="MakString" region="String"/>
          <block start="/\&#34;/" end="/\&#34;/" scheme="MakString" region="String"/>
 <!--Block start="/\%/" end="/\%/" scheme="MakString" region0="String"-->
+         <regexp match="/\\$/" region0="def:StringContent"/>
 <!-- Numbers -->
          <regexp match="/\b0[xX][\da-fA-F]+\b/" region0="Number"/>
          <regexp match="/\b[0-9]+\b/" region0="Number"/>
@@ -107,7 +131,9 @@ With help of:
 
       <scheme name="MakRule">
          <inherit scheme="MakInlineFiles"/>
-         <block start="/^\M(?{RuleOutline}[^\s\#][^\=\:]+)\:/" end="/(::?)/" scheme="MakGoal" region="Insertion"/>
+         <block start="/^\M(?{RuleOutline}[^\s\#][^\=\:]+)\:/" end="/(::?)/"
+          scheme="MakGoal" region="MakGoal"
+         />
          <inherit scheme="MakCommon"/>
       </scheme>
 
@@ -116,9 +142,14 @@ With help of:
       </scheme>
 
       <scheme name="makefile">
-         <block start="/^((\!\s*ifdef) IDEOPTIONS)/" end="/^(\!endif)/" scheme="config" region="String" region01="CommentContent" region02="Keyword" region11="Keyword" region00="PairStart" region10="PairEnd"/>
-         <block start="/^(\!)/" end="/$/" scheme="MakIf" region="CommentContent" region01="Keyword"/>
-         <regexp match="/^(\x20{2})+/" region='Error'/>
+         <block start="/^((\!\s*ifdef) IDEOPTIONS)/" end="/^(\!endif)/"
+          scheme="config" region="String"
+          region01="MakParams" region02="Keyword" region11="Keyword"
+          region00="PairStart" region10="PairEnd"
+         />
+         <block start="/^(\!)/" end="/$/"
+          scheme="MakIf" region="MakParams" region01="Keyword"
+         />
          <regexp match="/^\Minclude \s+ (?{IncludeOutline}.+)$/x"/>
 
          <keywords region="Keyword">
@@ -154,8 +185,17 @@ With help of:
             <word name="loaddll"/>
             <word name="VERSION"/>
          </keywords>
-         <block start="/^\M\S/" end="/(^ | [^\\]?#1) $/x" scheme="MakRule"/>
-         <block start="/^\M[\s\t]/" end="/$/" scheme="MakEx" region="CommentContent"/>
+         <block start="/(\w+)\s*(\=)\s*/" end="/\\?~1$/"
+          scheme="MakCommon" region="MakVarValue"
+          region01="MakVarName" region02="def:SymbolStrong"
+         />
+
+         <block start="/^\M\S/" end="/(^ | [^\\]?#1) $/x"
+          scheme="MakRule" region="MakRule"/>
+         <block start="/^\M(\s+|\t)/" end="/$/"
+          scheme="MakEx" region="MakParams"
+         />
+         <regexp match="/^(\x20{2})+/" region='Error'/>
       </scheme>
 
       <scheme name="MakEx">
@@ -165,3 +205,41 @@ With help of:
 
    </type>
 </hrc>
+<!-- ***** BEGIN LICENSE BLOCK *****
+   - Version: MPL 1.1/GPL 2.0/LGPL 2.1
+   -
+   - The contents of this file are subject to the Mozilla Public License Version
+   - 1.1 (the "License"); you may not use this file except in compliance with
+   - the License. You may obtain a copy of the License at
+   - http://www.mozilla.org/MPL/
+   -
+   - Software distributed under the License is distributed on an "AS IS" basis,
+   - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+   - for the specific language governing rights and limitations under the
+   - License.
+   -
+   - The Original Code is the Colorer Library.
+   -
+   - The Initial Developer of the Original Code is
+   - Cail Lomecb <cail@nm.ru>.
+   - Portions created by the Initial Developer are Copyright (C) 1999-2003
+   - the Initial Developer. All Rights Reserved.
+   -
+   - Contributor(s):
+   -  Eugene Efremov <4mirror@mail.ru>
+   -  Timur Safin <timur@lanit.ru>
+   -  Vincent GUIGNOT <vguignot@ingenico.fr>
+   -
+   - Alternatively, the contents of this file may be used under the terms of
+   - either the GNU General Public License Version 2 or later (the "GPL"), or
+   - the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+   - in which case the provisions of the GPL or the LGPL are applicable instead
+   - of those above. If you wish to allow use of your version of this file only
+   - under the terms of either the GPL or the LGPL, and not to allow others to
+   - use your version of this file under the terms of the MPL, indicate your
+   - decision by deleting the provisions above and replace them with the notice
+   - and other provisions required by the LGPL or the GPL. If you do not delete
+   - the provisions above, a recipient may use your version of this file under
+   - the terms of any one of the MPL, the GPL or the LGPL.
+   -
+   - ***** END LICENSE BLOCK ***** -->

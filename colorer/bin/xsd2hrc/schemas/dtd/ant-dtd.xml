@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<project default="main" basedir=".">
-
-  <target name="main">
-    <antstructure output='ant-dtd.dtd'/>
-  </target>
-
-</project>

@@ -8,7 +8,7 @@
                              http://colorer.sf.net/2003/catalog.xsd">
 
   <hrc-sets log-location="colorer.log">
-    <location link="hrc/colorer.hrc"/>
+    <location link="hrc/proto.hrc"/>
     <location link="hrc/auto"/>
 <!--
     <location link="hrc/colorer.hrc"/>
@@ -18,7 +18,6 @@
     <location link="\\server\common\colorer\hrc\colorer.hrc"/>
 -->
   </hrc-sets>
-
 
   <hrd-sets>
     <hrd class="console" name="default" description="Aqua on blue">
@@ -49,15 +48,23 @@
     <hrd class="console" name="xmastree" description="Xmas tree">
       <location link="hrd/console/xmastree.hrd"/>
     </hrd>
+
     <hrd class="console" name="ocean" description="Ocean Vladimir Fonarev">
       <location link="hrd/console/contrib/ocean.hrd"/>
     </hrd>
     <hrd class="console" name="black_ay" description="Black from Alex Yaroslavsky">
       <location link="hrd/console/contrib/black_ay.hrd"/>
     </hrd>
+    <hrd class="console" name="black_sezal" description="Black Sezal">
+      <location link="hrd/console/contrib/black_sezal.hrd"/>
+    </hrd>
     <hrd class="console" name="mirror" description="Mirror from Eugene Efromov">
       <location link="hrd/console/contrib/mirror.hrd"/>
     </hrd>
+    <hrd class="console" name="graypult" description="Gray (pult)">
+      <location link="hrd/console/contrib/gray_pult.hrd"/>
+    </hrd>
+
 
 
     <hrd class="rgb" name="default" description="White (crimsoned)">

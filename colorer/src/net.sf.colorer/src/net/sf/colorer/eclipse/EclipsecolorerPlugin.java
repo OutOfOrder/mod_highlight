@@ -16,46 +16,56 @@ import net.sf.colorer.swt.ColorManager;
  * The main plugin class to be used in the desktop.
  */
 public class EclipsecolorerPlugin extends AbstractUIPlugin {
-	//The shared instance.
-	private static EclipsecolorerPlugin plugin;
-  private String catalogPath;
-  private ParserFactory parserFactory;
-  private ColorManager colorManager = new ColorManager();
-	
-	/**
-	 * The constructor.
-	 */
-	public EclipsecolorerPlugin(IPluginDescriptor descriptor) {
-		super(descriptor);
-		plugin = this;
-    
+    //The shared instance.
+    private static EclipsecolorerPlugin plugin;
+    private String catalogPath;
+    private ParserFactory parserFactory;
+    private ColorManager colorManager = new ColorManager();
+
+    /**
+     * The constructor.
+     */
+    public EclipsecolorerPlugin(IPluginDescriptor descriptor) {
+        super(descriptor);
+        plugin = this;
+
     reloadParserFactory();
-    
+
     IPreferenceStore store = getPreferenceStore();
     store.setDefault(PreferencePage.TEXT_FONT, "");
     store.setDefault(PreferencePage.SPACES_FOR_TABS, false);
     store.setDefault(PreferencePage.WORD_WRAP, false);
     store.setDefault(PreferencePage.TAB_WIDTH, 4);
-    
+
     store.setDefault(PreferencePage.FULL_BACK, false);
     store.setDefault(PreferencePage.USE_BACK, false);
     store.setDefault(PreferencePage.VERT_CROSS, false);
     store.setDefault(PreferencePage.HORZ_CROSS, true);
     store.setDefault(PreferencePage.PAIRS_MATCH, "PAIRS_OUTLINE");
-    
-    store.setDefault(PreferencePage.HRD_SET, "default");   
-    store.setDefault(PreferencePage.RELOAD_HRC, "xx");   
+
+    store.setDefault(PreferencePage.HRD_SET, "default");
+    store.setDefault(PreferencePage.RELOAD_HRC, "xx");
 
     store.setDefault("Outline.Hierarchy", true);
     store.setDefault("Outline.Sort", false);
-	}
 
-	/**
-	 * Returns the shared instance.
-	 */
-	public static EclipsecolorerPlugin getDefault() {
-		return plugin;
-	}
+    store.setDefault("g.Prefix", "");
+    store.setDefault("g.Suffix", ".html");
+    store.setDefault("g.HRDSchema", store.getString(PreferencePage.HRD_SET));
+    store.setDefault("g.HtmlHeaderFooter", true);
+    store.setDefault("g.InfoHeader", true);
+    store.setDefault("g.UseLineNumbers", true);
+    store.setDefault("g.OutputEncoding", "default");
+    store.setDefault("g.TargetDirectory", "/");
+    store.setDefault("g.LinkSource", "");
+    }
+
+    /**
+     * Returns the shared instance.
+     */
+    public static EclipsecolorerPlugin getDefault() {
+        return plugin;
+    }
 
   public ParserFactory getParserFactory(){
     return parserFactory;
@@ -63,11 +73,10 @@ public class EclipsecolorerPlugin extends AbstractUIPlugin {
   public ColorManager getColorManager(){
     return colorManager;
   }
-  
+
   public void reloadParserFactory(){
-    try{  
+    try{
       catalogPath = Platform.resolve(new URL(getDescriptor().getInstallURL(), "colorer/catalog.xml")).toExternalForm();
-      //if (catalogPath.startsWith("file:"))
       parserFactory = new ParserFactory(catalogPath);
     }catch(Throwable e){
       boolean error = true;
@@ -79,20 +88,20 @@ public class EclipsecolorerPlugin extends AbstractUIPlugin {
         error = true;
         exc = e1;
       }
-      if (error) MessageDialog.openError(null, Messages.getString("init.error.title"),
-                                         Messages.getString("init.error.pf")+
+      if (error) MessageDialog.openError(null, Messages.get("init.error.title"),
+                                         Messages.get("init.error.pf")+
                                          "\n" + exc.getMessage());
     };
     // informs all the editors about ParserFactory reloading
     getPreferenceStore().firePropertyChangeEvent(PreferencePage.RELOAD_HRC, "", "");
   };
-  
-	/**
-	 * Returns the workspace instance.
-	 */
-	public static IWorkspace getWorkspace() {
-		return ResourcesPlugin.getWorkspace();
-	}
+
+    /**
+     * Returns the workspace instance.
+     */
+    public static IWorkspace getWorkspace() {
+        return ResourcesPlugin.getWorkspace();
+    }
 }
 /* ***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1/GPL 2.0/LGPL 2.1

@@ -18,8 +18,11 @@
 #include<common/io/FileInputSource.h>
 
 FileInputSource::FileInputSource(const String *basePath, FileInputSource *base){
+  bool prefix = true;
   if (basePath->startsWith(DString("file://"))){
     baseLocation = new SString(basePath, 7, -1);
+  }else if (basePath->startsWith(DString("file:/"))){
+    baseLocation = new SString(basePath, 6, -1);
   }else if (basePath->startsWith(DString("file:"))){
     baseLocation = new SString(basePath, 5, -1);
   }else{
@@ -27,7 +30,14 @@ FileInputSource::FileInputSource(const String *basePath, FileInputSource *base){
       baseLocation = getAbsolutePath(base->getLocation(), basePath);
     else
       baseLocation = new SString(basePath);
+    prefix = false;
   };
+  if(prefix && (baseLocation->indexOf(':') == -1 || baseLocation->indexOf(':') > 10) && !baseLocation->startsWith(DString("/"))){
+    StringBuffer *n_baseLocation = new StringBuffer();
+    n_baseLocation->append(DString("/")).append(baseLocation);
+    delete baseLocation;
+    baseLocation = n_baseLocation;
+  }
   stream = null;
 };
 

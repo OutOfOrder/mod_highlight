@@ -1,26 +1,87 @@
 package net.sf.colorer;
 
+import java.util.*;
 
+/**
+    Abstract template of HRCParser class implementation.
+    Defines basic operations of loading and accessing HRC information.
+*/
 public class HRCParser{
   long iptr;
   static int count = 0;
-  
-  HRCParser(long hp){
-    iptr = hp;
-    System.out.println("HRCParser count: " + (++count));
+
+  Group rootGroups[];
+  Hashtable allGroups = new Hashtable();
+
+  HRCParser(long _iptr){
+    iptr = _iptr;
   }
   protected void finalize() throws Throwable {
-    System.out.println("HRCParser count: " + (--count));
     finalize(iptr);
   }
+  native void finalize(long iptr);
 
+  /** Returns reference to region with specified qualified
+      name. If no such region, returns null.
+  */
   public Region getRegion(String qname){
     return getRegion(iptr, qname);
   }
-  
-  
   native Region getRegion(long iptr, String qname);
-  native void finalize(long iptr);
+
+  /**
+   * Returns tree of groups and types
+   */
+  public synchronized Group[] getGroups(){
+      if (rootGroups != null) return rootGroups;
+      Vector rg = new Vector();
+      for(Enumeration e = enumerateFileTypes(); e.hasMoreElements();){
+          FileType ft = (FileType)e.nextElement();
+          String ft_group = ft.getGroup();
+          int idx = ft_group.lastIndexOf('.');
+
+          Group gr = (Group)allGroups.get(ft_group);
+          if (gr == null){
+              gr = new Group(ft_group);
+              allGroups.put(ft_group, gr);
+              if (idx == -1){
+                  rg.addElement(gr);
+              }else{
+                  Group parent_gr = (Group)allGroups.get(ft_group.substring(0,idx));
+                  if (parent_gr == null){
+                      throw new RuntimeException("Invalid groups layout");
+                  }else{
+                      parent_gr.groups.addElement(gr);
+                  }
+              }
+          }
+          gr.filetypes.addElement(ft);
+      }
+      rootGroups = (Group[])rg.toArray(new Group[0]);
+      return rootGroups;
+  }
+
+  /** Enumerates all available language types.
+      Each element in enumeration contains reference to a
+      FileType object instance.
+  */
+  public Enumeration enumerateFileTypes(){
+    return new Enumeration(){
+      int idx = 0;
+      public boolean hasMoreElements() {
+        FileType cls = enumerateFileTypes(iptr, idx);
+        return (cls != null);
+      }
+      public Object nextElement() {
+        FileType cls = enumerateFileTypes(iptr, idx);
+        if (cls == null) return null;
+        idx++;
+        return cls;
+      }
+    };
+  }
+  native FileType enumerateFileTypes(long iptr, int idx);
+
 };
 /* ***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1/GPL 2.0/LGPL 2.1

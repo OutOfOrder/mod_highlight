@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hrc PUBLIC "-//Cail Lomecb//DTD Colorer HRC take5//EN" "http://colorer.sf.net/2003/hrc.dtd">
+<hrc xmlns="http://colorer.sf.net/2003/hrc" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://colorer.sf.net/2003/hrc http://colorer.sf.net/2003/hrc.xsd" version="take5">
+<!--
+  insert this define into HRC base catalog file (colorer.hrc)
+
+  <prototype name="htc" group="group" description="htc" targetNamespace="urn:HTMLComponent">
+    <location link="htc.hrc"/>
+    <filename>/\./ix</filename>
+  </prototype>
+--><type name="htc">
+<annotation>
+<documentation>
+           XSLT Generated HRC scheme for language 'htc'
+           from XML Schema with xsd2hrc.xsl version 0.9.2
+            (C) 2002-03 Cail Lomecb
+            Portions copyright (C) 2004 Eugene Efremov
+
+           Scheme parameters:
+             targetNamespace             : urn:HTMLComponent
+             hrctype                     : htc
+             allow-common-attr           : yes
+             allow-any-attr              : no
+             allow-unknown-elements      : no
+             allow-unknown-root-elements : no
+             force-single-root           : no
+             add-new-references          : 
+             default prefixes            : (?{}(?{}public):)?
+
+               you can change them with entity 'nsprefix'
+
+         </documentation>
+<documentation>
+          Schema documentation:
+  Simple fictive scheme for support HTML components in colorer HRC
+
+  Note! This is NOT VALID SCHEME for html componetnts!
+  Use it ONLY for xsd2hrc!
+ </documentation>
+<contributors>Eugene Efremov</contributors>
+</annotation>
+<import type="def"/>
+<region parent="xml:element.defined.start.name" name="element.start.name"/>
+<region parent="xml:element.defined.end.name" name="element.end.name"/>
+<region parent="xml:element.start.lt" name="element.start.lt"/>
+<region parent="xml:element.start.gt" name="element.start.gt"/>
+<region parent="xml:element.end.lt" name="element.end.lt"/>
+<region parent="xml:element.end.gt" name="element.end.gt"/>
+<region parent="element.start.name" name="element.nsprefix"/>
+<region parent="xml:element.nscolon" name="element.nscolon"/>
+<region parent="xml:Attribute.defined.name" name="Attribute.name"/>
+<region parent="xml:Attribute.nsprefix" name="Attribute.nsprefix"/>
+<region parent="xml:AttValue.defined" name="AttValue"/>
+<region parent="xml:AttValue.defined.start" name="AttValue.start"/>
+<region parent="xml:AttValue.defined.end" name="AttValue.end"/>
+<region description="Enumerated type values" parent="xml:Enumeration" name="Enumeration"/>
+<entity value="(?{}(?{}public):)" name="ns-real-prefix"/>
+<entity value="(?{}(?{}public):)?" name="nsprefix"/>
+<scheme name="_hrc_int_elementContent">
+<block scheme="xml:elementContent2" region19="element.start.gt" region18="element.end.gt" region17="element.end.name" region16="element.nscolon" region15="element.nsprefix" region12="element.end.lt" region11="PairEnd" region07="element.start.name" region06="element.nscolon" region05="element.nsprefix" region02="element.start.lt" region01="PairStart" end="/( (&lt;\/) (\y3\b)?= ( (%xml:NCName;) (:) )? (%xml:Name;) \b \M \s* (&gt;?)                   | (\/ \M &gt;) )/x" start="/~( (&lt;) (  ((%xml:NCName;) (:) )? (%xml:Name;) ) \M &gt;?   )/x"/>
+<inherit scheme="xml:badChar"/>
+</scheme>
+<scheme name="_hrc_int_AttValue">
+<block region="AttValue" scheme="xml:AttValue.content.quot" region11="AttValue.end" region01="AttValue.start" region10="PairEnd" region00="PairStart" end="/(\y1)/" start="/(&quot;)/"/>
+<block region="AttValue" scheme="xml:AttValue.content.apos" region11="AttValue.end" region01="AttValue.start" region10="PairEnd" region00="PairStart" end="/(\y1)/" start="/(')/"/>
+</scheme>
+<scheme name="AttributeContent">
+<inherit scheme="xml:AttributeContent">
+<virtual subst-scheme="_hrc_int_AttValue" scheme="xml:AttValue"/>
+</inherit>
+</scheme>
+<!--
+   xmlss.hrc: support 'script' element
+  -->
+<scheme name="xmlss-perl-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="def:empty" scheme="xml:element"/>
+<virtual subst-scheme="perl:perl" scheme="xml:content.cdata.stream"/>
+<virtual subst-scheme="perl:perl" scheme="xml:CDSect.content.stream"/>
+</inherit>
+</scheme>
+<scheme name="xmlss-jScript-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="def:empty" scheme="xml:element"/>
+<virtual subst-scheme="jScript:jScript" scheme="xml:content.cdata.stream"/>
+<virtual subst-scheme="jScript:jScript" scheme="xml:CDSect.content.stream"/>
+</inherit>
+</scheme>
+<scheme name="xmlss-vbScript-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="def:empty" scheme="xml:element"/>
+<virtual subst-scheme="vbScript:vbScript" scheme="xml:content.cdata.stream"/>
+<virtual subst-scheme="vbScript:vbScript" scheme="xml:CDSect.content.stream"/>
+</inherit>
+</scheme>
+<scheme name="xmlss-script">
+<block scheme="xmlss-perl-elementContent" end="/&gt;/" start="/\M (&lt;(script\b [^&gt;]+ (perlscript[\d\.]*) [^&gt;]*) &gt;) /ix"/>
+<block scheme="xmlss-jScript-elementContent" end="/&gt;/" start="/\M (&lt;(script\b [^&gt;]+ ((ecma|j(ava)?)script[\d\.]*) [^&gt;]*) &gt;) /ix"/>
+<block scheme="xmlss-vbScript-elementContent" end="/&gt;/" start="/\M (&lt;(script\b [^&gt;]+ (vbscript[\d\.]*) [^&gt;]*) &gt;) /ix"/>
+<block scheme="xmlss-jScript-elementContent" end="/&gt;/" start="/\M &lt;script\b [^&gt;]* (&gt;|$)/ix"/>
+</scheme>
+<scheme name="script-element">
+<inherit scheme="xmlss-script">
+<virtual subst-scheme="script-fictive-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+   xmlss.hrc: support attributes for language 'jScript' 
+  -->
+<scheme name="xmlss-jScript-attr">
+<block scheme="jScript:QuotScript" end="/\M'/" start="/'?#1\M[^']/" region="def:default"/>
+<block scheme="jScript:AposScript" end="/\M&quot;/" start="/&quot;?#1\M[^&quot;]/" region="def:default"/>
+</scheme>
+<!--
+   xmlss.hrc: support attributes for language 'html-css' 
+  -->
+<scheme name="xmlss-html-css-attr">
+<block scheme="html-css:QuotRuleContent" end="/\M'/" start="/'?#1\M[^']/"/>
+<block scheme="html-css:AposRuleContent" end="/\M&quot;/" start="/&quot;?#1\M[^&quot;]/"/>
+</scheme>
+<scheme name="style-content">
+<inherit scheme="xmlss-html-css-attr"/>
+</scheme>
+<scheme name="Script-content">
+<inherit scheme="xmlss-jScript-attr"/>
+</scheme>
+<scheme name="evlist-content">
+<keywords region="Enumeration">
+<!-- HTC events -->
+<word name="oncontentready"/>
+<word name="oncontentsave"/>
+<word name="ondetach"/>
+<word name="ondocumentready"/>
+<!-- HTML events -->
+<word name="onmouseup"/>
+<word name="oncontextmenu"/>
+<word name="onrowexit"/>
+<word name="onbeforepaste"/>
+<word name="onactivate"/>
+<word name="onmousemove"/>
+<word name="onmove"/>
+<word name="onselectstart"/>
+<word name="oncontrolselect"/>
+<word name="onkeypress"/>
+<word name="oncut"/>
+<word name="onrowenter"/>
+<word name="onmousedown"/>
+<word name="onpaste"/>
+<word name="onreadystatechange"/>
+<word name="onbeforedeactivate"/>
+<word name="onkeydown"/>
+<word name="onlosecapture"/>
+<word name="ondrag"/>
+<word name="ondragstart"/>
+<word name="oncellchange"/>
+<word name="onfilterchange"/>
+<word name="onrowsinserted"/>
+<word name="ondatasetcomplete"/>
+<word name="onmousewheel"/>
+<word name="ondragenter"/>
+<word name="onblur"/>
+<word name="onresizeend"/>
+<word name="onerrorupdate"/>
+<word name="onbeforecopy"/>
+<word name="ondblclick"/>
+<word name="onkeyup"/>
+<word name="onresizestart"/>
+<word name="onmouseover"/>
+<word name="onmouseleave"/>
+<word name="onmoveend"/>
+<word name="onresize"/>
+<word name="ondrop"/>
+<word name="onpage"/>
+<word name="onrowsdelete"/>
+<word name="onfocusout"/>
+<word name="ondatasetchanged"/>
+<word name="ondeactivate"/>
+<word name="onpropertychange"/>
+<word name="ondragover"/>
+<word name="onhelp"/>
+<word name="ondragend"/>
+<word name="onbeforeeditfocus"/>
+<word name="onfocus"/>
+<word name="onscroll"/>
+<word name="onbeforeactivate"/>
+<word name="onbeforecut"/>
+<word name="onclick"/>
+<word name="oncopy"/>
+<word name="onfocusin"/>
+<word name="onbeforeupdate"/>
+<word name="ondataavailable"/>
+<word name="onmovestart"/>
+<word name="onmouseout"/>
+<word name="onmouseenter"/>
+<word name="onlayoutcomplete"/>
+<word name="onafterupdate"/>
+<word name="ondragleave"/>
+<word name="onerror"/>
+<word name="onload"/>
+<word name="onbeforeunload"/>
+<word name="onafterprint"/>
+<word name="onbeforeprint"/>
+<word name="onselect"/>
+<word name="onunload"/>
+<word name="onabort"/>
+<word name="onreset"/>
+<word name="onsubmit"/>
+<word name="onchange"/>
+</keywords>
+<inherit scheme="xmlschema:string-content"/>
+</scheme>
+<scheme name="script-element-old-xmlss">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;script ([\s\/&gt;]|$) )/x" ="" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="component-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;component ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N10053-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="attach-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;attach ([\s\/&gt;]|$) )/x" scheme="attach-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="defaults-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;defaults ([\s\/&gt;]|$) )/x" scheme="defaults-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="event-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;event ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N100A9-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="method-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;method ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N100B2-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="property-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;property ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N100BE-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<!--
+  Simple fictive scheme for support HTML components in colorer HRC
+
+  Note! This is NOT VALID SCHEME for html componetnts!
+  Use it ONLY for xsd2hrc!
+ 
+-->
+<scheme name="Script-content-old">
+<inherit scheme="xmlschema:string-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="Script-content-error">
+<inherit scheme="Script-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="Script-Attributes"/>
+<scheme name="Script-AttributeContent">
+<inherit scheme="AttributeContent">
+<virtual subst-scheme="Script-content-error" scheme="xml:AttValue.content.stream"/>
+</inherit>
+</scheme>
+<scheme name="Script-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="Script-content-error" scheme="xml:CDSect.content.stream"/>
+<virtual subst-scheme="Script-content-error" scheme="xml:content.cdata.stream"/>
+<virtual subst-scheme="def:empty" scheme="xml:element"/>
+<virtual subst-scheme="Script-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<scheme name="style-content-old">
+<inherit scheme="xmlschema:string-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="style-content-error">
+<inherit scheme="style-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="style-Attributes"/>
+<scheme name="style-AttributeContent">
+<inherit scheme="AttributeContent">
+<virtual subst-scheme="style-content-error" scheme="xml:AttValue.content.stream"/>
+</inherit>
+</scheme>
+<scheme name="style-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="style-content-error" scheme="xml:CDSect.content.stream"/>
+<virtual subst-scheme="style-content-error" scheme="xml:content.cdata.stream"/>
+<virtual subst-scheme="def:empty" scheme="xml:element"/>
+<virtual subst-scheme="style-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<scheme name="bool-ext-content">
+<regexp region="Enumeration" match="/true/" xmlns="http://colorer.sf.net/2003/hrc"/>
+<regexp region="Enumeration" match="/false/" xmlns="http://colorer.sf.net/2003/hrc"/>
+<regexp region="Enumeration" match="/inherit/" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="bool-ext-content-error">
+<inherit scheme="bool-ext-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="bool-ext-Attributes"/>
+<scheme name="bool-ext-AttributeContent">
+<inherit scheme="AttributeContent">
+<virtual subst-scheme="bool-ext-content-error" scheme="xml:AttValue.content.stream"/>
+</inherit>
+</scheme>
+<scheme name="bool-ext-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="bool-ext-content-error" scheme="xml:CDSect.content.stream"/>
+<virtual subst-scheme="bool-ext-content-error" scheme="xml:content.cdata.stream"/>
+<virtual subst-scheme="def:empty" scheme="xml:element"/>
+<virtual subst-scheme="bool-ext-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<scheme name="bool-nest-content">
+<regexp region="Enumeration" match="/true/" xmlns="http://colorer.sf.net/2003/hrc"/>
+<regexp region="Enumeration" match="/false/" xmlns="http://colorer.sf.net/2003/hrc"/>
+<regexp region="Enumeration" match="/nested/" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="bool-nest-content-error">
+<inherit scheme="bool-nest-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="bool-nest-Attributes"/>
+<scheme name="bool-nest-AttributeContent">
+<inherit scheme="AttributeContent">
+<virtual subst-scheme="bool-nest-content-error" scheme="xml:AttValue.content.stream"/>
+</inherit>
+</scheme>
+<scheme name="bool-nest-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="bool-nest-content-error" scheme="xml:CDSect.content.stream"/>
+<virtual subst-scheme="bool-nest-content-error" scheme="xml:content.cdata.stream"/>
+<virtual subst-scheme="def:empty" scheme="xml:element"/>
+<virtual subst-scheme="bool-nest-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<scheme name="evlist-content-old">
+<inherit scheme="xmlschema:string-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="evlist-content-error">
+<inherit scheme="evlist-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="evlist-Attributes"/>
+<scheme name="evlist-AttributeContent">
+<inherit scheme="AttributeContent">
+<virtual subst-scheme="evlist-content-error" scheme="xml:AttValue.content.stream"/>
+</inherit>
+</scheme>
+<scheme name="evlist-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="evlist-content-error" scheme="xml:CDSect.content.stream"/>
+<virtual subst-scheme="evlist-content-error" scheme="xml:content.cdata.stream"/>
+<virtual subst-scheme="def:empty" scheme="xml:element"/>
+<virtual subst-scheme="evlist-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<scheme name="foratt-content">
+<regexp region="Enumeration" match="/document/" xmlns="http://colorer.sf.net/2003/hrc"/>
+<regexp region="Enumeration" match="/element/" xmlns="http://colorer.sf.net/2003/hrc"/>
+<regexp region="Enumeration" match="/window/" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="foratt-content-error">
+<inherit scheme="foratt-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="foratt-Attributes"/>
+<scheme name="foratt-AttributeContent">
+<inherit scheme="AttributeContent">
+<virtual subst-scheme="foratt-content-error" scheme="xml:AttValue.content.stream"/>
+</inherit>
+</scheme>
+<scheme name="foratt-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="foratt-content-error" scheme="xml:CDSect.content.stream"/>
+<virtual subst-scheme="foratt-content-error" scheme="xml:content.cdata.stream"/>
+<virtual subst-scheme="def:empty" scheme="xml:element"/>
+<virtual subst-scheme="foratt-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<scheme name="script-fictive-content"/>
+<scheme name="script-fictive-content-error">
+<inherit scheme="script-fictive-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="script-fictive-Attributes">
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(id)\M([\s\=]|$)/x" scheme="xmlschema:ID-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(type)\M([\s\=]|$)/x" scheme="xmlschema:string-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(language)\M([\s\=]|$)/x" scheme="xmlschema:string-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(src)\M([\s\=]|$)/x" scheme="xmlschema:anyURI-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(defer)\M([\s\=]|$)/x" scheme="_hrc_int_N1004C-AttributeContent"/>
+</scheme>
+<scheme name="script-fictive-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="script-fictive-content" scheme="xml:element"/>
+<virtual subst-scheme="xml:badChar" scheme="xml:content.cdata"/>
+<virtual subst-scheme="script-fictive-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: defer
+-->
+<scheme name="_hrc_int_N1004C-content">
+<regexp region="Enumeration" match="/defer/" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N1004C-content-error">
+<inherit scheme="_hrc_int_N1004C-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N1004C-Attributes"/>
+<scheme name="_hrc_int_N1004C-AttributeContent">
+<inherit scheme="AttributeContent">
+<virtual subst-scheme="_hrc_int_N1004C-content-error" scheme="xml:AttValue.content.stream"/>
+</inherit>
+</scheme>
+<!--
+        parent: component
+-->
+<scheme name="_hrc_int_N10053-content">
+<inherit scheme="script-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="attach-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="defaults-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="event-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="method-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="property-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N10053-content-error">
+<inherit scheme="_hrc_int_N10053-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N10053-Attributes">
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(name)\M([\s\=]|$)/x" scheme="xmlschema:string-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(id)\M([\s\=]|$)/x" scheme="xmlschema:ID-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(lightWeight)\M([\s\=]|$)/x" scheme="xmlschema:boolean-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(literalContent)\M([\s\=]|$)/x" scheme="bool-nest-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(tagName)\M([\s\=]|$)/x" scheme="xmlschema:string-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(urn)\M([\s\=]|$)/x" scheme="xmlschema:anyURI-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(URN)\M([\s\=]|$)/x" scheme="xmlschema:anyURI-AttributeContent"/>
+</scheme>
+<scheme name="_hrc_int_N10053-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N10053-content" scheme="xml:element"/>
+<virtual subst-scheme="xml:badChar" scheme="xml:content.cdata"/>
+<virtual subst-scheme="_hrc_int_N10053-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<scheme name="attach-content"/>
+<scheme name="attach-content-error">
+<inherit scheme="attach-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="attach-Attributes">
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(id)\M([\s\=]|$)/x" scheme="xmlschema:ID-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(for)\M([\s\=]|$)/x" scheme="foratt-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(event)\M([\s\=]|$)/x" scheme="evlist-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(onevent)\M([\s\=]|$)/x" scheme="Script-AttributeContent"/>
+</scheme>
+<scheme name="attach-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="attach-content" scheme="xml:element"/>
+<virtual subst-scheme="xml:badChar" scheme="xml:content.cdata"/>
+<virtual subst-scheme="attach-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<scheme name="defaults-content"/>
+<scheme name="defaults-content-error">
+<inherit scheme="defaults-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="defaults-Attributes">
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(id)\M([\s\=]|$)/x" scheme="xmlschema:ID-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(style)\M([\s\=]|$)/x" scheme="style-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(canHaveHTML)\M([\s\=]|$)/x" scheme="xmlschema:boolean-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(contentEditable)\M([\s\=]|$)/x" scheme="bool-ext-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(tabStop)\M([\s\=]|$)/x" scheme="xmlschema:boolean-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(viewInheritStyle)\M([\s\=]|$)/x" scheme="xmlschema:boolean-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(viewLinkContent)\M([\s\=]|$)/x" scheme="xmlschema:boolean-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(viewMasterTab)\M([\s\=]|$)/x" scheme="xmlschema:boolean-AttributeContent"/>
+</scheme>
+<scheme name="defaults-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="defaults-content" scheme="xml:element"/>
+<virtual subst-scheme="xml:badChar" scheme="xml:content.cdata"/>
+<virtual subst-scheme="defaults-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: event
+-->
+<scheme name="_hrc_int_N100A9-content"/>
+<scheme name="_hrc_int_N100A9-content-error">
+<inherit scheme="_hrc_int_N100A9-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N100A9-Attributes">
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(id)\M([\s\=]|$)/x" scheme="xmlschema:ID-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(name)\M([\s\=]|$)/x" scheme="xmlschema:string-AttributeContent"/>
+</scheme>
+<scheme name="_hrc_int_N100A9-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N100A9-content" scheme="xml:element"/>
+<virtual subst-scheme="xml:badChar" scheme="xml:content.cdata"/>
+<virtual subst-scheme="_hrc_int_N100A9-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: method
+-->
+<scheme name="_hrc_int_N100B2-content"/>
+<scheme name="_hrc_int_N100B2-content-error">
+<inherit scheme="_hrc_int_N100B2-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N100B2-Attributes">
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(id)\M([\s\=]|$)/x" scheme="xmlschema:ID-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(name)\M([\s\=]|$)/x" scheme="xmlschema:string-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(internalname)\M([\s\=]|$)/x" scheme="xmlschema:string-AttributeContent"/>
+</scheme>
+<scheme name="_hrc_int_N100B2-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N100B2-content" scheme="xml:element"/>
+<virtual subst-scheme="xml:badChar" scheme="xml:content.cdata"/>
+<virtual subst-scheme="_hrc_int_N100B2-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: property
+-->
+<scheme name="_hrc_int_N100BE-content"/>
+<scheme name="_hrc_int_N100BE-content-error">
+<inherit scheme="_hrc_int_N100BE-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N100BE-Attributes">
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(id)\M([\s\=]|$)/x" scheme="xmlschema:ID-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(name)\M([\s\=]|$)/x" scheme="xmlschema:string-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(internalname)\M([\s\=]|$)/x" scheme="xmlschema:string-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(presist)\M([\s\=]|$)/x" scheme="xmlschema:boolean-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(put)\M([\s\=]|$)/x" scheme="xmlschema:string-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(get)\M([\s\=]|$)/x" scheme="xmlschema:string-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(value)\M([\s\=]|$)/x" scheme="xmlschema:string-AttributeContent"/>
+</scheme>
+<scheme name="_hrc_int_N100BE-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N100BE-content" scheme="xml:element"/>
+<virtual subst-scheme="xml:badChar" scheme="xml:content.cdata"/>
+<virtual subst-scheme="_hrc_int_N100BE-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+
+<scheme name="htc-root">
+<annotation>
+<documentation>
+               You can replace these elements with needed single root element
+               with customizing HRC generation process.
+              </documentation>
+</annotation>
+<inherit scheme="script-element"/>
+<inherit scheme="component-element"/>
+<inherit scheme="attach-element"/>
+<inherit scheme="defaults-element"/>
+<inherit scheme="event-element"/>
+<inherit scheme="method-element"/>
+<inherit scheme="property-element"/>
+</scheme>
+<scheme name="htc-root-addref">
+<inherit scheme="htc-root"/>
+</scheme>
+<scheme name="htc">
+<inherit scheme="xml:xml">
+<virtual subst-scheme="htc-root-addref" scheme="xml:element"/>
+</inherit>
+</scheme>
+</type>
+</hrc>

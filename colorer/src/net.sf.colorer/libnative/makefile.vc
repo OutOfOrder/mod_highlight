@@ -17,16 +17,19 @@ obj  = obj
 
 obj_output_slash = $(obj_output)\\
 
-CPPFLAGS = -I$(shared_path) -I$(unzipdir)  /Fo$*.$(obj) /GX /nologo  /Ogtiyb2 /c /wd4101 /W3 $(CPPFLAGS_CUSTOM)
+CPPFLAGS_CUSTOM = /Zi
+LIB_DEBUG = /debug /incremental:no
+# /O2gtiyb2
+CPPFLAGS = -I$(shared_path) -I$(unzipdir)  /Fo$*.$(obj) /GX /nologo /c /wd4101 /W3 $(CPPFLAGS_CUSTOM)
 
 # ms nmake faults to substitute $(shared_path) here :(
-include d:/projects/shared/makefile.zlib
-include d:/projects/shared/_dependencies.dep
-include d:/projects/shared/makefile.objs
+include ../../shared/makefile.zlib
+include ../../shared/_dependencies.dep
+include ../../shared/makefile.objs
 
 include makefile.core
 
-LIBFLAGS = $(objs) wininet.lib /DLL
+LIBFLAGS = $(objs) wininet.lib /DLL $(LIB_DEBUG)
 
 $(obj_output_slash)net_sf_colorer.$(obj):
 	$(CPP) $(CPPFLAGS) -I$(JAVA_INCLUDE) -I$(JAVA_INCLUDE_MD) net_sf_colorer.cpp
@@ -35,4 +38,4 @@ $(TARGET): $(objs)
 	$(LINK) $(LIBFLAGS)
 
 clean:
-	$(RM) $(objs)
+	$(RM) $(objs) $(TARGET) net_sf_colorer.exp net_sf_colorer.lib

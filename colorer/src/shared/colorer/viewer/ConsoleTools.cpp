@@ -1,4 +1,6 @@
 
+#include<time.h>
+
 #include<colorer/ParserFactory.h>
 #include<colorer/editor/BaseEditor.h>
 #include<colorer/viewer/TextLinesStore.h>
@@ -6,12 +8,14 @@
 #include<colorer/viewer/TextConsoleViewer.h>
 
 #include<colorer/viewer/ConsoleTools.h>
+#include<xml/xmldom.h>
 
 ConsoleTools::ConsoleTools(){
   copyrightHeader = true;
   htmlEscaping = true;
   bomOutput = true;
   htmlWrapping = true;
+  lineNumbers = false;
 
   typeDescription = null;
   inputFileName = outputFileName = null;
@@ -44,6 +48,9 @@ void ConsoleTools::setHtmlEscaping(bool use) { htmlEscaping = use; }
 void ConsoleTools::setBomOutput(bool use) { bomOutput = use; }
 
 void ConsoleTools::setHtmlWrapping(bool use) { htmlWrapping = use; }
+
+void ConsoleTools::addLineNumbers(bool add){ lineNumbers = add; }
+
 
 void ConsoleTools::setTypeDescription(const String &str) {
   delete typeDescription;
@@ -87,36 +94,33 @@ void ConsoleTools::setHRDName(const String &str) {
 void ConsoleTools::setLinkSource(const String &str){
   InputSource *linkSource = null;
   const byte *stream = null;
+  DocumentBuilder docbuilder;
+  Document *linkSourceTree = null;
   try{
     linkSource = InputSource::newInstance(&str);
-    stream = linkSource->openStream();
-  }catch(InputSourceException &e){
-    throw Exception(*e.getMessage());
+    linkSourceTree = docbuilder.parse(linkSource);
+  }catch(Exception &e){
+    docbuilder.free(linkSourceTree);
+    throw e;
   };
 
-  CXmlEl *linkSourceTree = new CXmlEl();
-  linkSourceTree->parse(stream, linkSource->length());
-  linkSource->closeStream();
+  Node *elem = linkSourceTree->getDocumentElement();
 
-  CXmlEl *elem = linkSourceTree;
+  if (*elem->getNodeName() != "doclinks"){
+    throw Exception(DString("Bad doclinks data file structure"));
+  }
 
-  while(elem = elem->next()){
-   if (elem == null || elem->getType() == EL_BLOCKED &&
-       elem->getName() && *elem->getName() == "doclinks") break;
-  };
-  if (elem == null) throw Exception(DString("Bad doclinks data file structure"));
-
-  elem = elem->child();
+  elem = elem->getFirstChild();
   while(elem != null){
-    if (elem->getType() == EL_BLOCKED && elem->getName() && *elem->getName() == "links"){
-      const String *url = elem->getParamValue(DString("url"));
-      const String *scheme = elem->getParamValue(DString("scheme"));
-      CXmlEl *eachLink = elem->child();
+    if (elem->getNodeType() == Node::ELEMENT_NODE && *elem->getNodeName() == "links"){
+      const String *url = ((Element*)elem)->getAttribute(DString("url"));
+      const String *scheme = ((Element*)elem)->getAttribute(DString("scheme"));
+      Node *eachLink = elem->getFirstChild();
       while(eachLink != null){
-        if (eachLink->getName() && *eachLink->getName() == "link"){
-          const String *l_url = eachLink->getParamValue(DString("url"));
-          const String *l_scheme = eachLink->getParamValue(DString("scheme"));
-          const String *token = eachLink->getParamValue(DString("token"));
+        if (*eachLink->getNodeName() == "link"){
+          const String *l_url = ((Element*)eachLink)->getAttribute(DString("url"));
+          const String *l_scheme = ((Element*)eachLink)->getAttribute(DString("scheme"));
+          const String *token = ((Element*)eachLink)->getAttribute(DString("token"));
           StringBuffer fullURL;
           if (url != null) fullURL.append(url);
           if (l_url != null) fullURL.append(l_url);
@@ -128,13 +132,13 @@ void ConsoleTools::setLinkSource(const String &str){
           };
           docLinkHash->put(&hkey, new SString(&fullURL));
         };
-        eachLink = eachLink->next();
+        eachLink = eachLink->getNextSibling();
       };
     };
-    elem = elem->next();
+    elem = elem->getNextSibling();
   };
   delete linkSource;
-  delete linkSourceTree;
+  docbuilder.free(linkSourceTree);
 }
 
 
@@ -204,6 +208,34 @@ FileType *ConsoleTools::selectType(HRCParser *hrcParser, String *fline){
   return type;
 }
 
+void ConsoleTools::profile(int loopCount){
+  clock_t msecs;
+
+  // parsers factory
+  ParserFactory pf(catalogPath);
+  // Source file text lines store.
+  TextLinesStore textLinesStore;
+  textLinesStore.loadFile(inputFileName, inputEncoding, true);
+  // Base editor to make primary parse
+  BaseEditor baseEditor(&pf, &textLinesStore);
+  // HRD RegionMapper linking
+  if (hrdName == null) hrdName = new DString("default");
+  baseEditor.setRegionMapper(&DString("console"), hrdName);
+  FileType *type = selectType(pf.getHRCParser(), textLinesStore.getLine(0));
+  type->getBaseScheme();
+  baseEditor.setFileType(type);
+
+  msecs = clock();
+  while(loopCount--){
+    baseEditor.modifyLineEvent(0);
+    baseEditor.lineCountEvent(textLinesStore.getLineCount());
+    baseEditor.validate(-1);
+  };
+  msecs = clock() - msecs;
+
+  printf("%d\n", (msecs*1000)/CLOCKS_PER_SEC );
+}
+
 void ConsoleTools::viewFile(){
   try{
     // Source file text lines store.
@@ -245,7 +277,7 @@ void ConsoleTools::forward(){
     if (outputFileName != null) outputFile = new FileWriter(outputFileName, outputEncodingIndex, bomOutput);
     else outputFile = new StreamWriter(stdout, outputEncodingIndex, bomOutput);
   }catch(Exception &e){
-    fprintf(stderr, "can't open file '%s' for writing:\n", outputFileName->getChars());
+    fprintf(stderr, "can't open file '%s' for writing:", outputFileName->getChars());
     fprintf(stderr, e.getMessage()->getChars());
     return;
   };
@@ -324,7 +356,19 @@ void ConsoleTools::genOutput(bool useTokens){
       commonWriter->write(DString("'\n\n"));
     };
 
-    for(int i = 0; i < textLinesStore.getLineCount(); i++){
+    int lni = 0;
+    int lwidth = 1;
+    int lncount = textLinesStore.getLineCount();
+    for(lni = lncount/10; lni > 0; lni = lni/10, lwidth++);
+
+    for(int i = 0; i < lncount; i++){
+      if (lineNumbers){
+        int iwidth = 1;
+        for(lni = i/10; lni > 0; lni = lni/10, iwidth++);
+        for(lni = iwidth; lni < lwidth; lni++) commonWriter->write(0x0020);
+        commonWriter->write(SString(i));
+        commonWriter->write(DString(": "));
+      };
       if (useTokens){
         ParsedLineWriter::tokenWrite(commonWriter, escapedWriter, docLinkHash, textLinesStore.getLine(i), baseEditor.getLineRegions(i));
       }else if (useMarkup){

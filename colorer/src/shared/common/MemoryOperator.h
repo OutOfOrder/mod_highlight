@@ -1,17 +1,17 @@
 
-#ifdef USE_CHUNK_ALLOC
+#if USE_CHUNK_ALLOC
 
   void *operator new(size_t size){
     return chunk_alloc(size);
   };
   void operator delete(void *ptr){
-    return chunk_free(ptr);
+    chunk_free(ptr);
   };
   void *operator new[](size_t size){
     return chunk_alloc(size);
   };
   void operator delete[](void *ptr){
-    return chunk_free(ptr);
+    chunk_free(ptr);
   };
 
 #endif

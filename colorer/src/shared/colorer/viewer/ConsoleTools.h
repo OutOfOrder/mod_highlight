@@ -65,6 +65,8 @@ public:
   void setHRDName(const String &str);
   /// Sets linking datasource into this filename
   void setLinkSource(const String &str);
+  /// If true, result file will have line numbers before each line
+  void addLineNumbers(bool add);
 
 
   /** Regular Expressions tests.
@@ -73,6 +75,14 @@ public:
       Outputs all matched brackets.
   */
   void RETest();
+
+  /** Runs parser in profile mode. Does everything, -h makes, but
+      makes possible repeat loops and produces no output.
+      Prints into standard output number of msecs, used.
+
+      @param loopCount Number of times to repeat file's parsing.
+  */
+  void profile(int loopCount);
 
   /** Lists all available HRC types and
       optionally tries to load them.
@@ -107,6 +117,7 @@ private:
   bool htmlEscaping;
   bool bomOutput;
   bool htmlWrapping;
+  bool lineNumbers;
 
   int inputEncodingIndex;
   int outputEncodingIndex;

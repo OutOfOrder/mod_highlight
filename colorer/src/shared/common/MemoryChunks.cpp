@@ -1,15 +1,58 @@
 #include<common/Vector.h>
 #include<memory.h>
 #include<stdio.h>
+#include<time.h>
 
 #include<common/MemoryChunks.h>
+/**
+  @ingroup common @{
+*/
+#if USE_DL_MALLOC
+extern "C"{
+  void *dlmalloc(size_t size);
+  void dlfree(void *ptr);
+}
 
+void *operator new(size_t size){
+  return dlmalloc(size);
+};
+void operator delete(void *ptr){
+  return dlfree(ptr);
+};
+
+void *operator new[](size_t size){
+  return dlmalloc(size);
+};
+void operator delete[](void *ptr){
+  return dlfree(ptr);
+};
+#endif
+
+/**
+  List of currently allocated memory chunks with size CHUNK_SIZE
+*/
 static Vector<byte*> chunks;
+
+/**
+  Pointer to the last allocated chunk
+*/
 static byte *currentChunk = null;
+
+/**
+  Currently used size of the last allocated chunk
+*/
 static int currentChunkAlloc = 0;
 
+/**
+  Number of allocation instances.
+*/
 static int allocCount = 0;
 
+/**
+  Allocates @c size number of bytes and returns valid pointer.
+  @param size Requested number of bytes.
+  @throw Exception If no more memory, Exception is thrown.
+*/
 void *chunk_alloc(size_t size){
   if (size >= CHUNK_SIZE+4) throw Exception(DString("Too big memory request"));
   if (chunks.size() == 0){
@@ -26,12 +69,18 @@ void *chunk_alloc(size_t size){
   void *retVal = (void*)(currentChunk+currentChunkAlloc);
   currentChunkAlloc += size;
   allocCount++;
-//  printf("ca:%d - %db, all=%dKb\n", allocCount, size, ((chunks.size()-1)*CHUNK_SIZE+currentChunkAlloc)/1024);
+  //printf("ca:%d - %db, all=%dKb\n", allocCount, size, ((chunks.size()-1)*CHUNK_SIZE+currentChunkAlloc)/1024);
+  //printf("calloc\t%d\n", clock());
   return retVal;
 };
 
+/**
+  Deallocates previously allocated memory.
+  @param ptr Pointer, returned by @c chunk_alloc call.
+*/
 void chunk_free(void *ptr){
   if (ptr == null) return;
+  //printf("cfree\t%d\n", clock());
   allocCount--;
   if (allocCount == 0){
     for(int idx = 0; idx < chunks.size(); idx++){
@@ -41,6 +90,10 @@ void chunk_free(void *ptr){
   };
 //  printf("cf:%d, ", allocCount);
 };
+
+/**
+  @}
+*/
 
 
 /* ***** BEGIN LICENSE BLOCK *****

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
 <plugin
    id="net.sf.colorer"
-   name="Eclipse Colorer Library Plug-in"
-   version="0.5.0"
-   provider-name="Cail Lomecb"
+   name="Eclipse Colorer Library Plugin"
+   version="0.6.0"
+   provider-name="Igor Russkih"
    class="net.sf.colorer.eclipse.EclipsecolorerPlugin">
 
    <runtime>
@@ -12,8 +13,14 @@
       </library>
    </runtime>
    <requires>
-      <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.ui.views"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.ui.ide" optional="true"/>
+      <import plugin="org.eclipse.jface.text" optional="true"/>
+      <import plugin="org.eclipse.ui.workbench.texteditor" optional="true"/>
+      <import plugin="org.eclipse.ui.editors" optional="true"/>
+      <import plugin="org.eclipse.core.runtime.compatibility" optional="true"/>
    </requires>
 
 
@@ -57,7 +64,7 @@
             id="net.sf.colorer.eclipse.editors.ColorerEditor.XML">
       </editor>
    </extension>
-<!-- Preferences page -->
+<!-- Preferences pages -->
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
@@ -65,9 +72,30 @@
             class="net.sf.colorer.eclipse.PreferencePage"
             id="net.sf.colorer.eclipse.PreferencePage">
       </page>
+      <page
+            name="%FileTypePreferenceTitle"
+            category="net.sf.colorer.eclipse.PreferencePage"
+            class="net.sf.colorer.eclipse.FileTypePreferencePage"
+            id="net.sf.colorer.eclipse.FileTypePreferencePage">
+      </page>
    </extension>
+<!-- HRD Editor view page 
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="Eclipse Colorer"
+            id="colorer">
+      </category>
+      <view
+            name="Color schemas editor"
+            icon="icons/schema-view.gif"
+            category="colorer"
+            class="net.sf.colorer.eclipse.view.HRDEditorView"
+            id="net.sf.colorer.eclipse.view.HRDEditorView">
+      </view>
+   </extension>
+-->
 <!-- Editor Commands  -->
-
    <extension
          point="org.eclipse.ui.commands">
       <activeKeyConfiguration
@@ -178,7 +206,7 @@
       </objectContribution>
    </extension>
 
-<!-- Eclipse Help Topic 
+<!-- Eclipse Help Topic
    <extension
          point="org.eclipse.help.toc">
       <toc

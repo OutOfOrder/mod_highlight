@@ -1,11 +1,6 @@
 #ifndef _COLORER_COMMON_H_
 #define _COLORER_COMMON_H_
 
-/**
-  If defined, long-living classes uses chunk allocation procedure
-*/
-#define USE_CHUNK_ALLOC
-
 /// system dependent byte
 typedef unsigned char byte;
 /// system dependent word
@@ -18,6 +13,11 @@ typedef unsigned int dword;
 
 /// null pointer
 #define null (0)
+
+#define TRUE  1
+#define FALSE 0
+
+#include<common/Features.h>
 
 #include<unicode/String.h>
 #include<common/MemoryChunks.h>

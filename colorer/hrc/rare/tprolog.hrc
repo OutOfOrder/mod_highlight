@@ -1,12 +1,15 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding='Windows-1251'?>
+<!DOCTYPE hrc PUBLIC "-//Cail Lomecb//DTD Colorer HRC take5//EN"
+  "http://colorer.sf.net/2003/hrc.dtd">
+<hrc version="take5" xmlns="http://colorer.sf.net/2003/hrc"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://colorer.sf.net/2003/hrc http://colorer.sf.net/2003/hrc.xsd">
 <!--
     Turbo Prolog Highlighting Scheme for Colorer
-    $Id: tprolog.hrc,v 1.1 2003/05/30 12:02:37 Administrator Exp $
+    $Id: tprolog.hrc,v 1.2 2004/01/09 07:59:05 russkih Exp $
     Created by : Max Degtyarev <mdma@mail.ru>
 -->
-<!DOCTYPE hrc PUBLIC "-//Cail Lomecb//DTD Colorer HRC take5//EN" "../hrc.dtd">
-<hrc version="take5" xmlns="http://colorer.sf.net/2003/hrc">
-   <type name="turboProlog" access="public">
+   <type name="turboProlog">
 
       <import type="def"/>
 

@@ -1,7 +1,6 @@
 #ifndef _COLORER_HRCPARSERPELPERS_H_
 #define _COLORER_HRCPARSERPELPERS_H_
 
-#include<xml/xml.h>
 #include<cregexp/cregexp.h>
 
 #include<common/Vector.h>
@@ -115,8 +114,6 @@ public:
 };
 
 
-enum SchemeAccessType { SAT_PRIVATE, SAT_PUBLIC };
-
 /** Scheme storage implementation.
     Manages the vector of SchemeNode's.
     @ingroup colorer_parsers
@@ -133,12 +130,10 @@ public:
 protected:
   String *schemeName;
   Vector<SchemeNode*> nodes;
-  SchemeAccessType accessType;
   FileTypeImpl *fileType;
 
   SchemeImpl(const String *sn){
     schemeName = new SString(sn);
-    accessType = SAT_PRIVATE;
     fileType = null;
   };
   ~SchemeImpl(){

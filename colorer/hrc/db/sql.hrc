@@ -1,4 +1,9 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding='Windows-1251'?>
+<!DOCTYPE hrc PUBLIC "-//Cail Lomecb//DTD Colorer HRC take5//EN"
+  "http://colorer.sf.net/2003/hrc.dtd">
+<hrc version="take5" xmlns="http://colorer.sf.net/2003/hrc"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://colorer.sf.net/2003/hrc http://colorer.sf.net/2003/hrc.xsd">
 <!--
     TSQL Defines
 With help of:
@@ -25,9 +30,7 @@ With help of:
     * ported into 4ever
     Vadim Lopushansky <soft@notabene.itgo.com>
 -->
-<!DOCTYPE hrc PUBLIC "-//Cail Lomecb//DTD Colorer HRC take5//EN" "../hrc.dtd">
-<hrc version="take5" xmlns="http://colorer.sf.net/2003/hrc">
-   <type name="sql" access="public">
+   <type name="sql">
 
       <import type="def"/>
 
@@ -941,6 +944,10 @@ With help of:
          </keywords>
       </scheme>
 
+      <scheme name="stringApost">
+        <regexp match="/\\'/" region='def:StringContent'/>
+      </scheme>
+
       <scheme name="sql">
 <!-- linear comments -->
          <regexp match="/(--.*$)/" region0="sqlComment"/>
@@ -949,7 +956,7 @@ With help of:
          <block start="/\/\*/" end="/\*\//" scheme="Comment" region="sqlComment" region00="PairStart" region10="PairEnd"/>
 <!-- strings -->
          <regexp match="/(&#34;(\\.|[^\\&#34;])*?&#34;)/" region="sqlQuotedIdentifier"/>
-         <block start="/'/" end="/'/" scheme="empty" region="sqlString"/>
+         <block start="/'/" end="/'/" scheme="stringApost" region="sqlString"/>
 <!-- Numbers -->
          <inherit scheme="CHexNumber"/>
          <inherit scheme="FloatNumber"/>

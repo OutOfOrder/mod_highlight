@@ -1,7 +1,7 @@
 #ifndef _COLORER_PARSERFACTORY_H_
 #define _COLORER_PARSERFACTORY_H_
 
-#include<xml/xml.h>
+#include<xml/xmldom.h>
 #include<colorer/TextParser.h>
 #include<colorer/HRCParser.h>
 #include<colorer/handlers/DefaultErrorHandler.h>
@@ -25,18 +25,18 @@
       - \%HOMEPATH%/.colorer5catalog
       - \%SYSTEMROOT%/.colorer5catalog (or \%WINDIR% in w9x)
 
-    - unix systems:
+    - unix/macos systems:
       - ./catalog.xml
       - ../catalog.xml
       - ../../catalog.xml
-      - \%COLORER5CATALOG%
-      - \%HOME%/.colorer5catalog
-      - \%HOMEPATH%/.colorer5catalog
+      - \$COLORER5CATALOG
+      - \$HOME.colorer5catalog
+      - \$HOMEPATH.colorer5catalog
       - /usr/share/colorer/catalog.xml
       - /usr/local/share/colorer/catalog.xml
 
   @note
-    - \%NAME% - Environment variable of the current process.
+    - \%NAME%, \$NAME - Environment variable of the current process.
     - image_start_dir - Directory, where current image was started.
 
   @ingroup colorer
@@ -118,7 +118,8 @@ private:
   Hashtable<Hashtable<Vector<const String*>*>*> hrdLocations;
   Hashtable<const String *>hrdDescriptions;
   HRCParser  *hrcParser;
-  CXmlEl *catalog;
+  DocumentBuilder docbuilder;
+  Document *catalog;
 
   ParserFactory(const ParserFactory&);
   void operator=(const ParserFactory&);

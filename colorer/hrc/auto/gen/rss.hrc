@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hrc PUBLIC "-//Cail Lomecb//DTD Colorer HRC take5//EN" "http://colorer.sf.net/2003/hrc.dtd">
+<hrc xmlns="http://colorer.sf.net/2003/hrc" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://colorer.sf.net/2003/hrc http://colorer.sf.net/2003/hrc.xsd" version="take5">
+<!--
+  insert this define into HRC base catalog file (colorer.hrc)
+
+  <prototype name="rss" group="group" description="rss" targetNamespace="http://purl.org/rss/1.0/">
+    <location link="rss.hrc"/>
+    <filename>/\./ix</filename>
+  </prototype>
+--><type name="rss">
+<annotation>
+<documentation>
+           XSLT Generated HRC scheme for language 'rss'
+           from XML Schema with xsd2hrc.xsl version 0.9.2
+            (C) 2002-03 Cail Lomecb
+            Portions copyright (C) 2004 Eugene Efremov
+
+           Scheme parameters:
+             targetNamespace             : http://purl.org/rss/1.0/
+             hrctype                     : rss
+             allow-common-attr           : yes
+             allow-any-attr              : yes
+             allow-unknown-elements      : yes
+             allow-unknown-root-elements : yes
+             force-single-root           : no
+             add-new-references          : 
+             default prefixes            : (?{}(?{}rss):)?
+
+               you can change them with entity 'nsprefix'
+
+         </documentation>
+<documentation>
+          Schema documentation:</documentation>
+<contributors>Eugene Efremov</contributors>
+</annotation>
+<import type="def"/>
+<region parent="xml:element.defined.start.name" name="element.start.name"/>
+<region parent="xml:element.defined.end.name" name="element.end.name"/>
+<region parent="xml:element.start.lt" name="element.start.lt"/>
+<region parent="xml:element.start.gt" name="element.start.gt"/>
+<region parent="xml:element.end.lt" name="element.end.lt"/>
+<region parent="xml:element.end.gt" name="element.end.gt"/>
+<region parent="element.start.name" name="element.nsprefix"/>
+<region parent="xml:element.nscolon" name="element.nscolon"/>
+<region parent="xml:Attribute.defined.name" name="Attribute.name"/>
+<region parent="xml:Attribute.nsprefix" name="Attribute.nsprefix"/>
+<region parent="xml:AttValue.defined" name="AttValue"/>
+<region parent="xml:AttValue.defined.start" name="AttValue.start"/>
+<region parent="xml:AttValue.defined.end" name="AttValue.end"/>
+<region description="Enumerated type values" parent="xml:Enumeration" name="Enumeration"/>
+<region description="Header title" name="titleOutlined" parent="def:Outlined"/>
+<entity value="(?{}(?{}rss):)" name="ns-real-prefix"/>
+<entity value="(?{}(?{}rss):)?" name="nsprefix"/>
+<scheme name="_hrc_int_elementContent">
+<block scheme="xml:elementContent2" region19="element.start.gt" region18="element.end.gt" region17="element.end.name" region16="element.nscolon" region15="element.nsprefix" region12="element.end.lt" region11="PairEnd" region07="element.start.name" region06="element.nscolon" region05="element.nsprefix" region02="element.start.lt" region01="PairStart" end="/( (&lt;\/) (\y3\b)?= ( (%xml:NCName;) (:) )? (%xml:Name;) \b \M \s* (&gt;?)                   | (\/ \M &gt;) )/x" start="/~( (&lt;) (  ((%xml:NCName;) (:) )? (%xml:Name;) ) \M &gt;?   )/x"/>
+<inherit scheme="xml:badChar"/>
+</scheme>
+<scheme name="_hrc_int_AttValue">
+<block region="AttValue" scheme="xml:AttValue.content.quot" region11="AttValue.end" region01="AttValue.start" region10="PairEnd" region00="PairStart" end="/(\y1)/" start="/(&quot;)/"/>
+<block region="AttValue" scheme="xml:AttValue.content.apos" region11="AttValue.end" region01="AttValue.start" region10="PairEnd" region00="PairStart" end="/(\y1)/" start="/(')/"/>
+</scheme>
+<scheme name="AttributeContent">
+<inherit scheme="xml:AttributeContent">
+<virtual subst-scheme="_hrc_int_AttValue" scheme="xml:AttValue"/>
+</inherit>
+</scheme>
+<scheme name="rss-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;rss ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N10008-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="channel-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;channel ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N10012-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="title-element">
+<regexp region1="titleOutlined" match="/\M &lt; %nsprefix;title \b.*? &gt; (.{2,}?) (&lt;|$) /x" xmlns="http://colorer.sf.net/2003/hrc"/>
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;title ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N1004F-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="description-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;description ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N10053-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="link-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;link ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N10057-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="image-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;image ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N1005B-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="url-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;url ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N10073-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="item-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;item ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N10077-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="textinput-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;textinput ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N10083-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="name-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;name ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N10091-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="rating-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;rating ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N10095-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="language-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;language ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N10099-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="width-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;width ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N1009D-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="height-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;height ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N100A1-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="copyright-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;copyright ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N100A5-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="pubDate-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;pubDate ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N100A9-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="lastBuildDate-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;lastBuildDate ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N100AD-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="docs-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;docs ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N100B1-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="managingEditor-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;managingEditor ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N100B5-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="webMaster-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;webMaster ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N100B9-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="hour-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;hour ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N100BD-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="day-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;day ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N100C1-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="skipHours-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;skipHours ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N100C5-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="skipDays-element">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;skipDays ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N100CC-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<!--
+        parent: rss
+-->
+<scheme name="_hrc_int_N10008-content">
+<inherit scheme="channel-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:element" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N10008-content-error">
+<inherit scheme="_hrc_int_N10008-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N10008-Attributes">
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(version)\M([\s\=]|$)/x" scheme="xmlschema:string-AttributeContent"/>
+<inherit scheme="xml:Attribute.any"/>
+</scheme>
+<scheme name="_hrc_int_N10008-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N10008-content" scheme="xml:element"/>
+<virtual subst-scheme="xml:badChar" scheme="xml:content.cdata"/>
+<virtual subst-scheme="_hrc_int_N10008-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: channel
+-->
+<scheme name="_hrc_int_N10012-content">
+<inherit scheme="title-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="description-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="link-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="language-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="item-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="rating-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="image-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="textinput-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="copyright-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="pubDate-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="lastBuildDate-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="docs-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="managingEditor-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="webMaster-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="skipHours-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="skipDays-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:element" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N10012-content-error">
+<inherit scheme="_hrc_int_N10012-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N10012-Attributes">
+<inherit scheme="xml:Attribute.any"/>
+</scheme>
+<scheme name="_hrc_int_N10012-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N10012-content" scheme="xml:element"/>
+<virtual subst-scheme="xml:badChar" scheme="xml:content.cdata"/>
+<virtual subst-scheme="_hrc_int_N10012-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: title
+-->
+<scheme name="_hrc_int_N1004F-content">
+<inherit scheme="xml:element" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N1004F-content-error">
+<inherit scheme="_hrc_int_N1004F-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N1004F-Attributes">
+<inherit scheme="xml:Attribute.any"/>
+</scheme>
+<scheme name="_hrc_int_N1004F-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N1004F-content" scheme="xml:element"/>
+<virtual subst-scheme="_hrc_int_N1004F-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: description
+-->
+<scheme name="_hrc_int_N10053-content">
+<inherit scheme="xml:element" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N10053-content-error">
+<inherit scheme="_hrc_int_N10053-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N10053-Attributes">
+<inherit scheme="xml:Attribute.any"/>
+</scheme>
+<scheme name="_hrc_int_N10053-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N10053-content" scheme="xml:element"/>
+<virtual subst-scheme="_hrc_int_N10053-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: link
+-->
+<scheme name="_hrc_int_N10057-content">
+<inherit scheme="xml:element" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N10057-content-error">
+<inherit scheme="_hrc_int_N10057-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N10057-Attributes">
+<inherit scheme="xml:Attribute.any"/>
+</scheme>
+<scheme name="_hrc_int_N10057-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N10057-content" scheme="xml:element"/>
+<virtual subst-scheme="_hrc_int_N10057-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: image
+-->
+<scheme name="_hrc_int_N1005B-content">
+<inherit scheme="title-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="url-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="link-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="width-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="height-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="description-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:element" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N1005B-content-error">
+<inherit scheme="_hrc_int_N1005B-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N1005B-Attributes">
+<inherit scheme="xml:Attribute.any"/>
+</scheme>
+<scheme name="_hrc_int_N1005B-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N1005B-content" scheme="xml:element"/>
+<virtual subst-scheme="xml:badChar" scheme="xml:content.cdata"/>
+<virtual subst-scheme="_hrc_int_N1005B-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: url
+-->
+<scheme name="_hrc_int_N10073-content">
+<inherit scheme="xml:element" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N10073-content-error">
+<inherit scheme="_hrc_int_N10073-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N10073-Attributes">
+<inherit scheme="xml:Attribute.any"/>
+</scheme>
+<scheme name="_hrc_int_N10073-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N10073-content" scheme="xml:element"/>
+<virtual subst-scheme="_hrc_int_N10073-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: item
+-->
+<scheme name="_hrc_int_N10077-content">
+<inherit scheme="title-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="link-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="description-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:element" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N10077-content-error">
+<inherit scheme="_hrc_int_N10077-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N10077-Attributes">
+<inherit scheme="xml:Attribute.any"/>
+</scheme>
+<scheme name="_hrc_int_N10077-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N10077-content" scheme="xml:element"/>
+<virtual subst-scheme="xml:badChar" scheme="xml:content.cdata"/>
+<virtual subst-scheme="_hrc_int_N10077-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: textinput
+-->
+<scheme name="_hrc_int_N10083-content">
+<inherit scheme="title-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="description-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="name-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="link-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:element" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N10083-content-error">
+<inherit scheme="_hrc_int_N10083-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N10083-Attributes">
+<inherit scheme="xml:Attribute.any"/>
+</scheme>
+<scheme name="_hrc_int_N10083-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N10083-content" scheme="xml:element"/>
+<virtual subst-scheme="xml:badChar" scheme="xml:content.cdata"/>
+<virtual subst-scheme="_hrc_int_N10083-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: name
+-->
+<scheme name="_hrc_int_N10091-content">
+<inherit scheme="xml:element" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N10091-content-error">
+<inherit scheme="_hrc_int_N10091-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N10091-Attributes">
+<inherit scheme="xml:Attribute.any"/>
+</scheme>
+<scheme name="_hrc_int_N10091-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N10091-content" scheme="xml:element"/>
+<virtual subst-scheme="_hrc_int_N10091-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: rating
+-->
+<scheme name="_hrc_int_N10095-content">
+<inherit scheme="xml:element" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N10095-content-error">
+<inherit scheme="_hrc_int_N10095-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N10095-Attributes">
+<inherit scheme="xml:Attribute.any"/>
+</scheme>
+<scheme name="_hrc_int_N10095-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N10095-content" scheme="xml:element"/>
+<virtual subst-scheme="_hrc_int_N10095-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: language
+-->
+<scheme name="_hrc_int_N10099-content">
+<inherit scheme="xml:element" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N10099-content-error">
+<inherit scheme="_hrc_int_N10099-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N10099-Attributes">
+<inherit scheme="xml:Attribute.any"/>
+</scheme>
+<scheme name="_hrc_int_N10099-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N10099-content" scheme="xml:element"/>
+<virtual subst-scheme="_hrc_int_N10099-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: width
+-->
+<scheme name="_hrc_int_N1009D-content">
+<inherit scheme="xml:element" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N1009D-content-error">
+<inherit scheme="_hrc_int_N1009D-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N1009D-Attributes">
+<inherit scheme="xml:Attribute.any"/>
+</scheme>
+<scheme name="_hrc_int_N1009D-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N1009D-content" scheme="xml:element"/>
+<virtual subst-scheme="_hrc_int_N1009D-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: height
+-->
+<scheme name="_hrc_int_N100A1-content">
+<inherit scheme="xml:element" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N100A1-content-error">
+<inherit scheme="_hrc_int_N100A1-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N100A1-Attributes">
+<inherit scheme="xml:Attribute.any"/>
+</scheme>
+<scheme name="_hrc_int_N100A1-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N100A1-content" scheme="xml:element"/>
+<virtual subst-scheme="_hrc_int_N100A1-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: copyright
+-->
+<scheme name="_hrc_int_N100A5-content">
+<inherit scheme="xml:element" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N100A5-content-error">
+<inherit scheme="_hrc_int_N100A5-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N100A5-Attributes">
+<inherit scheme="xml:Attribute.any"/>
+</scheme>
+<scheme name="_hrc_int_N100A5-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N100A5-content" scheme="xml:element"/>
+<virtual subst-scheme="_hrc_int_N100A5-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: pubDate
+-->
+<scheme name="_hrc_int_N100A9-content">
+<inherit scheme="xml:element" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N100A9-content-error">
+<inherit scheme="_hrc_int_N100A9-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N100A9-Attributes">
+<inherit scheme="xml:Attribute.any"/>
+</scheme>
+<scheme name="_hrc_int_N100A9-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N100A9-content" scheme="xml:element"/>
+<virtual subst-scheme="_hrc_int_N100A9-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: lastBuildDate
+-->
+<scheme name="_hrc_int_N100AD-content">
+<inherit scheme="xml:element" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N100AD-content-error">
+<inherit scheme="_hrc_int_N100AD-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N100AD-Attributes">
+<inherit scheme="xml:Attribute.any"/>
+</scheme>
+<scheme name="_hrc_int_N100AD-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N100AD-content" scheme="xml:element"/>
+<virtual subst-scheme="_hrc_int_N100AD-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: docs
+-->
+<scheme name="_hrc_int_N100B1-content">
+<inherit scheme="xml:element" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N100B1-content-error">
+<inherit scheme="_hrc_int_N100B1-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N100B1-Attributes">
+<inherit scheme="xml:Attribute.any"/>
+</scheme>
+<scheme name="_hrc_int_N100B1-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N100B1-content" scheme="xml:element"/>
+<virtual subst-scheme="_hrc_int_N100B1-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: managingEditor
+-->
+<scheme name="_hrc_int_N100B5-content">
+<inherit scheme="xml:element" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N100B5-content-error">
+<inherit scheme="_hrc_int_N100B5-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N100B5-Attributes">
+<inherit scheme="xml:Attribute.any"/>
+</scheme>
+<scheme name="_hrc_int_N100B5-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N100B5-content" scheme="xml:element"/>
+<virtual subst-scheme="_hrc_int_N100B5-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: webMaster
+-->
+<scheme name="_hrc_int_N100B9-content">
+<inherit scheme="xml:element" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N100B9-content-error">
+<inherit scheme="_hrc_int_N100B9-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N100B9-Attributes">
+<inherit scheme="xml:Attribute.any"/>
+</scheme>
+<scheme name="_hrc_int_N100B9-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N100B9-content" scheme="xml:element"/>
+<virtual subst-scheme="_hrc_int_N100B9-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: hour
+-->
+<scheme name="_hrc_int_N100BD-content">
+<inherit scheme="xml:element" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N100BD-content-error">
+<inherit scheme="_hrc_int_N100BD-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N100BD-Attributes">
+<inherit scheme="xml:Attribute.any"/>
+</scheme>
+<scheme name="_hrc_int_N100BD-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N100BD-content" scheme="xml:element"/>
+<virtual subst-scheme="_hrc_int_N100BD-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: day
+-->
+<scheme name="_hrc_int_N100C1-content">
+<inherit scheme="xml:element" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N100C1-content-error">
+<inherit scheme="_hrc_int_N100C1-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N100C1-Attributes">
+<inherit scheme="xml:Attribute.any"/>
+</scheme>
+<scheme name="_hrc_int_N100C1-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N100C1-content" scheme="xml:element"/>
+<virtual subst-scheme="_hrc_int_N100C1-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: skipHours
+-->
+<scheme name="_hrc_int_N100C5-content">
+<inherit scheme="hour-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:element" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N100C5-content-error">
+<inherit scheme="_hrc_int_N100C5-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N100C5-Attributes">
+<inherit scheme="xml:Attribute.any"/>
+</scheme>
+<scheme name="_hrc_int_N100C5-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N100C5-content" scheme="xml:element"/>
+<virtual subst-scheme="xml:badChar" scheme="xml:content.cdata"/>
+<virtual subst-scheme="_hrc_int_N100C5-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+<!--
+        parent: skipDays
+-->
+<scheme name="_hrc_int_N100CC-content">
+<inherit scheme="day-element" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:element" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N100CC-content-error">
+<inherit scheme="_hrc_int_N100CC-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
+</scheme>
+<scheme name="_hrc_int_N100CC-Attributes">
+<inherit scheme="xml:Attribute.any"/>
+</scheme>
+<scheme name="_hrc_int_N100CC-elementContent">
+<inherit scheme="_hrc_int_elementContent">
+<virtual subst-scheme="_hrc_int_N100CC-content" scheme="xml:element"/>
+<virtual subst-scheme="xml:badChar" scheme="xml:content.cdata"/>
+<virtual subst-scheme="_hrc_int_N100CC-Attributes" scheme="xml:Attribute.any"/>
+</inherit>
+</scheme>
+
+<scheme name="rss-root">
+<annotation>
+<documentation>
+               You can replace these elements with needed single root element
+               with customizing HRC generation process.
+              </documentation>
+</annotation>
+<inherit scheme="rss-element"/>
+<inherit scheme="channel-element"/>
+<inherit scheme="title-element"/>
+<inherit scheme="description-element"/>
+<inherit scheme="link-element"/>
+<inherit scheme="image-element"/>
+<inherit scheme="url-element"/>
+<inherit scheme="item-element"/>
+<inherit scheme="textinput-element"/>
+<inherit scheme="name-element"/>
+<inherit scheme="rating-element"/>
+<inherit scheme="language-element"/>
+<inherit scheme="width-element"/>
+<inherit scheme="height-element"/>
+<inherit scheme="copyright-element"/>
+<inherit scheme="pubDate-element"/>
+<inherit scheme="lastBuildDate-element"/>
+<inherit scheme="docs-element"/>
+<inherit scheme="managingEditor-element"/>
+<inherit scheme="webMaster-element"/>
+<inherit scheme="hour-element"/>
+<inherit scheme="day-element"/>
+<inherit scheme="skipHours-element"/>
+<inherit scheme="skipDays-element"/>
+<inherit scheme="xml:element">
+<virtual subst-scheme="rss-root" scheme="xml:element"/>
+</inherit>
+</scheme>
+<scheme name="rss-root-addref">
+<inherit scheme="rss-root"/>
+</scheme>
+<scheme name="rss">
+<inherit scheme="xml:xml">
+<virtual subst-scheme="rss-root-addref" scheme="xml:element"/>
+</inherit>
+</scheme>
+</type>
+</hrc>

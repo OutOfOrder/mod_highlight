@@ -89,18 +89,18 @@ void FarEditor::setFileType(FileType *ftype){
   baseEditor->setFileType(ftype);
 
   HRCParser *hrcParser = parserFactory->getHRCParser();
-  FileType *def = hrcParser->getFileType(&DString("def"));
-  if (def == null) throw Exception(DString("No 'def' file type found"));
+  FileType *def = hrcParser->getFileType(&DString("default"));
+  if (def == null) throw Exception(DString("No 'default' file type found"));
 
   int backparse = 2000;
-  UnicodeTools::getNumber(def->getParameter(DString("backparse")), &backparse);
-  UnicodeTools::getNumber(def->getParameter(DString("maxlinelength")), &maxLineLength);
-  UnicodeTools::getNumber(def->getParameter(DString("default-fore")), &newfore);
-  UnicodeTools::getNumber(def->getParameter(DString("default-back")), &newback);
+  UnicodeTools::getNumber(def->getParamValue(DString("backparse")), &backparse);
+  UnicodeTools::getNumber(def->getParamValue(DString("maxlinelength")), &maxLineLength);
+  UnicodeTools::getNumber(def->getParamValue(DString("default-fore")), &newfore);
+  UnicodeTools::getNumber(def->getParamValue(DString("default-back")), &newback);
   const String *value;
-  value = def->getParameter(DString("fullback"));
+  value = def->getParamValue(DString("fullback"));
   if (value != null && value->equals("no")) fullBackground = false;
-  value = def->getParameter(DString("show-cross"));
+  value = def->getParamValue(DString("show-cross"));
   if (value != null && value->equals("none")){
     showHorizontalCross = false;
     showVerticalCross   = false;
@@ -117,17 +117,17 @@ void FarEditor::setFileType(FileType *ftype){
     showHorizontalCross = true;
     showVerticalCross   = true;
   };
-  value = def->getParameter(DString("cross-zorder"));
+  value = def->getParamValue(DString("cross-zorder"));
   if (value != null && value->equals("top")) crossZOrder = 1;
 
   // installs custom file properties
-  UnicodeTools::getNumber(ftype->getParameter(DString("backparse")), &backparse);
-  UnicodeTools::getNumber(ftype->getParameter(DString("maxlinelength")), &maxLineLength);
-  UnicodeTools::getNumber(ftype->getParameter(DString("default-fore")), &newfore);
-  UnicodeTools::getNumber(ftype->getParameter(DString("default-back")), &newback);
-  value = ftype->getParameter(DString("fullback"));
+  UnicodeTools::getNumber(ftype->getParamValue(DString("backparse")), &backparse);
+  UnicodeTools::getNumber(ftype->getParamValue(DString("maxlinelength")), &maxLineLength);
+  UnicodeTools::getNumber(ftype->getParamValue(DString("default-fore")), &newfore);
+  UnicodeTools::getNumber(ftype->getParamValue(DString("default-back")), &newback);
+  value = ftype->getParamValue(DString("fullback"));
   if (value != null && value->equals("no")) fullBackground = false;
-  value = ftype->getParameter(DString("show-cross"));
+  value = ftype->getParamValue(DString("show-cross"));
   if (value != null && value->equals("none")){
     showHorizontalCross = false;
     showVerticalCross   = false;
@@ -144,7 +144,7 @@ void FarEditor::setFileType(FileType *ftype){
     showHorizontalCross = true;
     showVerticalCross   = true;
   };
-  value = ftype->getParameter(DString("cross-zorder"));
+  value = ftype->getParamValue(DString("cross-zorder"));
   if (value != null && value->equals("top")) crossZOrder = 1;
 
   baseEditor->setBackParse(backparse);
@@ -662,6 +662,11 @@ const int FILTER_SIZE = 40;
     int sel = 0;
     sel = info->Menu(info->ModuleNumber, -1, -1, 0, FMENU_SHOWAMPERSAND|FMENU_WRAPMODE,
                   top, GetMsg(mChoose), "add", breakKeys, &code, menu, menu_size);
+
+    // handle mouse selection
+    if (sel != -1 && code == -1){
+      code = 1;
+    }
 
     switch (code){
       case -1:

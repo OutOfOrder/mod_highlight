@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE hrc PUBLIC "-//Cail Lomecb//DTD Colorer HRC take5//EN" "http://colorer.sf.net/2003/hrc.dtd">
-<hrc xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://colorer.sf.net/2003/hrc" xsi:schemaLocation="http://colorer.sf.net/2003/hrc http://colorer.sf.net/2003/hrc.xsd" version="take5">
+<hrc xmlns="http://colorer.sf.net/2003/hrc" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://colorer.sf.net/2003/hrc http://colorer.sf.net/2003/hrc.xsd" version="take5">
 <!--
   insert this define into HRC base catalog file (colorer.hrc)
 
@@ -12,7 +12,9 @@
 <annotation>
 <documentation>
            XSLT Generated HRC scheme for language 'esc'
-           from XML Schema with xsd2hrc.xsl version 0.9 (c) Cail Lomecb
+           from XML Schema with xsd2hrc.xsl version 0.9.2
+            (C) 2002-03 Cail Lomecb
+            Portions copyright (C) 2004 Eugene Efremov
 
            Scheme parameters:
              targetNamespace             : uri:esc
@@ -22,7 +24,9 @@
              allow-unknown-elements      : no
              allow-unknown-root-elements : no
              force-single-root           : yes
+             add-new-references          : 
              default prefixes            : (?{}(?{}esc):)?
+
                you can change them with entity 'nsprefix'
 
          </documentation>
@@ -45,7 +49,7 @@
 <region parent="xml:AttValue.defined.start" name="AttValue.start"/>
 <region parent="xml:AttValue.defined.end" name="AttValue.end"/>
 <region description="Enumerated type values" parent="xml:Enumeration" name="Enumeration"/>
-<region description="type setting" parent="def:Outlined" name="typeOutlined"/>
+<region description="type setting" name="typeOutlined" parent="def:Outlined"/>
 <entity value="(?{}(?{}esc):)" name="ns-real-prefix"/>
 <entity value="(?{}(?{}esc):)?" name="nsprefix"/>
 <scheme name="_hrc_int_elementContent">
@@ -63,7 +67,7 @@
 </scheme>
 <scheme name="farmacro-content">
 <inherit scheme="far:macro.string"/>
-<inherit scheme="xs:string"/>
+<inherit scheme="farmacro-content-old"/>
 </scheme>
 <scheme name="farmacro-content-error">
 <inherit scheme="farmacro-content"/>
@@ -71,7 +75,7 @@
 <scheme name="farmask-content">
 <regexp match="/abstract/" region="Enumeration"/>
 <inherit scheme="far:mask.string"/>
-<inherit scheme="xs:string"/>
+<inherit scheme="farmask-content-old"/>
 </scheme>
 <scheme name="farmask-content-error">
 <inherit scheme="farmask-content"/>
@@ -81,7 +85,7 @@
 </scheme>
 <scheme name="include-string-content">
 <inherit scheme="def:Path"/>
-<inherit scheme="xs:string"/>
+<inherit scheme="include-string-content-old"/>
 </scheme>
 <scheme name="include-string-content-error">
 <inherit scheme="include-string-content"/>
@@ -93,26 +97,23 @@
 <regexp region="def:Number" region1="def:NumberSuffix" match="/\d{1,3}(\%?)/"/>
 </scheme>
 <scheme name="Esc-Settings-element">
-<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;Esc-Settings ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N400045-elementContent"/>
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;Esc-Settings ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N1003D-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
-<!-- 
-  Simple scheme for support 
+<!--
+  Simple scheme for support
   "Extended selection case" plugin by Ivan Sintyurin (spinoza@mail.ru)
-  
+
   Note. 'uri:esc' is fictive namespace.
 
-  Written by Eugene Efremov (4mirror@mail.ru) 
+  Written by Eugene Efremov (4mirror@mail.ru)
  
 -->
 <scheme name="farmacro-content-old">
-<!--
-    Warning: RE pattern used. Possible compatibility faults
-    Original RE: .*-->
-<regexp priority="low" region="Enumeration" match="/.*/"/>
+<inherit scheme="xmlschema:string-content" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="farmacro-content-error-old">
-<inherit scheme="farmacro-content"/>
-<inherit scheme="xml:badChar"/>
+<inherit scheme="farmacro-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="farmacro-Attributes"/>
 <scheme name="farmacro-AttributeContent">
@@ -129,14 +130,11 @@
 </inherit>
 </scheme>
 <scheme name="farkey-content-old">
-<!--
-    Warning: RE pattern used. Possible compatibility faults
-    Original RE: .*-->
-<regexp priority="low" region="Enumeration" match="/.*/"/>
+<inherit scheme="xmlschema:string-content" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="farkey-content-error">
-<inherit scheme="farkey-content"/>
-<inherit scheme="xml:badChar"/>
+<inherit scheme="farkey-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="farkey-Attributes"/>
 <scheme name="farkey-AttributeContent">
@@ -153,14 +151,11 @@
 </inherit>
 </scheme>
 <scheme name="farmask-content-old">
-<!--
-    Warning: RE pattern used. Possible compatibility faults
-    Original RE: .*-->
-<regexp priority="low" region="Enumeration" match="/.*/"/>
+<inherit scheme="xmlschema:string-content" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="farmask-content-error-old">
-<inherit scheme="farmask-content"/>
-<inherit scheme="xml:badChar"/>
+<inherit scheme="farmask-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="farmask-Attributes"/>
 <scheme name="farmask-AttributeContent">
@@ -177,14 +172,11 @@
 </inherit>
 </scheme>
 <scheme name="include-string-content-old">
-<!--
-    Warning: RE pattern used. Possible compatibility faults
-    Original RE: .*-->
-<regexp priority="low" region="Enumeration" match="/.*/"/>
+<inherit scheme="xmlschema:string-content" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="include-string-content-error-old">
-<inherit scheme="include-string-content"/>
-<inherit scheme="xml:badChar"/>
+<inherit scheme="include-string-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="include-string-Attributes"/>
 <scheme name="include-string-AttributeContent">
@@ -204,11 +196,11 @@
 <!--
     Warning: RE pattern used. Possible compatibility faults
     Original RE: \d{1,3}%?-->
-<regexp priority="low" region="Enumeration" match="/\d{1,3}\%?/"/>
+<regexp priority="low" region="Enumeration" match="/\d{1,3}\%?/" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="nurber-pres-content-error">
-<inherit scheme="nurber-pres-content"/>
-<inherit scheme="xml:badChar"/>
+<inherit scheme="nurber-pres-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="nurber-pres-Attributes"/>
 <scheme name="nurber-pres-AttributeContent">
@@ -225,12 +217,12 @@
 </inherit>
 </scheme>
 <scheme name="onoff-content">
-<regexp region="Enumeration" match="/on/"/>
-<regexp region="Enumeration" match="/off/"/>
+<regexp region="Enumeration" match="/on/" xmlns="http://colorer.sf.net/2003/hrc"/>
+<regexp region="Enumeration" match="/off/" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="onoff-content-error">
-<inherit scheme="onoff-content"/>
-<inherit scheme="xml:badChar"/>
+<inherit scheme="onoff-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="onoff-Attributes"/>
 <scheme name="onoff-AttributeContent">
@@ -247,13 +239,13 @@
 </inherit>
 </scheme>
 <scheme name="ooi-content">
-<regexp region="Enumeration" match="/on/"/>
-<regexp region="Enumeration" match="/off/"/>
-<regexp region="Enumeration" match="/ignore/"/>
+<regexp region="Enumeration" match="/on/" xmlns="http://colorer.sf.net/2003/hrc"/>
+<regexp region="Enumeration" match="/off/" xmlns="http://colorer.sf.net/2003/hrc"/>
+<regexp region="Enumeration" match="/ignore/" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="ooi-content-error">
-<inherit scheme="ooi-content"/>
-<inherit scheme="xml:badChar"/>
+<inherit scheme="ooi-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="ooi-Attributes"/>
 <scheme name="ooi-AttributeContent">
@@ -272,60 +264,60 @@
 <!--
         parent: Esc-Settings
 -->
-<scheme name="_hrc_int_N400045-content">
-<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;Types ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N400049-elementContent"/>
+<scheme name="_hrc_int_N1003D-content">
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;Types ([\s\/&gt;]|$) )/x" scheme="_hrc_int_N10041-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
-<scheme name="_hrc_int_N400045-content-error">
-<inherit scheme="_hrc_int_N400045-content"/>
-<inherit scheme="xml:badChar"/>
+<scheme name="_hrc_int_N1003D-content-error">
+<inherit scheme="_hrc_int_N1003D-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
-<scheme name="_hrc_int_N400045-Attributes"/>
-<scheme name="_hrc_int_N400045-elementContent">
+<scheme name="_hrc_int_N1003D-Attributes"/>
+<scheme name="_hrc_int_N1003D-elementContent">
 <inherit scheme="_hrc_int_elementContent">
-<virtual subst-scheme="_hrc_int_N400045-content" scheme="xml:element"/>
+<virtual subst-scheme="_hrc_int_N1003D-content" scheme="xml:element"/>
 <virtual subst-scheme="xml:badChar" scheme="xml:content.cdata"/>
-<virtual subst-scheme="_hrc_int_N400045-Attributes" scheme="xml:Attribute.any"/>
+<virtual subst-scheme="_hrc_int_N1003D-Attributes" scheme="xml:Attribute.any"/>
 </inherit>
 </scheme>
 <!--
         parent: Types
 -->
-<scheme name="_hrc_int_N400049-content">
-<regexp region1="typeOutlined" match="/\M (&lt; %nsprefix;type \b\s*.*? (([\x22\x27])(.*?)(\3))? )([\/&gt;\s]|$)/x"/>
-<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;type ([\s\/&gt;]|$) )/x" scheme="type-elementContent"/>
+<scheme name="_hrc_int_N10041-content">
+<regexp region1="typeOutlined" match="/\M (&lt; %nsprefix;type \b\s*.*? (([\x22\x27])(.*?)(\3))? )([\/&gt;\s]|$)/x" xmlns="http://colorer.sf.net/2003/hrc"/>
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;type ([\s\/&gt;]|$) )/x" scheme="type-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
-<scheme name="_hrc_int_N400049-content-error">
-<inherit scheme="_hrc_int_N400049-content"/>
-<inherit scheme="xml:badChar"/>
+<scheme name="_hrc_int_N10041-content-error">
+<inherit scheme="_hrc_int_N10041-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
-<scheme name="_hrc_int_N400049-Attributes"/>
-<scheme name="_hrc_int_N400049-elementContent">
+<scheme name="_hrc_int_N10041-Attributes"/>
+<scheme name="_hrc_int_N10041-elementContent">
 <inherit scheme="_hrc_int_elementContent">
-<virtual subst-scheme="_hrc_int_N400049-content" scheme="xml:element"/>
+<virtual subst-scheme="_hrc_int_N10041-content" scheme="xml:element"/>
 <virtual subst-scheme="xml:badChar" scheme="xml:content.cdata"/>
-<virtual subst-scheme="_hrc_int_N400049-Attributes" scheme="xml:Attribute.any"/>
+<virtual subst-scheme="_hrc_int_N10041-Attributes" scheme="xml:Attribute.any"/>
 </inherit>
 </scheme>
 <scheme name="type-content">
-<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;margin ([\s\/&gt;]|$) )/x" scheme="margin-elementContent"/>
-<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;quote ([\s\/&gt;]|$) )/x" scheme="quote-elementContent"/>
-<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;tab ([\s\/&gt;]|$) )/x" scheme="tab-elementContent"/>
-<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;smartkey ([\s\/&gt;]|$) )/x" scheme="smartkey-elementContent"/>
-<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;kill ([\s\/&gt;]|$) )/x" scheme="kill-elementContent"/>
-<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;addsymbol ([\s\/&gt;]|$) )/x" scheme="addsymbol-elementContent"/>
-<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;autoindent ([\s\/&gt;]|$) )/x" scheme="autoindent-elementContent"/>
-<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;cursorbeol ([\s\/&gt;]|$) )/x" scheme="cursorbeol-elementContent"/>
-<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;charcodebase ([\s\/&gt;]|$) )/x" scheme="charcodebase-elementContent"/>
-<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;eol ([\s\/&gt;]|$) )/x" scheme="eol-elementContent"/>
-<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;table ([\s\/&gt;]|$) )/x" scheme="table-elementContent"/>
-<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;savepos ([\s\/&gt;]|$) )/x" scheme="savepos-elementContent"/>
-<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;lockmode ([\s\/&gt;]|$) )/x" scheme="lockmode-elementContent"/>
-<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;usermacro ([\s\/&gt;]|$) )/x" scheme="usermacro-elementContent"/>
-<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;lockfile ([\s\/&gt;]|$) )/x" scheme="lockfile-elementContent"/>
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;margin ([\s\/&gt;]|$) )/x" scheme="margin-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;quote ([\s\/&gt;]|$) )/x" scheme="quote-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;tab ([\s\/&gt;]|$) )/x" scheme="tab-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;smartkey ([\s\/&gt;]|$) )/x" scheme="smartkey-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;kill ([\s\/&gt;]|$) )/x" scheme="kill-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;addsymbol ([\s\/&gt;]|$) )/x" scheme="addsymbol-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;autoindent ([\s\/&gt;]|$) )/x" scheme="autoindent-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;cursorbeol ([\s\/&gt;]|$) )/x" scheme="cursorbeol-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;charcodebase ([\s\/&gt;]|$) )/x" scheme="charcodebase-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;eol ([\s\/&gt;]|$) )/x" scheme="eol-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;table ([\s\/&gt;]|$) )/x" scheme="table-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;savepos ([\s\/&gt;]|$) )/x" scheme="savepos-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;lockmode ([\s\/&gt;]|$) )/x" scheme="lockmode-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;usermacro ([\s\/&gt;]|$) )/x" scheme="usermacro-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;lockfile ([\s\/&gt;]|$) )/x" scheme="lockfile-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="type-content-error">
-<inherit scheme="type-content"/>
-<inherit scheme="xml:badChar"/>
+<inherit scheme="type-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="type-Attributes">
 <block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(name)\M([\s\=]|$)/x" scheme="xmlschema:string-AttributeContent"/>
@@ -343,8 +335,8 @@
 </scheme>
 <scheme name="margin-content"/>
 <scheme name="margin-content-error">
-<inherit scheme="margin-content"/>
-<inherit scheme="xml:badChar"/>
+<inherit scheme="margin-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="margin-Attributes">
 <block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(autowrap)\M([\s\=]|$)/x" scheme="onoff-AttributeContent"/>
@@ -360,8 +352,8 @@
 </scheme>
 <scheme name="quote-content"/>
 <scheme name="quote-content-error">
-<inherit scheme="quote-content"/>
-<inherit scheme="xml:badChar"/>
+<inherit scheme="quote-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="quote-Attributes">
 <block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(value)\M([\s\=]|$)/x" scheme="onoff-AttributeContent"/>
@@ -376,8 +368,8 @@
 </scheme>
 <scheme name="tab-content"/>
 <scheme name="tab-content-error">
-<inherit scheme="tab-content"/>
-<inherit scheme="xml:badChar"/>
+<inherit scheme="tab-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="tab-Attributes">
 <block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(tabsize)\M([\s\=]|$)/x" scheme="xmlschema:positiveInteger-AttributeContent"/>
@@ -392,8 +384,8 @@
 </scheme>
 <scheme name="smartkey-content"/>
 <scheme name="smartkey-content-error">
-<inherit scheme="smartkey-content"/>
-<inherit scheme="xml:badChar"/>
+<inherit scheme="smartkey-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="smartkey-Attributes">
 <block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(tab)\M([\s\=]|$)/x" scheme="onoff-AttributeContent"/>
@@ -411,8 +403,8 @@
 </scheme>
 <scheme name="kill-content"/>
 <scheme name="kill-content-error">
-<inherit scheme="kill-content"/>
-<inherit scheme="xml:badChar"/>
+<inherit scheme="kill-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="kill-Attributes">
 <block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(killspace)\M([\s\=]|$)/x" scheme="onoff-AttributeContent"/>
@@ -430,8 +422,8 @@
 </scheme>
 <scheme name="addsymbol-content"/>
 <scheme name="addsymbol-content-error">
-<inherit scheme="addsymbol-content"/>
-<inherit scheme="xml:badChar"/>
+<inherit scheme="addsymbol-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="addsymbol-Attributes">
 <block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(value)\M([\s\=]|$)/x" scheme="onoff-AttributeContent"/>
@@ -449,8 +441,8 @@
 </scheme>
 <scheme name="autoindent-content"/>
 <scheme name="autoindent-content-error">
-<inherit scheme="autoindent-content"/>
-<inherit scheme="xml:badChar"/>
+<inherit scheme="autoindent-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="autoindent-Attributes">
 <block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(value)\M([\s\=]|$)/x" scheme="ooi-AttributeContent"/>
@@ -464,8 +456,8 @@
 </scheme>
 <scheme name="cursorbeol-content"/>
 <scheme name="cursorbeol-content-error">
-<inherit scheme="cursorbeol-content"/>
-<inherit scheme="xml:badChar"/>
+<inherit scheme="cursorbeol-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="cursorbeol-Attributes">
 <block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(value)\M([\s\=]|$)/x" scheme="ooi-AttributeContent"/>
@@ -479,11 +471,11 @@
 </scheme>
 <scheme name="charcodebase-content"/>
 <scheme name="charcodebase-content-error">
-<inherit scheme="charcodebase-content"/>
-<inherit scheme="xml:badChar"/>
+<inherit scheme="charcodebase-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="charcodebase-Attributes">
-<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(value)\M([\s\=]|$)/x" scheme="_hrc_int_N400101-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(value)\M([\s\=]|$)/x" scheme="_hrc_int_N100F9-AttributeContent"/>
 </scheme>
 <scheme name="charcodebase-elementContent">
 <inherit scheme="_hrc_int_elementContent">
@@ -495,26 +487,26 @@
 <!--
         parent: value
 -->
-<scheme name="_hrc_int_N400101-content">
-<regexp region="Enumeration" match="/hex/"/>
-<regexp region="Enumeration" match="/dec/"/>
-<regexp region="Enumeration" match="/oct/"/>
-<regexp region="Enumeration" match="/ignore/"/>
+<scheme name="_hrc_int_N100F9-content">
+<regexp region="Enumeration" match="/hex/" xmlns="http://colorer.sf.net/2003/hrc"/>
+<regexp region="Enumeration" match="/dec/" xmlns="http://colorer.sf.net/2003/hrc"/>
+<regexp region="Enumeration" match="/oct/" xmlns="http://colorer.sf.net/2003/hrc"/>
+<regexp region="Enumeration" match="/ignore/" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
-<scheme name="_hrc_int_N400101-content-error">
-<inherit scheme="_hrc_int_N400101-content"/>
-<inherit scheme="xml:badChar"/>
+<scheme name="_hrc_int_N100F9-content-error">
+<inherit scheme="_hrc_int_N100F9-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
-<scheme name="_hrc_int_N400101-Attributes"/>
-<scheme name="_hrc_int_N400101-AttributeContent">
+<scheme name="_hrc_int_N100F9-Attributes"/>
+<scheme name="_hrc_int_N100F9-AttributeContent">
 <inherit scheme="AttributeContent">
-<virtual subst-scheme="_hrc_int_N400101-content-error" scheme="xml:AttValue.content.stream"/>
+<virtual subst-scheme="_hrc_int_N100F9-content-error" scheme="xml:AttValue.content.stream"/>
 </inherit>
 </scheme>
 <scheme name="eol-content"/>
 <scheme name="eol-content-error">
-<inherit scheme="eol-content"/>
-<inherit scheme="xml:badChar"/>
+<inherit scheme="eol-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="eol-Attributes">
 <block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(value)\M([\s\=]|$)/x" scheme="xmlschema:string-AttributeContent"/>
@@ -528,8 +520,8 @@
 </scheme>
 <scheme name="table-content"/>
 <scheme name="table-content-error">
-<inherit scheme="table-content"/>
-<inherit scheme="xml:badChar"/>
+<inherit scheme="table-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="table-Attributes">
 <block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(value)\M([\s\=]|$)/x" scheme="xmlschema:nonNegativeInteger-AttributeContent"/>
@@ -544,8 +536,8 @@
 </scheme>
 <scheme name="savepos-content"/>
 <scheme name="savepos-content-error">
-<inherit scheme="savepos-content"/>
-<inherit scheme="xml:badChar"/>
+<inherit scheme="savepos-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="savepos-Attributes">
 <block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(value)\M([\s\=]|$)/x" scheme="ooi-AttributeContent"/>
@@ -560,8 +552,8 @@
 </scheme>
 <scheme name="lockmode-content"/>
 <scheme name="lockmode-content-error">
-<inherit scheme="lockmode-content"/>
-<inherit scheme="xml:badChar"/>
+<inherit scheme="lockmode-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="lockmode-Attributes">
 <block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(value)\M([\s\=]|$)/x" scheme="ooi-AttributeContent"/>
@@ -574,11 +566,11 @@
 </inherit>
 </scheme>
 <scheme name="usermacro-content">
-<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;macro ([\s\/&gt;]|$) )/x" scheme="macro-elementContent"/>
+<block end="/ &gt; /x" start="/\M &lt; (%nsprefix;macro ([\s\/&gt;]|$) )/x" scheme="macro-elementContent" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="usermacro-content-error">
-<inherit scheme="usermacro-content"/>
-<inherit scheme="xml:badChar"/>
+<inherit scheme="usermacro-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="usermacro-Attributes">
 <block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(value)\M([\s\=]|$)/x" scheme="onoff-AttributeContent"/>
@@ -592,8 +584,8 @@
 </scheme>
 <scheme name="lockfile-content"/>
 <scheme name="lockfile-content-error">
-<inherit scheme="lockfile-content"/>
-<inherit scheme="xml:badChar"/>
+<inherit scheme="lockfile-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="lockfile-Attributes">
 <block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(value)\M([\s\=]|$)/x" scheme="onoff-AttributeContent"/>
@@ -607,8 +599,8 @@
 </scheme>
 <scheme name="macro-content"/>
 <scheme name="macro-content-error">
-<inherit scheme="macro-content"/>
-<inherit scheme="xml:badChar"/>
+<inherit scheme="macro-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
 <scheme name="macro-Attributes">
 <block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(key)\M([\s\=]|$)/x" scheme="farkey-AttributeContent"/>
@@ -622,7 +614,7 @@
 <block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(lalt)\M([\s\=]|$)/x" scheme="onoff-AttributeContent"/>
 <block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(shift)\M([\s\=]|$)/x" scheme="onoff-AttributeContent"/>
 <block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(stop)\M([\s\=]|$)/x" scheme="onoff-AttributeContent"/>
-<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(selection)\M([\s\=]|$)/x" scheme="_hrc_int_N400160-AttributeContent"/>
+<block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(selection)\M([\s\=]|$)/x" scheme="_hrc_int_N10158-AttributeContent"/>
 <block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(silent)\M([\s\=]|$)/x" scheme="onoff-AttributeContent"/>
 <block region02="Attribute.name" end="/[&quot;']?#1/" start="/(\s?#1|^)(enable)\M([\s\=]|$)/x" scheme="onoff-AttributeContent"/>
 </scheme>
@@ -636,25 +628,25 @@
 <!--
         parent: selection
 -->
-<scheme name="_hrc_int_N400160-content">
-<regexp region="Enumeration" match="/on/"/>
-<regexp region="Enumeration" match="/off/"/>
-<regexp region="Enumeration" match="/stream/"/>
-<regexp region="Enumeration" match="/column/"/>
-<regexp region="Enumeration" match="/ignore/"/>
+<scheme name="_hrc_int_N10158-content">
+<regexp region="Enumeration" match="/on/" xmlns="http://colorer.sf.net/2003/hrc"/>
+<regexp region="Enumeration" match="/off/" xmlns="http://colorer.sf.net/2003/hrc"/>
+<regexp region="Enumeration" match="/stream/" xmlns="http://colorer.sf.net/2003/hrc"/>
+<regexp region="Enumeration" match="/column/" xmlns="http://colorer.sf.net/2003/hrc"/>
+<regexp region="Enumeration" match="/ignore/" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
-<scheme name="_hrc_int_N400160-content-error">
-<inherit scheme="_hrc_int_N400160-content"/>
-<inherit scheme="xml:badChar"/>
+<scheme name="_hrc_int_N10158-content-error">
+<inherit scheme="_hrc_int_N10158-content" xmlns="http://colorer.sf.net/2003/hrc"/>
+<inherit scheme="xml:badChar" xmlns="http://colorer.sf.net/2003/hrc"/>
 </scheme>
-<scheme name="_hrc_int_N400160-Attributes"/>
-<scheme name="_hrc_int_N400160-AttributeContent">
+<scheme name="_hrc_int_N10158-Attributes"/>
+<scheme name="_hrc_int_N10158-AttributeContent">
 <inherit scheme="AttributeContent">
-<virtual subst-scheme="_hrc_int_N400160-content-error" scheme="xml:AttValue.content.stream"/>
+<virtual subst-scheme="_hrc_int_N10158-content-error" scheme="xml:AttValue.content.stream"/>
 </inherit>
 </scheme>
 
-<scheme access="public" name="esc-root">
+<scheme name="esc-root">
 <annotation>
 <documentation>
                You can replace these elements with needed single root element
@@ -663,9 +655,12 @@
 </annotation>
 <inherit scheme="Esc-Settings-element"/>
 </scheme>
-<scheme access="public" name="esc">
+<scheme name="esc-root-addref">
+<inherit scheme="esc-root"/>
+</scheme>
+<scheme name="esc">
 <inherit scheme="xml:singleroot">
-<virtual subst-scheme="esc-root" scheme="xml:element"/>
+<virtual subst-scheme="esc-root-addref" scheme="xml:element"/>
 </inherit>
 </scheme>
 </type>

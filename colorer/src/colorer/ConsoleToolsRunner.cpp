@@ -1,21 +1,31 @@
 
 #include<stdio.h>
+#include<stdlib.h>
 #include<colorer/viewer/ConsoleTools.h>
 
 /** Internal run action type */
-enum { JT_NOTHING, JT_REGTEST,
+enum { JT_NOTHING, JT_REGTEST, JT_PROFILE,
        JT_LIST_LOAD, JT_LIST_TYPES,
        JT_VIEW, JT_GEN, JT_GEN_TOKENS, JT_FORWARD } jobType;
+int profileLoops = 1;
 
 /** Reads and parse command line */
 void init(ConsoleTools &ct, int argc, char*argv[]){
 
   fprintf(stderr, "\n%s\n", ParserFactory::getVersion());
-  fprintf(stderr, "Copyright (c) 1999-2003 Cail Lomecb <cail@nm.ru>\n\n");
+  fprintf(stderr, "Copyright (c) 1999-2004 Igor Russkih <cail@nm.ru>\n\n");
 
   for(int i = 1; i < argc; i++){
     if (argv[i][0] != '-'){
       ct.setInputFileName(DString(argv[i]));
+      continue;
+    };
+
+    if (argv[i][1] == 'p'){
+      jobType = JT_PROFILE;
+      if (argv[i][2]){
+        profileLoops = atoi(argv[i]+2);
+      };
       continue;
     };
     if (argv[i][1] == 'r') { jobType = JT_REGTEST; continue; };
@@ -32,6 +42,7 @@ void init(ConsoleTools &ct, int argc, char*argv[]){
       };
       continue;
     };
+    if (argv[i][1] == 'l' && argv[i][2] == 'n') { ct.addLineNumbers(true); continue; };
     if (argv[i][1] == 'l' && argv[i][2] == 'l') { jobType = JT_LIST_LOAD; continue; };
     if (argv[i][1] == 'l') { jobType = JT_LIST_TYPES; continue; };
 
@@ -109,6 +120,7 @@ void printError(){
        "  -h         Generates plain coloring from <filename> (uses 'rgb' hrd class)\n"
        "  -ht        Generates plain coloring from <filename> using tokens output\n"
        "  -v         Runs viewer on file <fname> (uses 'console' hrd class)\n"
+       "  -p<n>      Runs parser in profile mode (if <n> specified, makes <n> loops)\n"
        "  -f         Forwards input file into output with specified encodings\n"
        " Parameters:\n"
        "  -c<path>   Uses specified 'catalog.xml' file\n"
@@ -118,6 +130,7 @@ void printError(){
        "  -ei<name>  Use input file encoding <name>\n"
        "  -eo<name>  Use output stream encoding <name>, also viewer encoding in w9x\n"
        "  -o<name>   Use file <name> as output stream\n"
+       "  -ln        Add line numbers into the colorized file\n"
        "  -db        Disable BOM(ZWNBSP) start symbol output in Unicode encodings\n"
        "  -dc        Disable information header in generator's output\n"
        "  -ds        Disable HTML symbol substitutions in generator's output\n"
@@ -141,6 +154,9 @@ int main(int argc, char *argv[])
     switch(jobType){
       case JT_REGTEST:
         ct.RETest();
+        break;
+      case JT_PROFILE:
+        ct.profile(profileLoops);
         break;
       case JT_LIST_LOAD:
         ct.listTypes(true);

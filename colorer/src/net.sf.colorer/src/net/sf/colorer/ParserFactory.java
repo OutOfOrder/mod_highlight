@@ -8,46 +8,28 @@ public class ParserFactory{
     System.loadLibrary("net_sf_colorer");
   };
   long iptr;
+  long internal;
   static int count = 0;
 
   public ParserFactory(String catalogPath){
     iptr = init(catalogPath);
-    System.out.println("ParserFactory count: " + (++count));
+    internal = iptr;
+    System.out.println("ParserFactory count: " + (++count) + " iptr="+iptr);
   };
   public ParserFactory(){
     iptr = init(null);
-    System.out.println("ParserFactory count: " + (++count));
+    internal = iptr;
+    System.out.println("ParserFactory(init) count: " + (++count) + " iptr="+iptr);
   };
   protected void finalize() throws Throwable{
-    if (iptr != 0) System.out.println("ParserFactory count: " + (--count));
-    finalize(iptr);
+    System.out.println("ParserFactory(fin) try internal="+internal);
+    if (internal != 0) System.out.println("ParserFactory(fin) count: " + (--count));
+    finalize(internal);
   };
 
   public String getVersion(){
     return getVersion(iptr);
   };
-
-  public Enumeration enumerateFileTypes(){
-    return new Enumeration(){
-      int idx = 0;
-      public boolean hasMoreElements() {
-        String cls = enumerateFileTypes(iptr, idx);
-        return (cls != null);
-      }
-      public Object nextElement() {
-        String cls = enumerateFileTypes(iptr, idx);
-        if (cls == null) return null;
-        idx++;
-        return cls;
-      }
-    };
-  }
-  public String getFileTypeGroup(String filetype){
-    return getFileTypeGroup(iptr, filetype);
-  }
-  public String getFileTypeDescription(String filetype){
-    return getFileTypeDescription(iptr, filetype);
-  }
 
   public Enumeration enumerateHRDClasses(){
     return new Enumeration(){
@@ -98,21 +80,17 @@ public class ParserFactory{
   }
 
   public RegionMapper createStyledMapper(String classID, String nameID)
-  throws ParserFactoryException{
+      throws ParserFactoryException{
     return createStyledMapper(iptr, classID, nameID);
   };
   public RegionMapper createTextMapper(String classID, String nameID)
-  throws ParserFactoryException{
+      throws ParserFactoryException{
     return createTextMapper(iptr, nameID);
   };
 
   native long init(String catalogPath);
   native void finalize(long iptr);
   native String getVersion(long iptr);
-
-  native String enumerateFileTypes(long iptr, int idx);
-  native String getFileTypeDescription(long iptr, String typename);
-  native String getFileTypeGroup(long iptr, String typename);
 
   native String enumerateHRDClasses(long iptr, int idx);
   native String enumerateHRDInstances(long iptr, String hrdClass, int idx);
