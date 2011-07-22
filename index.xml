@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="../../../../xsl/projects.xsl"?>
+<ooo title="mod_highlight" path="/projects/apache/mod_highlight/" osi="on">
+ <section title="Abstract">
+    <content type="docbook">
+      <para>
+        mod_highlight provdes syntax highlighting as an Apache 2.0 Filter Module. By Embeding the 
+        <ulink url="http://colorer.sourceforge.net/">Colorer-Take5</ulink> library the module can process
+        just about any programing language.
+      </para>
+    </content>
+ </section>
+
+ <section title="Demo">
+    <content type="xhtml">
+      <div xmlns="http://www.w3.org/1999/xhtml">
+        <a href="demo/test-c.html">C File</a> <br/>
+        <a href="demo/test-cpp.html">C++ File</a> <br/>
+        <a href="demo/test-java.html">Java File</a> <br/>
+        <a href="demo/test-php.html">PHP File</a> <br/>
+        <a href="demo/test-py.html">Python File</a> <br/>
+        <a href="demo/test-xml.html">XML File</a>
+      </div>
+    </content>
+ </section>
+
+ <changelog>
+  <entry version="0.1.0" fdate="2004-11-28T12:00:00-05:00">
+    <content type="docbook">
+      <para>
+        Initial Release
+      </para>
+    </content>
+  </entry>
+ </changelog>
+
+ <requirements>
+  <title>Prerequisites</title>
+  <software name="Apache HTTPd" url="http://httpd.apache.org/">
+    <requirement version="2.0.40" type="minimum"/>
+  </software>
+ </requirements>
+
+ <downloads 
+        name="mod_highlight"
+        baseref="/downloads/mod_highlight/"
+        extension="tar.bz2">
+    <category branch="stable" latest="0.1.0">
+      <download version="0.1.0" md5sum="849096ae2500cfd206ac4fc1261e9dcb"/> 
+    </category>
+  <category>
+    <title>Repositories</title>
+    <repository type="svn" name="mod_highlight" baseref="http://svn.outoforder.cc/" view="chora"/>
+  </category>
+ </downloads>
+
+ <mailinglists spam="warning">
+  <content type="docbook">
+    <para>
+      There are two mailing lists for mod_highlight. The first is the generic
+      announcement mailing list which provides announcements for all software releases
+      on OutOfOrder.cc, but can be filtered by choosing topics in the mailing list
+      options page. The second is the user mailing list. 
+      Release announcements will be cross posted to both lists.
+    </para>
+  </content>
+  <list>
+    <mailinglist name="announce" type="mailman" host="lists.outoforder.cc"/>
+    <mailinglist name="modules" type="mailman" host="lists.outoforder.cc"/>
+  </list>
+ </mailinglists>
+
+  <section position="bottom">
+    <title>Contact &amp; Help</title>
+    <content type="docbook">
+      <para>
+        <ulink url="/email/?Subject=mod_highlight">E-Mail us</ulink>, about mod_highlight.
+      </para>
+      <para>
+        Send an e-mail to the <link linkend="mailinglist">mod_highlight mailing list</link>.
+      </para>
+      <para>
+        Bugs should be reported to the <ulink url="http://bugs.outoforder.cc">OutOfOrder.cc Bug Tracker</ulink>.
+      </para>
+    </content>
+  </section>
+</ooo>

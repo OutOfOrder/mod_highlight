@@ -1,0 +1,119 @@
+<pre>
+<span style='color:#696969; '>/*</span>
+<span style='color:#696969; '> * @(#)HelloClient.java	1.4 03/12/19</span>
+<span style='color:#696969; '> * </span>
+<span style='color:#696969; '> * Copyright (c) 2004 Sun Microsystems, Inc. All Rights Reserved.</span>
+<span style='color:#696969; '> * </span>
+<span style='color:#696969; '> * Redistribution and use in source and binary forms, with or without</span>
+<span style='color:#696969; '> * modification, are permitted provided that the following conditions are met:</span>
+<span style='color:#696969; '> * </span>
+<span style='color:#696969; '> * -Redistribution of source code must retain the above copyright notice, this</span>
+<span style='color:#696969; '> *  list of conditions and the following disclaimer.</span>
+<span style='color:#696969; '> * </span>
+<span style='color:#696969; '> * -Redistribution in binary form must reproduce the above copyright notice, </span>
+<span style='color:#696969; '> *  this list of conditions and the following disclaimer in the documentation</span>
+<span style='color:#696969; '> *  and/or other materials provided with the distribution.</span>
+<span style='color:#696969; '> * </span>
+<span style='color:#696969; '> * Neither the name of Sun Microsystems, Inc. or the names of contributors may </span>
+<span style='color:#696969; '> * be used to endorse or promote products derived from this software without </span>
+<span style='color:#696969; '> * specific prior written permission.</span>
+<span style='color:#696969; '> * </span>
+<span style='color:#696969; '> * This software is provided "AS IS," without a warranty of any kind. ALL </span>
+<span style='color:#696969; '> * EXPRESS OR IMPLIED CONDITIONS, REPRESENTATIONS AND WARRANTIES, INCLUDING</span>
+<span style='color:#696969; '> * ANY IMPLIED WARRANTY OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE</span>
+<span style='color:#696969; '> * OR NON-INFRINGEMENT, ARE HEREBY EXCLUDED. SUN MIDROSYSTEMS, INC. ("SUN")</span>
+<span style='color:#696969; '> * AND ITS LICENSORS SHALL NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE</span>
+<span style='color:#696969; '> * AS A RESULT OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS</span>
+<span style='color:#696969; '> * DERIVATIVES. IN NO EVENT WILL SUN OR ITS LICENSORS BE LIABLE FOR ANY LOST </span>
+<span style='color:#696969; '> * REVENUE, PROFIT OR DATA, OR FOR DIRECT, INDIRECT, SPECIAL, CONSEQUENTIAL, </span>
+<span style='color:#696969; '> * INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF THE THEORY </span>
+<span style='color:#696969; '> * OF LIABILITY, ARISING OUT OF THE USE OF OR INABILITY TO USE THIS SOFTWARE, </span>
+<span style='color:#696969; '> * EVEN IF SUN HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</span>
+<span style='color:#696969; '> * </span>
+<span style='color:#696969; '> * You acknowledge that this software is not designed, licensed or intended</span>
+<span style='color:#696969; '> * for use in the design, construction, operation or maintenance of any</span>
+<span style='color:#696969; '> * nuclear facility.</span>
+<span style='color:#696969; '> */</span>
+<span style='color:#800000; font-weight:bold; '>import</span><span style='color:#004a43; '> java</span><span style='color:#808030; '>.</span><span style='color:#004a43; '>rmi</span><span style='color:#808030; '>.</span><span style='color:#004a43; '>RemoteException</span><span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>import</span><span style='color:#004a43; '> java</span><span style='color:#808030; '>.</span><span style='color:#004a43; '>net</span><span style='color:#808030; '>.</span><span style='color:#004a43; '>MalformedURLException</span><span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>import</span><span style='color:#004a43; '> java</span><span style='color:#808030; '>.</span><span style='color:#004a43; '>rmi</span><span style='color:#808030; '>.</span><span style='color:#004a43; '>NotBoundException</span><span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>import</span><span style='color:#004a43; '> javax</span><span style='color:#808030; '>.</span><span style='color:#004a43; '>rmi</span><span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>*</span><span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>import</span><span style='color:#004a43; '> java</span><span style='color:#808030; '>.</span><span style='color:#004a43; '>util</span><span style='color:#808030; '>.</span><span style='color:#004a43; '>Vector</span><span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>import</span><span style='color:#004a43; '> javax</span><span style='color:#808030; '>.</span><span style='color:#004a43; '>naming</span><span style='color:#808030; '>.</span><span style='color:#004a43; '>NamingException</span><span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>import</span><span style='color:#004a43; '> javax</span><span style='color:#808030; '>.</span><span style='color:#004a43; '>naming</span><span style='color:#808030; '>.</span><span style='color:#004a43; '>InitialContext</span><span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>import</span><span style='color:#004a43; '> javax</span><span style='color:#808030; '>.</span><span style='color:#004a43; '>naming</span><span style='color:#808030; '>.</span><span style='color:#004a43; '>Context</span><span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>import</span><span style='color:#004a43; '> javax</span><span style='color:#808030; '>.</span><span style='color:#004a43; '>swing</span><span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>*</span><span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>import</span><span style='color:#004a43; '> java</span><span style='color:#808030; '>.</span><span style='color:#004a43; '>awt</span><span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>*</span><span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>import</span><span style='color:#004a43; '> java</span><span style='color:#808030; '>.</span><span style='color:#004a43; '>awt</span><span style='color:#808030; '>.</span><span style='color:#004a43; '>event</span><span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>*</span><span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#800000; font-weight:bold; '>class</span> HelloClient <span style='color:#800080; '>{</span>
+    <span style='color:#800000; font-weight:bold; '>static</span> JTextArea textArea<span style='color:#800080; '>;</span>
+    java<span style='color:#808030; '>.</span>awt<span style='color:#808030; '>.</span><span style='color:#bb7977; font-weight:bold; '>Container</span> contentPane<span style='color:#800080; '>;</span>
+    JFrame t<span style='color:#800080; '>;</span>
+    
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#800000; font-weight:bold; '>static</span> <span style='color:#bb7977; '>void</span>  main<span style='color:#808030; '>(</span> <span style='color:#bb7977; font-weight:bold; '>String</span> args<span style='color:#808030; '>[</span><span style='color:#808030; '>]</span> <span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        Context ic<span style='color:#800080; '>;</span>
+        <span style='color:#bb7977; font-weight:bold; '>Object</span> objref<span style='color:#800080; '>;</span>
+        HelloInterface hi<span style='color:#800080; '>;</span>
+        HelloClient helloClient <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> HelloClient<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800000; font-weight:bold; '>try</span> <span style='color:#800080; '>{</span>
+            ic <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> InitialContext<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span> <span style='color:#800000; font-weight:bold; '>catch</span> <span style='color:#808030; '>(</span>NamingException e<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            <span style='color:#bb7977; font-weight:bold; '>System</span><span style='color:#808030; '>.</span>out<span style='color:#808030; '>.</span>println<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"failed to obtain context"</span> <span style='color:#808030; '>+</span> e<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            textArea<span style='color:#808030; '>.</span>append<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"Failed to obtain Context </span><span style='color:#0f69ff; '>\n</span><span style='color:#0000e6; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            e<span style='color:#808030; '>.</span>printStackTrace<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800000; font-weight:bold; '>return</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span>
+        <span style='color:#696969; '>// STEP 1: Get the Object reference from the Name Service</span>
+        <span style='color:#696969; '>// using JNDI call.</span>
+        <span style='color:#800000; font-weight:bold; '>try</span> <span style='color:#800080; '>{</span>
+            objref <span style='color:#808030; '>=</span> ic<span style='color:#808030; '>.</span>lookup<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"HelloService"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#bb7977; font-weight:bold; '>System</span><span style='color:#808030; '>.</span>out<span style='color:#808030; '>.</span>println<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"Client: Obtained a ref. to Hello server."</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            textArea<span style='color:#808030; '>.</span>append<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"Client Obtained a reference to Hello Server </span><span style='color:#0f69ff; '>\n</span><span style='color:#0000e6; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span> <span style='color:#800000; font-weight:bold; '>catch</span> <span style='color:#808030; '>(</span>NamingException e<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            <span style='color:#bb7977; font-weight:bold; '>System</span><span style='color:#808030; '>.</span>out<span style='color:#808030; '>.</span>println<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"failed to lookup object reference"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            textArea<span style='color:#808030; '>.</span>append<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"Failed to lookup object reference</span><span style='color:#0f69ff; '>\n</span><span style='color:#0000e6; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            e<span style='color:#808030; '>.</span>printStackTrace<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800000; font-weight:bold; '>return</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span>
+        <span style='color:#696969; '>// STEP 2: Narrow the object reference to the concrete type and</span>
+        <span style='color:#696969; '>// invoke the method.</span>
+        <span style='color:#800000; font-weight:bold; '>try</span> <span style='color:#800080; '>{</span>
+            hi <span style='color:#808030; '>=</span> <span style='color:#808030; '>(</span>HelloInterface<span style='color:#808030; '>)</span> PortableRemoteObject<span style='color:#808030; '>.</span>narrow<span style='color:#808030; '>(</span>
+                objref<span style='color:#808030; '>,</span> HelloInterface<span style='color:#808030; '>.</span>class<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            hi<span style='color:#808030; '>.</span>sayHello<span style='color:#808030; '>(</span> <span style='color:#0000e6; '>" Java Web Start Application - HelloClient "</span> <span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            textArea<span style='color:#808030; '>.</span>append<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"Invoked method sayHello() successfully </span><span style='color:#0f69ff; '>\n</span><span style='color:#0000e6; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span> <span style='color:#800000; font-weight:bold; '>catch</span> <span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>ClassCastException</span> e<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            <span style='color:#bb7977; font-weight:bold; '>System</span><span style='color:#808030; '>.</span>out<span style='color:#808030; '>.</span>println<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"narrow failed"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            textArea<span style='color:#808030; '>.</span>append<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"Narrow Failed</span><span style='color:#0f69ff; '>\n</span><span style='color:#0000e6; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            e<span style='color:#808030; '>.</span>printStackTrace<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800000; font-weight:bold; '>return</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span> <span style='color:#800000; font-weight:bold; '>catch</span><span style='color:#808030; '>(</span> <span style='color:#bb7977; font-weight:bold; '>Exception</span> e <span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            <span style='color:#bb7977; font-weight:bold; '>System</span><span style='color:#808030; '>.</span>err<span style='color:#808030; '>.</span>println<span style='color:#808030; '>(</span> <span style='color:#0000e6; '>"Exception "</span> <span style='color:#808030; '>+</span> e <span style='color:#808030; '>+</span> <span style='color:#0000e6; '>"Caught"</span> <span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            e<span style='color:#808030; '>.</span>printStackTrace<span style='color:#808030; '>(</span> <span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            <span style='color:#800000; font-weight:bold; '>return</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span>
+        textArea<span style='color:#808030; '>.</span>append<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"Thanks for choosing Java Web Start</span><span style='color:#0f69ff; '>\n</span><span style='color:#0000e6; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+    <span style='color:#800000; font-weight:bold; '>public</span> HelloClient<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span>
+    <span style='color:#800080; '>{</span>
+        t <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> JFrame<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"RMI-IIOP CORBA Sample"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        contentPane <span style='color:#808030; '>=</span> t<span style='color:#808030; '>.</span>getContentPane<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        contentPane<span style='color:#808030; '>.</span>setLayout<span style='color:#808030; '>(</span> <span style='color:#800000; font-weight:bold; '>new</span> <span style='color:#bb7977; font-weight:bold; '>FlowLayout</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        contentPane<span style='color:#808030; '>.</span>setBackground<span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>Color</span><span style='color:#808030; '>.</span>white<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        textArea <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> JTextArea<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        contentPane<span style='color:#808030; '>.</span>add<span style='color:#808030; '>(</span>textArea<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        textArea<span style='color:#808030; '>.</span>setText<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"Welcome to HelloWorld RMI Client-Server demo</span><span style='color:#0f69ff; '>\n</span><span style='color:#0000e6; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        textArea<span style='color:#808030; '>.</span>append<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"RMI Client started by Java Web Start.</span><span style='color:#0f69ff; '>\n</span><span style='color:#0000e6; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        t<span style='color:#808030; '>.</span>addWindowListener<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>new</span> WindowAdapter<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>{</span>
+         <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> windowClosing<span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>WindowEvent</span> e<span style='color:#808030; '>)</span>
+          <span style='color:#800080; '>{</span>
+          t<span style='color:#808030; '>.</span>setVisible<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>false</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+          <span style='color:#bb7977; font-weight:bold; '>System</span><span style='color:#808030; '>.</span>exit<span style='color:#808030; '>(</span><span style='color:#008c00; '>0</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+          <span style='color:#800080; '>}</span>
+         <span style='color:#800080; '>}</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        t<span style='color:#808030; '>.</span>pack<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        t<span style='color:#808030; '>.</span>setSize<span style='color:#808030; '>(</span><span style='color:#008c00; '>500</span><span style='color:#808030; '>,</span><span style='color:#008c00; '>400</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        t<span style='color:#808030; '>.</span>setVisible<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>true</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+  <span style='color:#800080; '>}</span>
+<span style='color:#800080; '>}</span>
+</pre>

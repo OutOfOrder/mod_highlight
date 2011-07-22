@@ -1,0 +1,294 @@
+<pre>
+<span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>chapter</span> <span style='color:#274796; '>id</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"</span><span style='color:#0000e6; '>misc-docs-best_practices</span><span style='color:#0000e6; '>"</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>title</span><span style='color:#a65700; '>></span>Best Practices<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>title</span><span style='color:#a65700; '>></span>
+<span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>simplesect</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>Tips to use Subversion more effectively.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>In this chapter, we'll focus on how to avoid some pitfalls
+      of version control systems in general and Subversion
+      specifically.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>simplesect</span><span style='color:#a65700; '>></span>
+  <span style='color:#696969; '>&lt;!--</span><span style='color:#696969; '> ================================================================= </span><span style='color:#696969; '>--></span>
+  <span style='color:#696969; '>&lt;!--</span><span style='color:#696969; '> ======================== SECTION 1 ============================== </span><span style='color:#696969; '>--></span>
+  <span style='color:#696969; '>&lt;!--</span><span style='color:#696969; '> ================================================================= </span><span style='color:#696969; '>--></span>
+  <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>sect1</span> <span style='color:#274796; '>id</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"</span><span style='color:#0000e6; '>misc-docs-best_practices-sect-1</span><span style='color:#0000e6; '>"</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>title</span><span style='color:#a65700; '>></span>Source Code Formatting<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>title</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>Subversion diffs and merges text files work on a
+      line-by-line basis. They don't understand the syntax of
+      programming languages or even know when you've just reflowed
+      text to a different line width.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>Given this design, it's important to avoid unnecessary
+      reformatting. It creates unnecessary conflicts when merging
+      branches, updating working copies, and applying patches. It also
+      can drown you in noise when viewing differences between
+      revisions.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>You can avoid these problems by following clearly-defined
+      formatting rules.  The Subversion project's own HACKING document
+      (<span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>systemitem</span>
+      <span style='color:#274796; '>class</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"</span><span style='color:#0000e6; '>url</span><span style='color:#0000e6; '>"</span><span style='color:#a65700; '>></span>http://svn.collab.net/repos/svn/trunk/HACKING<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>systemitem</span><span style='color:#a65700; '>></span>)
+      and the Code Conventions for the Java Programming Language
+      (<span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>systemitem</span>
+      <span style='color:#274796; '>class</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"</span><span style='color:#0000e6; '>url</span><span style='color:#0000e6; '>"</span><span style='color:#a65700; '>></span>http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>systemitem</span><span style='color:#a65700; '>></span>),
+      are good examples.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+    
+    <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>Tabs are particularly important. Some projects, like
+      Subversion, do not use tabs at all in the source tree. Others
+      always use them and define a particular tab size.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>It can be very helpful to have an editor smart enough to
+      help adhere to these rules. For example, <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>command</span><span style='color:#a65700; '>></span>vim<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>command</span><span style='color:#a65700; '>></span>
+      can do this on a per-project basis with
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>filename</span><span style='color:#a65700; '>></span>.vimrc<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>filename</span><span style='color:#a65700; '>></span> commands like the following:<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>screen</span><span style='color:#a65700; '>></span>
+autocmd BufRead,BufNewFile */rapidsvn/*.{cpp,h}
+    setlocal ts=4 noexpandtab
+autocmd BufRead,BufNewFile */subversion/*.[ch]
+    setlocal sw=2 expandtab cinoptions=>2sn-s{s^-s:s
+    <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>screen</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>Check your favorite editor's documentation for more
+      information.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>sect2</span> <span style='color:#274796; '>id</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"</span><span style='color:#0000e6; '>misc-docs-best_practices-sect-1.1</span><span style='color:#0000e6; '>"</span><span style='color:#a65700; '>></span>
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>title</span><span style='color:#a65700; '>></span>When You Have To Reformat<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>title</span><span style='color:#a65700; '>></span>
+      
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>In the real world, we're not always so perfect. Formatting
+        preferences may change over time, or we may just make
+        mistakes. There are things you can do to minimize the problems
+        of reformatting.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+      
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>These are good guidelines to follow:<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+      
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>itemizedlist</span><span style='color:#a65700; '>></span>
+        
+        <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>listitem</span><span style='color:#a65700; '>></span>
+          <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>If you're making a sweeping reformatting change, do it
+            in a single commit with no semantic changes. Give precise
+            directions on duplicating formatting changes.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+        <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>listitem</span><span style='color:#a65700; '>></span>
+        
+        <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>listitem</span><span style='color:#a65700; '>></span>
+          <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>If you've made semantic changes to some area of code and
+            see inconsistent formatting in the immediate context, it's
+            okay to reformat.  Causing conflicts is not as great a
+            concern because your semantic changes are likely to do that
+            anyway.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+        <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>listitem</span><span style='color:#a65700; '>></span>
+        
+      <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>itemizedlist</span><span style='color:#a65700; '>></span>
+      
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>Here's an example of a sweeping reformat:<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+      
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>screen</span><span style='color:#a65700; '>></span>
+$ svn co file:///repo/path/trunk indent_wc
+$ indent -gnu indent_wc/src/*.[ch]
+$ svn commit -m 'Ran indent -gnu src/*.[ch]' indent_wc
+        <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>screen</span><span style='color:#a65700; '>></span>
+      
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>This follows all rules: there were no semantic changes mixed
+        in (no files were changed other than through
+        <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>command</span><span style='color:#a65700; '>></span>indent<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>command</span><span style='color:#a65700; '>></span>). The <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>command</span><span style='color:#a65700; '>></span>indent<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>command</span><span style='color:#a65700; '>></span>
+        commandline was given, so the changes can be very easily
+        duplicated. All the reformatting was done in a single
+        revision.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+      
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>Let's say these changes occurred to the trunk at revision
+        26. The head revision is now 42. You created a branch at
+        revision 13 and now want to merge it back into the
+        trunk. Ordinarily you'd do this:<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+      
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>screen</span><span style='color:#a65700; '>></span>
+$ svn co file://repo/path/trunk merge_wc
+$ svn merge -r 13:head file://repo/path/branches/mybranch merge_wc
+<span style='color:#074726; '>&amp;</span><span style='color:#074726; '>hellip</span><span style='color:#074726; '>;</span> # resolve conflicts
+$ svn commit -m 'Merged branch'
+      <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>screen</span><span style='color:#a65700; '>></span>
+      
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>But with the reformatting changes, there will be many, many
+        conflicts. If you follow these rules, you can merge more
+        easily:<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+      
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>screen</span><span style='color:#a65700; '>></span>
+$ svn co -r 25 file://repo/path/trunk merge_wc
+$ svn merge -r 13:head file://repo/path/branches/mybranch merge_wc
+<span style='color:#074726; '>&amp;</span><span style='color:#074726; '>hellip</span><span style='color:#074726; '>;</span> # resolve conflicts
+$ indent -gnu src/*.[ch]
+$ svn up
+<span style='color:#074726; '>&amp;</span><span style='color:#074726; '>hellip</span><span style='color:#074726; '>;</span> # resolve conflicts
+$ svn commit -m 'Merged branch'
+      <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>screen</span><span style='color:#a65700; '>></span>
+      
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>In English, the procedure is:<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+      
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>itemizedlist</span><span style='color:#a65700; '>></span>
+        
+        <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>listitem</span><span style='color:#a65700; '>></span>
+          <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span> Check out a pre-reformatting trunk working copy.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+        <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>listitem</span><span style='color:#a65700; '>></span>
+        
+        <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>listitem</span><span style='color:#a65700; '>></span>
+          <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span> Merge all branch changes. Fix conflicts.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+        <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>listitem</span><span style='color:#a65700; '>></span>
+        
+        <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>listitem</span><span style='color:#a65700; '>></span>
+          <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span> Reformat in the same manner.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+        <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>listitem</span><span style='color:#a65700; '>></span>
+        <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>listitem</span><span style='color:#a65700; '>></span>
+          <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span> Update to the head revision. Fix conflicts.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+        <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>listitem</span><span style='color:#a65700; '>></span>
+        
+        <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>listitem</span><span style='color:#a65700; '>></span>
+          <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span> Check in the merged working copy.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+        <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>listitem</span><span style='color:#a65700; '>></span>
+        
+      <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>itemizedlist</span><span style='color:#a65700; '>></span>
+      
+    <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>sect2</span><span style='color:#a65700; '>></span>
+    
+    <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>sect2</span> <span style='color:#274796; '>id</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"</span><span style='color:#0000e6; '>misc-docs-best_practices-sect-1.2</span><span style='color:#0000e6; '>"</span><span style='color:#a65700; '>></span>
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>title</span><span style='color:#a65700; '>></span>Ignoring Whitespace Differences<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>title</span><span style='color:#a65700; '>></span>
+      
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>When viewing differences between revisions, you can
+        customize <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>command</span><span style='color:#a65700; '>></span>svn diff<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>command</span><span style='color:#a65700; '>></span> output to hide whitespace
+        changes. The <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>option</span><span style='color:#a65700; '>></span>-x<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>option</span><span style='color:#a65700; '>></span> argument passes arguments
+        through to GNU diff. Here are some useful arguments:<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+      
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>table</span> <span style='color:#274796; '>id</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"</span><span style='color:#0000e6; '>misc-docs-best_practices-table-1</span><span style='color:#0000e6; '>"</span><span style='color:#a65700; '>></span>
+        <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>title</span><span style='color:#a65700; '>></span><span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>title</span><span style='color:#a65700; '>></span>
+        <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>tgroup</span> <span style='color:#274796; '>cols</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"</span><span style='color:#0000e6; '>2</span><span style='color:#0000e6; '>"</span><span style='color:#a65700; '>></span>
+          <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>thead</span><span style='color:#a65700; '>></span>
+            <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>row</span><span style='color:#a65700; '>></span>
+              <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>entry</span><span style='color:#a65700; '>></span>Option<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>entry</span><span style='color:#a65700; '>></span>
+              <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>entry</span><span style='color:#a65700; '>></span>Description<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>entry</span><span style='color:#a65700; '>></span>
+            <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>row</span><span style='color:#a65700; '>></span>
+          <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>thead</span><span style='color:#a65700; '>></span>
+          <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>tbody</span><span style='color:#a65700; '>></span>
+            
+            <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>row</span><span style='color:#a65700; '>></span>
+              <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>entry</span><span style='color:#a65700; '>></span><span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>option</span><span style='color:#a65700; '>></span>-b<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>option</span><span style='color:#a65700; '>></span><span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>entry</span><span style='color:#a65700; '>></span> 
+              <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>entry</span><span style='color:#a65700; '>></span>Ignore differences in whitespace only.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>entry</span><span style='color:#a65700; '>></span>
+            <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>row</span><span style='color:#a65700; '>></span>
+            
+            <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>row</span><span style='color:#a65700; '>></span>
+              <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>entry</span><span style='color:#a65700; '>></span><span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>option</span><span style='color:#a65700; '>></span>-B<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>option</span><span style='color:#a65700; '>></span><span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>entry</span><span style='color:#a65700; '>></span>
+              <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>entry</span><span style='color:#a65700; '>></span>Ignore added/removed blank lines.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>entry</span><span style='color:#a65700; '>></span>
+            <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>row</span><span style='color:#a65700; '>></span>
+            
+            <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>row</span><span style='color:#a65700; '>></span>
+              <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>entry</span><span style='color:#a65700; '>></span><span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>option</span><span style='color:#a65700; '>></span>-i<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>option</span><span style='color:#a65700; '>></span><span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>entry</span><span style='color:#a65700; '>></span>
+              <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>entry</span><span style='color:#a65700; '>></span>Ignore changes in case.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>entry</span><span style='color:#a65700; '>></span>
+            <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>row</span><span style='color:#a65700; '>></span>
+            
+            <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>row</span><span style='color:#a65700; '>></span>
+              <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>entry</span><span style='color:#a65700; '>></span><span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>option</span><span style='color:#a65700; '>></span>-t<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>option</span><span style='color:#a65700; '>></span><span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>entry</span><span style='color:#a65700; '>></span>
+              <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>entry</span><span style='color:#a65700; '>></span>Expand tabs to spaces to preserve
+                alignment.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>entry</span><span style='color:#a65700; '>></span>
+            <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>row</span><span style='color:#a65700; '>></span>
+            
+            <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>row</span><span style='color:#a65700; '>></span>
+              <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>entry</span><span style='color:#a65700; '>></span><span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>option</span><span style='color:#a65700; '>></span>-T<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>option</span><span style='color:#a65700; '>></span><span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>entry</span><span style='color:#a65700; '>></span>
+              <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>entry</span><span style='color:#a65700; '>></span>Output a tab rather than a space at the beginning
+                of each line to start on a tab stop.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>entry</span><span style='color:#a65700; '>></span>
+            <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>row</span><span style='color:#a65700; '>></span>
+            
+          <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>tbody</span><span style='color:#a65700; '>></span>
+        <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>tgroup</span><span style='color:#a65700; '>></span>
+      <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>table</span><span style='color:#a65700; '>></span>
+      
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>The commit emails always show whitespace-only changes.
+        <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>filename</span><span style='color:#a65700; '>></span>commit-email.pl<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>filename</span><span style='color:#a65700; '>></span> uses <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>command</span><span style='color:#a65700; '>></span>svnlook diff<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>command</span><span style='color:#a65700; '>></span> to get
+        differences, which doesn't support the <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>option</span><span style='color:#a65700; '>></span>-x<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>option</span><span style='color:#a65700; '>></span>
+        option.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+      
+    <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>sect2</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>sect2</span> <span style='color:#274796; '>id</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"</span><span style='color:#0000e6; '>misc-docs-best_practices-sect-1.3</span><span style='color:#0000e6; '>"</span><span style='color:#a65700; '>></span>
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>title</span><span style='color:#a65700; '>></span>Line Endings<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>title</span><span style='color:#a65700; '>></span>
+      
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>Different platforms (Unix, Windows, MacOS) have different
+        conventions for marking the line endings of text files. Simple
+        editors may rewrite line endings, causing problems with diff and
+        merge. This is a subset of the formatting problems.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+      
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>Subversion has built-in support for normalizing line
+        endings. To enable it, set the <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>command</span><span style='color:#a65700; '>></span>svn:eol-style<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>command</span><span style='color:#a65700; '>></span>
+        property to ``native''. See Properties in the Subversion
+        book. for more information<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>sect2</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>sect1</span><span style='color:#a65700; '>></span>
+  <span style='color:#696969; '>&lt;!--</span><span style='color:#696969; '> ================================================================= </span><span style='color:#696969; '>--></span>
+  <span style='color:#696969; '>&lt;!--</span><span style='color:#696969; '> ======================== SECTION 2 ============================== </span><span style='color:#696969; '>--></span>
+  <span style='color:#696969; '>&lt;!--</span><span style='color:#696969; '> ================================================================= </span><span style='color:#696969; '>--></span>
+  <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>sect1</span> <span style='color:#274796; '>id</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"</span><span style='color:#0000e6; '>misc-docs-best_practices-sect-2</span><span style='color:#0000e6; '>"</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>title</span><span style='color:#a65700; '>></span>When you commit<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>title</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>It pays to take some time before you commit to review your
+      changes and create an appropriate log message. You are
+      publishing the newly changed project anew every time you
+      commit. This is true in two senses:<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>itemizedlist</span><span style='color:#a65700; '>></span>
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>listitem</span><span style='color:#a65700; '>></span>
+        <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span> When you commit, you are potentially destabilizing the
+          head revision.  Many projects have a policy that the head
+          revision is <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>quote</span><span style='color:#a65700; '>></span>stable<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>quote</span><span style='color:#a65700; '>></span><span style='color:#074726; '>&amp;</span><span style='color:#074726; '>mdash</span><span style='color:#074726; '>;</span>it should always
+          parse/compile, it should always pass unit tests, etc. If you
+          don't get something right, you may be inconveniencing an
+          arbitrary number of people until someone commits a fix.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+      <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>listitem</span><span style='color:#a65700; '>></span>
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>listitem</span><span style='color:#a65700; '>></span>
+        <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span> You can not easily remove revisions. (There is no
+          equivalent to <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>command</span><span style='color:#a65700; '>></span>cvs admin -o<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>command</span><span style='color:#a65700; '>></span>.) If you might
+          not want something to be in the repository, make sure it is
+          not included in your commit.  Check for sensitive
+          information, autogenerated files, and unnecessary large
+          files.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+      <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>listitem</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>itemizedlist</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>If you later don't like your log message, it is possible to
+      change it. The <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>command</span><span style='color:#a65700; '>></span>svnadmin setlog<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>command</span><span style='color:#a65700; '>></span> command will
+      do this locally. You can set up the script <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>systemitem</span>
+      <span style='color:#274796; '>class</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"</span><span style='color:#0000e6; '>url</span><span style='color:#0000e6; '>"</span><span style='color:#a65700; '>></span>http://svn.collab.net/repos/svn/trunk/tools/cgi/tweak-log.cgi,tweak-log.cgi<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>systemitem</span><span style='color:#a65700; '>></span>
+      to allow the same thing remotely. All the same, creating a good
+      log message beforehand helps clarify your thoughts and avoid
+      committing a mistake.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>You should run a <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>command</span><span style='color:#a65700; '>></span>svn diff<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>command</span><span style='color:#a65700; '>></span> before each
+      commit and ask yourself:<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>itemizedlist</span><span style='color:#a65700; '>></span>
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>listitem</span><span style='color:#a65700; '>></span>
+        <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span> do these changes belong together? It's best that each
+          revision is a single logical change. It's very easy to
+          forget that you've started another change.
+        <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+      <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>listitem</span><span style='color:#a65700; '>></span>
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>listitem</span><span style='color:#a65700; '>></span>
+        <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span> do I have a log entry for these changes?
+        <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+      <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>listitem</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>itemizedlist</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>Defining a log entry policy is also helpful --- the
+      Subversion HACKING document <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>systemitem</span>
+      <span style='color:#274796; '>class</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"</span><span style='color:#0000e6; '>url</span><span style='color:#0000e6; '>"</span><span style='color:#a65700; '>></span>http://svn.collab.net/repos/svn/trunk/HACKING<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>systemitem</span><span style='color:#a65700; '>></span>
+      is a good model. If you always embed filenames, function names,
+      etc. then you can easily search through the logs with
+      search-svnlog.pl <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>systemitem</span>
+      <span style='color:#274796; '>class</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"</span><span style='color:#0000e6; '>url</span><span style='color:#0000e6; '>"</span><span style='color:#a65700; '>></span>http://svn.collab.net/repos/svn/trunk/tools/client-side/search-svnlog.pl<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>systemitem</span><span style='color:#a65700; '>></span>.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>You may want to write the log entry as you go. It's common
+      to create a file <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>filename</span><span style='color:#a65700; '>></span>changes<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>filename</span><span style='color:#a65700; '>></span> with your log
+      entry in progress. When you commit, use <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>command</span><span style='color:#a65700; '>></span>svn ci -F
+      changes<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>command</span><span style='color:#a65700; '>></span>.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>If you do not write log entries as you go, you can generate
+      an initial log entry file using the output of <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>command</span><span style='color:#a65700; '>></span>svn
+      status<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>command</span><span style='color:#a65700; '>></span> which contains a list of all modified files and
+      directories and write a comment for each one.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>sect2</span> <span style='color:#274796; '>id</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"</span><span style='color:#0000e6; '>misc-docs-best_practices-sect-2.1</span><span style='color:#0000e6; '>"</span><span style='color:#a65700; '>></span>
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>title</span><span style='color:#a65700; '>></span>Binary Files<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>title</span><span style='color:#a65700; '>></span>
+      
+      <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>Subversion does not have any way to merge or view
+        differences of binary files, so it's critical that these have
+        accurate log messages. Since you can't review your changes
+        with <span style='color:#a65700; '>&lt;</span><span style='color:#5f5035; '>command</span><span style='color:#a65700; '>></span>svn diff<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>command</span><span style='color:#a65700; '>></span> immediately before
+        committing, it's a particularly good idea to write the log
+        entry as you go.<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>para</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>sect2</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>sect1</span><span style='color:#a65700; '>></span>
+<span style='color:#a65700; '>&lt;/</span><span style='color:#5f5035; '>chapter</span><span style='color:#a65700; '>></span>
+<span style='color:#696969; '>&lt;!--</span><span style='color:#696969; '></span>
+<span style='color:#696969; '>local variables: </span>
+<span style='color:#696969; '>sgml-parent-document: ("misc-docs.xml" "chapter")</span>
+<span style='color:#696969; '>end:</span>
+<span style='color:#696969; '>--></span>
+</pre>

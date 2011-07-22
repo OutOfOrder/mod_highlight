@@ -1,0 +1,68 @@
+<pre>
+<span style='color:#696969; '>"""PyCrust is a python shell and namespace browser application."""</span>
+<span style='color:#696969; '># The next two lines, and the other code below that makes use of</span>
+<span style='color:#696969; '># ``__main__`` and ``original``, serve the purpose of cleaning up the</span>
+<span style='color:#696969; '># main namespace to look as much as possible like the regular Python</span>
+<span style='color:#696969; '># shell environment.</span>
+<span style='color:#800000; font-weight:bold; '>import</span> __main__
+original <span style='color:#808030; '>=</span> __main__<span style='color:#808030; '>.</span>__dict__<span style='color:#808030; '>.</span>keys<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span>
+__author__ <span style='color:#808030; '>=</span> <span style='color:#0000e6; '>"Patrick K. O'Brien &lt;pobrien@orbtech.com>"</span>
+__cvsid__ <span style='color:#808030; '>=</span> <span style='color:#0000e6; '>"$Id: PyCrust.py,v 1.1.2.4 2003/05/03 16:01:40 PKO Exp $"</span>
+__revision__ <span style='color:#808030; '>=</span> <span style='color:#0000e6; '>"$Revision: 1.1.2.4 $"</span><span style='color:#808030; '>[</span><span style='color:#008c00; '>11</span><span style='color:#808030; '>:</span><span style='color:#808030; '>-</span><span style='color:#008c00; '>2</span><span style='color:#808030; '>]</span>
+<span style='color:#800000; font-weight:bold; '>import</span> wx
+<span style='color:#800000; font-weight:bold; '>try</span><span style='color:#808030; '>:</span>
+    <span style='color:#e34adc; '>True</span>
+<span style='color:#800000; font-weight:bold; '>except</span> <span style='color:#e34adc; '>NameError</span><span style='color:#808030; '>:</span>
+    <span style='color:#e34adc; '>True</span> <span style='color:#808030; '>=</span> <span style='color:#008c00; '>1</span><span style='color:#808030; '>=</span><span style='color:#808030; '>=</span><span style='color:#008c00; '>1</span>
+    <span style='color:#e34adc; '>False</span> <span style='color:#808030; '>=</span> <span style='color:#008c00; '>1</span><span style='color:#808030; '>=</span><span style='color:#808030; '>=</span><span style='color:#008c00; '>0</span>
+<span style='color:#800000; font-weight:bold; '>class</span> App<span style='color:#808030; '>(</span>wx<span style='color:#808030; '>.</span>App<span style='color:#808030; '>)</span><span style='color:#808030; '>:</span>
+    <span style='color:#696969; '>"""PyCrust standalone application."""</span>
+    <span style='color:#800000; font-weight:bold; '>def</span> OnInit<span style='color:#808030; '>(</span>self<span style='color:#808030; '>)</span><span style='color:#808030; '>:</span>
+        <span style='color:#800000; font-weight:bold; '>import</span> wx
+        wx<span style='color:#808030; '>.</span>InitAllImageHandlers<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span>
+        <span style='color:#e34adc; '>locals</span> <span style='color:#808030; '>=</span> __main__<span style='color:#808030; '>.</span>__dict__
+        <span style='color:#800000; font-weight:bold; '>from</span> crust <span style='color:#800000; font-weight:bold; '>import</span> CrustFrame
+        self<span style='color:#808030; '>.</span>frame <span style='color:#808030; '>=</span> CrustFrame<span style='color:#808030; '>(</span><span style='color:#e34adc; '>locals</span><span style='color:#808030; '>=</span><span style='color:#e34adc; '>locals</span><span style='color:#808030; '>)</span>
+        self<span style='color:#808030; '>.</span>frame<span style='color:#808030; '>.</span>SetSize<span style='color:#808030; '>(</span><span style='color:#808030; '>(</span><span style='color:#008c00; '>800</span><span style='color:#808030; '>,</span> <span style='color:#008c00; '>600</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span>
+        self<span style='color:#808030; '>.</span>frame<span style='color:#808030; '>.</span>Show<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span>
+        self<span style='color:#808030; '>.</span>SetTopWindow<span style='color:#808030; '>(</span>self<span style='color:#808030; '>.</span>frame<span style='color:#808030; '>)</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#e34adc; '>True</span>
+<span style='color:#696969; '>'''</span>
+<span style='color:#696969; '>The main() function needs to handle being imported, such as with the</span>
+<span style='color:#696969; '>pycrust script that wxPython installs:</span>
+<span style='color:#696969; '>    #!/usr/bin/env python</span>
+<span style='color:#696969; '>    from wx.py.PyCrust import main</span>
+<span style='color:#696969; '>    main()</span>
+<span style='color:#696969; '>'''</span>
+<span style='color:#800000; font-weight:bold; '>def</span> main<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>:</span>
+    <span style='color:#696969; '>"""The main function for the PyCrust program."""</span>
+    <span style='color:#696969; '># Cleanup the main namespace, leaving the App class.</span>
+    <span style='color:#800000; font-weight:bold; '>import</span> __main__
+    md <span style='color:#808030; '>=</span> __main__<span style='color:#808030; '>.</span>__dict__
+    keepers <span style='color:#808030; '>=</span> original
+    keepers<span style='color:#808030; '>.</span>append<span style='color:#808030; '>(</span><span style='color:#0000e6; '>'App'</span><span style='color:#808030; '>)</span>
+    <span style='color:#800000; font-weight:bold; '>for</span> key <span style='color:#800000; font-weight:bold; '>in</span> md<span style='color:#808030; '>.</span>keys<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>:</span>
+        <span style='color:#800000; font-weight:bold; '>if</span> key <span style='color:#800000; font-weight:bold; '>not</span> <span style='color:#800000; font-weight:bold; '>in</span> keepers<span style='color:#808030; '>:</span>
+            <span style='color:#800000; font-weight:bold; '>del</span> md<span style='color:#808030; '>[</span>key<span style='color:#808030; '>]</span>
+    <span style='color:#696969; '># Create an application instance.</span>
+    app <span style='color:#808030; '>=</span> App<span style='color:#808030; '>(</span><span style='color:#008c00; '>0</span><span style='color:#808030; '>)</span>
+    <span style='color:#696969; '># Mimic the contents of the standard Python shell's sys.path.</span>
+    <span style='color:#800000; font-weight:bold; '>import</span> sys
+    <span style='color:#800000; font-weight:bold; '>if</span> sys<span style='color:#808030; '>.</span>path<span style='color:#808030; '>[</span><span style='color:#008c00; '>0</span><span style='color:#808030; '>]</span><span style='color:#808030; '>:</span>
+        sys<span style='color:#808030; '>.</span>path<span style='color:#808030; '>[</span><span style='color:#008c00; '>0</span><span style='color:#808030; '>]</span> <span style='color:#808030; '>=</span> <span style='color:#0000e6; '>''</span>
+    <span style='color:#696969; '># Add the application object to the sys module's namespace.</span>
+    <span style='color:#696969; '># This allows a shell user to do:</span>
+    <span style='color:#696969; '># >>> import sys</span>
+    <span style='color:#696969; '># >>> sys.app.whatever</span>
+    sys<span style='color:#808030; '>.</span>app <span style='color:#808030; '>=</span> app
+    <span style='color:#800000; font-weight:bold; '>del</span> sys
+    <span style='color:#696969; '># Cleanup the main namespace some more.</span>
+    <span style='color:#800000; font-weight:bold; '>if</span> md<span style='color:#808030; '>.</span>has_key<span style='color:#808030; '>(</span><span style='color:#0000e6; '>'App'</span><span style='color:#808030; '>)</span> <span style='color:#800000; font-weight:bold; '>and</span> md<span style='color:#808030; '>[</span><span style='color:#0000e6; '>'App'</span><span style='color:#808030; '>]</span> <span style='color:#800000; font-weight:bold; '>is</span> App<span style='color:#808030; '>:</span>
+        <span style='color:#800000; font-weight:bold; '>del</span> md<span style='color:#808030; '>[</span><span style='color:#0000e6; '>'App'</span><span style='color:#808030; '>]</span>
+    <span style='color:#800000; font-weight:bold; '>if</span> md<span style='color:#808030; '>.</span>has_key<span style='color:#808030; '>(</span><span style='color:#0000e6; '>'__main__'</span><span style='color:#808030; '>)</span> <span style='color:#800000; font-weight:bold; '>and</span> md<span style='color:#808030; '>[</span><span style='color:#0000e6; '>'__main__'</span><span style='color:#808030; '>]</span> <span style='color:#800000; font-weight:bold; '>is</span> __main__<span style='color:#808030; '>:</span>
+        <span style='color:#800000; font-weight:bold; '>del</span> md<span style='color:#808030; '>[</span><span style='color:#0000e6; '>'__main__'</span><span style='color:#808030; '>]</span>
+    <span style='color:#696969; '># Start the wxPython event loop.</span>
+    app<span style='color:#808030; '>.</span>MainLoop<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span>
+<span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#e34adc; '>__name__</span> <span style='color:#808030; '>=</span><span style='color:#808030; '>=</span> <span style='color:#0000e6; '>'__main__'</span><span style='color:#808030; '>:</span>
+    main<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span>
+</pre>
