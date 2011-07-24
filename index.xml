@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="../../../../xsl/projects.xsl"?>
-<ooo title="mod_highlight" path="/projects/apache/mod_highlight/" osi="on">
+<ooo title="mod_highlight" path="/projects/httpd/mod_highlight/" osi="on">
  <section title="Abstract">
     <content type="docbook">
       <para>
